@@ -24,6 +24,8 @@
 #include <sys/eventfd.h>
 #include <time.h>
 #include <unistd.h>
+
+#include <android-base/properties.h>
 #include <utils/Log.h>
 #include <utils/Trace.h>
 
@@ -33,6 +35,9 @@
 
 #define MSINSEC 1000L
 #define USINMS 1000000L
+
+static const bool kDisplayIdleSupport =
+        ::android::base::GetBoolProperty("vendor.powerhal.disp.idle_support", true);
 
 InteractionHandler::InteractionHandler(std::shared_ptr<HintManager> const & hint_manager)
     : mState(INTERACTION_STATE_UNINITIALIZED),
@@ -117,10 +122,6 @@ void InteractionHandler::Acquire(int32_t duration) {
     ATRACE_CALL();
 
     std::lock_guard<std::mutex> lk(mLock);
-    if (mState == INTERACTION_STATE_UNINITIALIZED) {
-        ALOGW("%s: called while uninitialized", __func__);
-        return;
-    }
 
     int inputDuration = duration + 650;
     int finalDuration;
@@ -130,6 +131,14 @@ void InteractionHandler::Acquire(int32_t duration) {
         finalDuration = inputDuration;
     else
         finalDuration = mMinDurationMs;
+
+    // Fallback to do boost directly
+    // 1) override property is set OR
+    // 2) InteractionHandler not initialized
+    if (!kDisplayIdleSupport || mState == INTERACTION_STATE_UNINITIALIZED) {
+        mHintManager->DoHint("INTERACTION", std::chrono::milliseconds(finalDuration));
+        return;
+    }
 
     struct timespec cur_timespec;
     clock_gettime(CLOCK_MONOTONIC, &cur_timespec);
