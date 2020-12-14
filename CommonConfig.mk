@@ -65,6 +65,7 @@ BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
+TARGET_FS_CONFIG_GEN += $(COMMON_PATH)/mot_aids.fs
 
 # GFX
 USE_OPENGL_RENDERER := true
