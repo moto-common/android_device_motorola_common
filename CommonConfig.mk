@@ -69,6 +69,8 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Wi-Fi Concurrent STA/AP
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+# Wi-Fi Init
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 # Enable dex-preoptimization to speed up first boot sequence
 WITH_DEXPREOPT := true
