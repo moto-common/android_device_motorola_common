@@ -176,6 +176,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.use_data_netmgrd=true \
     persist.vendor.data.mode=concurrent
 
+## The default value of this variable is false and should only be set to true when
+## the device allows users to retain eSIM profiles after factory reset of user data.
+PRODUCT_PRODUCT_PROPERTIES += \
+    masterclear.allow_retain_esim_profiles_after_fdr=true
+
 ## VoLTE / VT / WFC
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.volte_avail_ovr=1 \
