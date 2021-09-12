@@ -40,6 +40,10 @@
 # Thermal
 /dev/mmi_sys_temp u:object_r:thermal_device:s0
 
+# USB
+/vendor/bin/hw/android\.hardware\.usb@1\.2-service\.moto-common u:object_r:hal_usb_impl_exec:s0
+/vendor/bin/init\.gadgethal\.sh u:object_r:hal_usb_impl_exec:s0
+
 # Wakeups
 /sys/devices/virtual/input/input[0-9]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc/[^*]+/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0

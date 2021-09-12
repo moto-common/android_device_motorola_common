@@ -1,5 +1,11 @@
 // Scripts
 
+sh_binary {
+    name: "init.gadgethal.sh",
+    src: "vendor/bin/init.gadgethal.sh",
+    vendor: true,
+}
+
 cc_prebuilt_binary {
     name: "init.mmi.usb.sh",
     srcs: ["vendor/bin/init.mmi.usb.sh"],
@@ -76,3 +82,9 @@ prebuilt_etc {
     vendor: true,
 }
 
+prebuilt_etc {
+    name: "init.usb.rc",
+    src: "vendor/etc/init/hw/init.usb.rc",
+    sub_dir: "init/hw",
+    vendor: true,
+}

@@ -19,7 +19,6 @@ PRODUCT_PACKAGES += \
     init.mmi.chipset.rc \
     init.mmi.overlay.rc \
     init.mmi.touch.sh \
-    init.mmi.usb.sh \
     init.mmi.rc \
     init.oem.fingerprint2.sh \
     init.oem.hw.sh \
@@ -29,3 +28,11 @@ PRODUCT_PACKAGES += \
     init.qti.kernel.sh \
     init.target.rc \
     vendor_modprobe.sh
+
+ifeq ($(PRODUCT_USES_PIXEL_USB_HAL),true)
+PRODUCT_PACKAGES += \
+    init.usb.rc
+else
+PRODUCT_PACKAGES += \
+    init.mmi.usb.sh
+endif

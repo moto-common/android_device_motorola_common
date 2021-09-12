@@ -102,6 +102,14 @@ else
 $(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
 endif
 
+# USB HAL
+ifeq ($(PRODUCT_USES_PIXEL_USB_HAL),true)
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.2-service.moto-common
+else
+include $(QCOM_COMMON_PATH)/vendor/usb/qti-usb.mk
+endif
+
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
 PRODUCT_PACKAGES += \
@@ -140,7 +148,6 @@ include $(QCOM_COMMON_PATH)/vendor/qseecomd-legacy/qti-qseecomd-legacy.mk
 else
 include $(QCOM_COMMON_PATH)/vendor/qseecomd/qti-qseecomd.mk
 endif
-include $(QCOM_COMMON_PATH)/vendor/usb/qti-usb.mk
 include $(QCOM_COMMON_PATH)/vendor/wlan/qti-wlan.mk
 
 PRODUCT_SOONG_NAMESPACES += \

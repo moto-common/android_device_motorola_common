@@ -35,7 +35,7 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/display/$(qcom_platform) \
     vendor/qcom/opensource/display-commonsys-intf
 
-ifeq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
+ifneq ($(filter $(PRODUCT_USES_PIXEL_POWER_HAL) $(PRODUCT_USES_PIXEL_USB_HAL),true)),)
 PRODUCT_SOONG_NAMESPACES += \
     hardware/google/pixel
 endif
@@ -142,4 +142,3 @@ $(call inherit-product, device/motorola/common/common-prop.mk)
 $(call inherit-product, device/motorola/common/common-treble.mk)
 $(call inherit-product, vendor/motorola/common/common-vendor.mk)
 include device/qcom/common/common.mk
-

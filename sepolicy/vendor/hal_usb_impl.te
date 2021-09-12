@@ -1,0 +1,9 @@
+type hal_usb_impl, domain;
+hal_server_domain(hal_usb_impl, hal_usb)
+hal_server_domain(hal_usb_impl, hal_usb_gadget)
+
+type hal_usb_impl_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_usb_impl)
+
+set_prop(hal_usb_impl, vendor_usb_prop)
+
