@@ -73,59 +73,35 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
 
     switch (functions) {
         case static_cast<uint64_t>(GadgetFunction::MTP):
-            if (vendorFunctions == "diag") {
-                ret = setVidPid("0x05C6", "0x901B");
+            if (!(vendorFunctions == "user" || vendorFunctions == "")) {
+                ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
+                ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                if (!(vendorFunctions == "user" || vendorFunctions == "")) {
-                    ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
-                    ret = Status::CONFIGURATION_NOT_SUPPORTED;
-                } else {
-                    ret = setVidPid("0x18d1", "0x4ee1");
-                }
+                ret = setVidPid("0x18d1", "0x4ee1");
             }
             break;
         case GadgetFunction::ADB | GadgetFunction::MTP:
-            if (vendorFunctions == "diag") {
-                ret = setVidPid("0x05C6", "0x903A");
+            if (!(vendorFunctions == "user" || vendorFunctions == "")) {
+                ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
+                ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                if (!(vendorFunctions == "user" || vendorFunctions == "")) {
-                    ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
-                    ret = Status::CONFIGURATION_NOT_SUPPORTED;
-                } else {
-                    ret = setVidPid("0x18d1", "0x4ee2");
-                }
+                ret = setVidPid("0x18d1", "0x4ee2");
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::RNDIS):
-            if (vendorFunctions == "diag") {
-                ret = setVidPid("0x05C6", "0x902C");
-            } else if (vendorFunctions == "serial_cdev,diag") {
-                ret = setVidPid("0x05C6", "0x90B5");
-            } else if (vendorFunctions == "diag,diag_mdm,qdss,qdss_mdm,serial_cdev,dpl_gsi") {
-                ret = setVidPid("0x05C6", "0x90E6");
+            if (!(vendorFunctions == "user" || vendorFunctions == "")) {
+                ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
+                ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                if (!(vendorFunctions == "user" || vendorFunctions == "")) {
-                    ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
-                    ret = Status::CONFIGURATION_NOT_SUPPORTED;
-                } else {
-                    ret = setVidPid("0x18d1", "0x4ee3");
-                }
+                ret = setVidPid("0x18d1", "0x4ee3");
             }
             break;
         case GadgetFunction::ADB | GadgetFunction::RNDIS:
-            if (vendorFunctions == "diag") {
-                ret = setVidPid("0x05C6", "0x902D");
-            } else if (vendorFunctions == "serial_cdev,diag") {
-                ret = setVidPid("0x05C6", "0x90B6");
-            } else if (vendorFunctions == "diag,diag_mdm,qdss,qdss_mdm,serial_cdev,dpl_gsi") {
-                ret = setVidPid("0x05C6", "0x90E7");
+            if (!(vendorFunctions == "user" || vendorFunctions == "")) {
+                ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
+                ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                if (!(vendorFunctions == "user" || vendorFunctions == "")) {
-                    ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
-                    ret = Status::CONFIGURATION_NOT_SUPPORTED;
-                } else {
-                    ret = setVidPid("0x18d1", "0x4ee4");
-                }
+                ret = setVidPid("0x18d1", "0x4ee4");
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::PTP):
@@ -145,24 +121,11 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::ADB):
-            if (vendorFunctions == "diag") {
-                ret = setVidPid("0x05C6", "0x901D");
-            } else if (vendorFunctions == "diag,serial_cdev,rmnet_gsi") {
-                ret = setVidPid("0x05C6", "0x9091");
-            } else if (vendorFunctions == "diag,serial_cdev") {
-                ret = setVidPid("0x05C6", "0x901F");
-            } else if (vendorFunctions == "diag,serial_cdev,rmnet_gsi,dpl_gsi,qdss") {
-                ret = setVidPid("0x05C6", "0x90DB");
-            } else if (vendorFunctions ==
-                       "diag,diag_mdm,qdss,qdss_mdm,serial_cdev,dpl_gsi,rmnet_gsi") {
-                ret = setVidPid("0x05C6", "0x90E5");
+            if (!(vendorFunctions == "user" || vendorFunctions == "")) {
+                ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
+                ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                if (!(vendorFunctions == "user" || vendorFunctions == "")) {
-                    ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
-                    ret = Status::CONFIGURATION_NOT_SUPPORTED;
-                } else {
-                    ret = setVidPid("0x18d1", "0x4ee7");
-                }
+                ret = setVidPid("0x18d1", "0x4ee7");
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::MIDI):
@@ -246,28 +209,6 @@ V1_0::Status UsbGadget::setupFunctions(uint64_t functions,
         return Status::ERROR;
 
     std::string vendorFunctions = getVendorFunctions();
-
-    if (vendorFunctions != "") {
-        ALOGI("enable usbradio debug functions");
-        char *function = strtok(const_cast<char *>(vendorFunctions.c_str()), ",");
-        while (function != NULL) {
-            if (string(function) == "diag" && linkFunction("diag.diag", i++))
-                return Status::ERROR;
-            if (string(function) == "diag_mdm" && linkFunction("diag.diag_mdm", i++))
-                return Status::ERROR;
-            if (string(function) == "qdss" && linkFunction("qdss.qdss", i++))
-                return Status::ERROR;
-            if (string(function) == "qdss_mdm" && linkFunction("qdss.qdss_mdm", i++))
-                return Status::ERROR;
-            if (string(function) == "serial_cdev" && linkFunction("cser.dun.0", i++))
-                return Status::ERROR;
-            if (string(function) == "dpl_gsi" && linkFunction("gsi.dpl", i++))
-                return Status::ERROR;
-            if (string(function) == "rmnet_gsi" && linkFunction("gsi.rmnet", i++))
-                return Status::ERROR;
-            function = strtok(NULL, ",");
-        }
-    }
 
     if ((functions & GadgetFunction::ADB) != 0) {
         ffsEnabled = true;
