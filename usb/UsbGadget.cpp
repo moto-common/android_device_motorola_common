@@ -77,7 +77,7 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
                 ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
                 ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                ret = setVidPid("0x18d1", "0x4ee1");
+                ret = setVidPid("0x22b8", "0x2e82");
             }
             break;
         case GadgetFunction::ADB | GadgetFunction::MTP:
@@ -85,7 +85,7 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
                 ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
                 ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                ret = setVidPid("0x18d1", "0x4ee2");
+                ret = setVidPid("0x22b8", "0x2e76");
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::RNDIS):
@@ -93,7 +93,7 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
                 ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
                 ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                ret = setVidPid("0x18d1", "0x4ee3");
+                ret = setVidPid("0x22b8", "0x2e24");
             }
             break;
         case GadgetFunction::ADB | GadgetFunction::RNDIS:
@@ -101,7 +101,7 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
                 ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
                 ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                ret = setVidPid("0x18d1", "0x4ee4");
+                ret = setVidPid("0x22b8", "0x2e25");
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::PTP):
@@ -109,7 +109,7 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
                 ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
                 ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                ret = setVidPid("0x18d1", "0x4ee5");
+                ret = setVidPid("0x22b8", "0x2e83");
             }
             break;
         case GadgetFunction::ADB | GadgetFunction::PTP:
@@ -117,7 +117,7 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
                 ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
                 ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                ret = setVidPid("0x18d1", "0x4ee6");
+                ret = setVidPid("0x22b8", "0x2e84");
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::ADB):
@@ -125,7 +125,7 @@ static V1_0::Status validateAndSetVidPid(uint64_t functions) {
                 ALOGE("Invalid vendorFunctions set: %s", vendorFunctions.c_str());
                 ret = Status::CONFIGURATION_NOT_SUPPORTED;
             } else {
-                ret = setVidPid("0x18d1", "0x4ee7");
+                ret = setVidPid("0x22b8", "0x2E81");
             }
             break;
         case static_cast<uint64_t>(GadgetFunction::MIDI):
