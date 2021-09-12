@@ -18,7 +18,7 @@ on early-boot
     mkdir /config/usb_gadget/g1 0770
     mkdir /config/usb_gadget/g1/strings/0x409 0770
     write /config/usb_gadget/g1/bcdUSB 0x0200
-    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idVendor 0x22b8
     write /config/usb_gadget/g1/bcdDevice 0x0440
     write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
     write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
@@ -56,14 +56,11 @@ on early-boot
     # change /config/usb_gadget permission
     start init-gadgethal-sh
 
-on property:init.svc.console=running
-    write /sys/class/power_supply/usb/moisture_detection_enabled 0
-
-on property:vendor.usb.contaminantdisable=true
-    write /sys/class/power_supply/usb/moisture_detection_enabled 0
-
-on property:init.svc.vendor.charger=running
-    write /sys/class/typec/port0/port_type sink
+#  This is a good place to write these, since system props would be loaded.
+on firmware_mounts_complete
+    write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
+    write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
+    write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
 
 on boot
     setprop sys.usb.configfs 2
@@ -79,23 +76,21 @@ on property:sys.usb.config=none && property:sys.usb.configfs=1
     rm /config/usb_gadget/g1/configs/b.1/f8
     rm /config/usb_gadget/g1/configs/b.1/f9
 
-on charger
-    mkdir /config/usb_gadget/g1 0770
-    mkdir /config/usb_gadget/g1/strings/0x409 0770
-    write /config/usb_gadget/g1/bcdUSB 0x0200
-    write /config/usb_gadget/g1/idVendor 0x18d1
-    write /config/usb_gadget/g1/bcdDevice 0x0440
+on property:sys.usb.config=charging && property:sys.usb.configfs=1
+    write /sys/class/typec/port0/port_type sink
     write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
-    write /config/usb_gadget/g1/strings/0x409/manufacturer Google
-    write /config/usb_gadget/g1/strings/0x409/product Pixel
-    mkdir /config/usb_gadget/g1/functions/midi.gs5
-    mkdir /config/usb_gadget/g1/configs/b.1 0770
-    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770
-    symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
-    setprop sys.usb.controller "a600000.dwc3"
-
-on property:ro.bootmode=charger
-    setprop sys.usb.config midi
+    write /config/usb_gadget/g1/UDC "none"
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "Motorola Charge Only"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    write /config/usb_gadget/g1/idVendor 0x22b8
+    write /config/usb_gadget/g1/idProduct 0x2eb7
+    symlink /config/usb_gadget/g1/functions/mass_storage.0 /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=midi && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "midi"
@@ -104,7 +99,7 @@ on property:sys.usb.config=midi && property:sys.usb.configfs=1
     rm /config/usb_gadget/g1/configs/b.1/f3
     rm /config/usb_gadget/g1/configs/b.1/f4
     write /config/usb_gadget/g1/idVendor 0x18d1
-    write /config/usb_gadget/g1/idProduct 0x4eea
+    write /config/usb_gadget/g1/idProduct 0x4ee8
     symlink /config/usb_gadget/g1/functions/midi.gs5 /config/usb_gadget/g1/configs/b.1/f1
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
