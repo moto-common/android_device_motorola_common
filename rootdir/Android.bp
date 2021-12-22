@@ -1,43 +1,15 @@
 // Scripts
 
-cc_prebuilt_binary {
-    name: "rdclean.sh",
-    srcs: ["vendor/bin/rdclean.sh"],
-    init_rc: ["vendor/etc/init/rdclean.rc"],
+sh_binary {
+    name: "init.mmi.usb.sh",
+    src: "vendor/bin/init.mmi.usb.sh",
     vendor: true,
-    strip: {
-        none: true,
-    },
 }
 
-cc_prebuilt_binary {
-    name: "init.qcom.slpistart.sh",
-    srcs: ["vendor/bin/init.qcom.slpistart.sh"],
-    init_rc: ["vendor/etc/init/slpistart.rc"],
+sh_binary {
+    name: "init.oem.hw.sh",
+    src: "vendor/bin/init.oem.hw.sh",
     vendor: true,
-    strip: {
-        none: true,
-    },
-}
-
-cc_prebuilt_binary {
-    name: "init.qcom.adspstart.sh",
-    srcs: ["vendor/bin/init.qcom.adspstart.sh"],
-    init_rc: ["vendor/etc/init/adspstart.rc"],
-    vendor: true,
-    strip: {
-        none: true,
-    },
-}
-
-cc_prebuilt_binary {
-    name: "init.qcom.cdspstart.sh",
-    srcs: ["vendor/bin/init.qcom.cdspstart.sh"],
-    init_rc: ["vendor/etc/init/cdspstart.rc"],
-    vendor: true,
-    strip: {
-        none: true,
-    },
 }
 
 cc_prebuilt_binary {
@@ -50,348 +22,47 @@ cc_prebuilt_binary {
     },
 }
 
-
 // Init files
 
 prebuilt_etc {
-    name: "android.hardware.keymaster@4.0-service-qti.rc",
-    src: "vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc",
-    sub_dir: "init",
+    name: "init.mmi.charge_only.rc",
+    src: "vendor/etc/init/hw/init.mmi.charge_only.rc",
+    sub_dir: "init/hw",
     vendor: true,
 }
 
 prebuilt_etc {
-    name: "init.usb.rc",
-    src: "vendor/etc/init/init.usb.rc",
-    sub_dir: "init",
+    name: "init.mmi.chipset.rc",
+    src: "vendor/etc/init/hw/init.mmi.chipset.rc",
+    sub_dir: "init/hw",
     vendor: true,
 }
 
 prebuilt_etc {
-    name: "adb_tcp.rc",
-    src: "vendor/etc/init/adb_tcp.rc",
-    sub_dir: "init",
+    name: "init.mmi.overlay.rc",
+    src: "vendor/etc/init/hw/init.mmi.overlay.rc",
+    sub_dir: "init/hw",
     vendor: true,
 }
 
 prebuilt_etc {
-    name: "adsp-sensorspdr.rc",
-    src: "vendor/etc/init/adsp-sensorspdr.rc",
-    sub_dir: "init",
+    name: "init.mmi.usb.rc",
+    src: "vendor/etc/init/hw/init.mmi.usb.rc",
+    sub_dir: "init/hw",
     vendor: true,
 }
 
 prebuilt_etc {
-    name: "adsprpcd.rc",
-    src: "vendor/etc/init/adsprpcd.rc",
-    sub_dir: "init",
+    name: "init.mmi.rc",
+    src: "vendor/etc/init/hw/init.mmi.rc",
+    sub_dir: "init/hw",
     vendor: true,
 }
 
 prebuilt_etc {
-    name: "audiopd.rc",
-    src: "vendor/etc/init/audiopd.rc",
-    sub_dir: "init",
+    name: "init.target.rc",
+    src: "vendor/etc/init/hw/init.target.rc",
+    sub_dir: "init/hw",
     vendor: true,
 }
 
-prebuilt_etc {
-    name: "atfwd.rc",
-    src: "vendor/etc/init/atfwd.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "cnd.rc",
-    src: "vendor/etc/init/cnd.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "cdsprpcd.rc",
-    src: "vendor/etc/init/cdsprpcd.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "cnss-daemon.rc",
-    src: "vendor/etc/init/cnss-daemon.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "hvdcp_opti.rc",
-    src: "vendor/etc/init/hvdcp_opti.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "ipacm.rc",
-    src: "vendor/etc/init/ipacm.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "irsc_util.rc",
-    src: "vendor/etc/init/irsc_util.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "imsdatadaemon.rc",
-    src: "vendor/etc/init/imsdatadaemon.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "imsqmidaemon.rc",
-    src: "vendor/etc/init/imsqmidaemon.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "imsrcsd.rc",
-    src: "vendor/etc/init/imsrcsd.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "ims_rtp_daemon.rc",
-    src: "vendor/etc/init/ims_rtp_daemon.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "mlog_qmi.rc",
-    src: "vendor/etc/init/mlog_qmi.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "mdm_helper.rc",
-    src: "vendor/etc/init/mdm_helper.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "msm_irq.rc",
-    src: "vendor/etc/init/msm_irq.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "netmgrd.rc",
-    src: "vendor/etc/init/netmgrd.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "per-proxy.rc",
-    src: "vendor/etc/init/per-proxy.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "per-service.rc",
-    src: "vendor/etc/init/per-service.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "qrtr.rc",
-    src: "vendor/etc/init/qrtr.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "sdsp-sensorspdr.rc",
-    src: "vendor/etc/init/sdsp-sensorspdr.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "sscrpcd.rc",
-    src: "vendor/etc/init/sscrpcd.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "tad.rc",
-    src: "vendor/etc/init/tad.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "tad_legacy.rc",
-    src: "vendor/etc/init/tad_legacy.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "dpmQmiMgr.rc",
-    src: "vendor/etc/init/dpmQmiMgr.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "adpl.rc",
-    src: "vendor/etc/init/adpl.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "dataqti.rc",
-    src: "vendor/etc/init/dataqti.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "dpmd.rc",
-    src: "vendor/etc/init/dpmd.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "qseecom.rc",
-    src: "vendor/etc/init/qseecom.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "qcrild.rc",
-    src: "vendor/etc/init/qcrild.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "qcrild2.rc",
-    src: "vendor/etc/init/qcrild2.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "rmt_storage.rc",
-    src: "vendor/etc/init/rmt_storage.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "sct_service.rc",
-    src: "vendor/etc/init/sct_service.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "sensors.rc",
-    src: "vendor/etc/init/sensors.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "spu.rc",
-    src: "vendor/etc/init/spu.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "authsecret.rc",
-    src: "vendor/etc/init/authsecret.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "ta_qmi.rc",
-    src: "vendor/etc/init/ta_qmi.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "wpa_supplicant.rc",
-    src: "vendor/etc/init/wpa_supplicant.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "vendor.somc.hardware.miscta@1.0-service.rc",
-    src: "vendor/etc/init/vendor.somc.hardware.miscta@1.0-service.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "vendor.somc.hardware.modemswitcher@1.0-service.rc",
-    src: "vendor/etc/init/vendor.somc.hardware.modemswitcher@1.0-service.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "init.sony-modem-switcher.rc",
-    src: "vendor/etc/init/init.sony-modem-switcher.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "pd_mapper.rc",
-    src: "vendor/etc/init/pd_mapper.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "tftp_server.rc",
-    src: "vendor/etc/init/tftp_server.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "bindmount-apps.rc",
-    src: "vendor/etc/init/bindmount-apps.rc",
-    sub_dir: "init",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "bindmount-misc.rc",
-    src: "vendor/etc/init/bindmount-misc.rc",
-    sub_dir: "init",
-    vendor: true,
-}

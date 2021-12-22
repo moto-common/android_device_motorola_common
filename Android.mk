@@ -1,4 +1,4 @@
-ifeq ($(PRODUCT_PLATFORM_SOD),true)
+ifeq ($(PRODUCT_PLATFORM_MOT),true)
 
 LOCAL_PATH := $(call my-dir)
 

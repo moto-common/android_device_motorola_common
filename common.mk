@@ -13,16 +13,16 @@
 # limitations under the License.
 
 # Common path
-COMMON_PATH := device/sony/common
+COMMON_PATH := device/motorola/common
 
-ifneq ($(filter 4.19, $(SOMC_KERNEL_VERSION)),)
+ifneq ($(filter 4.19, $(KERNEL_VERSION)),)
 display_platform := sm8250
 else
 display_platform := sm8350
 endif
 
 # Everything prior to kernel 4.19 uses the sm8150 display HAL
-ifneq ($(filter 4.14, $(SOMC_KERNEL_VERSION)),)
+ifneq ($(filter 4.14, $(KERNEL_VERSION)),)
 display_platform := sm8150
 endif
 
@@ -37,8 +37,8 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
 
 # Build scripts
-SONY_CLEAR_VARS := $(COMMON_PATH)/sony_clear_vars.mk
-SONY_BUILD_SYMLINKS := $(COMMON_PATH)/sony_build_symlinks.mk
+MOTOROLA_CLEAR_VARS := $(COMMON_PATH)/motorola_clear_vars.mk
+MOTOROLA_BUILD_SYMLINKS := $(COMMON_PATH)/motorola_build_symlinks.mk
 
 DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
 
@@ -72,15 +72,13 @@ PRODUCT_PACKAGES += \
 # Force building a recovery image: Needed for OTA packaging to work since Q
 PRODUCT_BUILD_RECOVERY_IMAGE := true
 
-KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
-# Sanitized prebuilt kernel headers
--include $(KERNEL_PATH)/common-headers/KernelHeaders.mk
+# Kernel Path
+KERNEL_PATH := kernel/motorola/msm-$(KERNEL_VERSION)
 
-# Configure qti-headers auxiliary module via soong so that the correct headers
-# under kernel/sony/msm-X.Y/kernel-headers are chosen
+# Configure qti-headers auxiliary module via soong
 SOONG_CONFIG_NAMESPACES += qti_kernel_headers
 SOONG_CONFIG_qti_kernel_headers := version
-SOONG_CONFIG_qti_kernel_headers_version := $(SOMC_KERNEL_VERSION)
+SOONG_CONFIG_qti_kernel_headers_version := $(KERNEL_VERSION)
 
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
@@ -88,24 +86,14 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 
-# Common etc
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml
-
 # GPS Configuration
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 
-
-# QMI Configuration
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/qmi_fw.conf:$(TARGET_COPY_OUT_VENDOR)/etc/qmi_fw.conf
-
 # QMI
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/data/dsi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/dsi_config.xml \
-    $(COMMON_PATH)/rootdir/vendor/etc/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml \
-    $(COMMON_PATH)/rootdir/vendor/etc/data/qmi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/qmi_config.xml
+    $(COMMON_PATH)/rootdir/vendor/etc/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml
 
 # QSEECOM TZ Storage
 PRODUCT_COPY_FILES += \
@@ -136,50 +124,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
-# ramdump cleaner
-PRODUCT_PACKAGES_DEBUG += \
-    rdclean.sh
-
 # Depend on symlink creation in /vendor:
 PRODUCT_PACKAGES += \
-    adreno_symlinks \
-    camera_symlinks \
-    qca_cld3_symlinks \
-    rfsa_symlinks \
     tftp_symlinks
 
 # Create firmware mount point folders in /vendor:
 PRODUCT_PACKAGES += \
     firmware_folders
 
-
-ifeq ($(MODEM_CONFIG_LEGACY_PLATFORM),true)
-MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/oem/modem-config-legacy -type f -printf '%p:$(TARGET_COPY_OUT_VENDOR)/oem/modem-config/%P\n')
-else
-MODEM_CONFIG := $(shell find $(COMMON_PATH)/rootdir/vendor/oem/modem-config -type f -printf '%p:$(TARGET_COPY_OUT_VENDOR)/oem/modem-config/%P\n')
-endif
-PRODUCT_COPY_FILES += $(MODEM_CONFIG)
-
 # Bluetooth
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
--include device/sony/customization/customization.mk
-
-USE_SODP_APNS ?= true
-ifeq ($(USE_SODP_APNS),true)
-# Community APN list
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/apns-conf.xml:system/etc/apns-conf.xml
-endif #USE_SODP_APNS
-
-$(call inherit-product, device/sony/common/common-init.mk)
-$(call inherit-product, device/sony/common/common-odm.mk)
-$(call inherit-product, device/sony/common/common-odm-camx.mk)
-$(call inherit-product, device/sony/common/common-odm-mmcam.mk)
-$(call inherit-product, device/sony/common/common-packages.mk)
-$(call inherit-product, device/sony/common/common-perm.mk)
-$(call inherit-product, device/sony/common/common-prop.mk)
-$(call inherit-product, device/sony/common/common-sanitizer.mk)
-$(call inherit-product, device/sony/common/common-treble.mk)
-$(call inherit-product, device/sony/common/common-binds.mk)
+$(call inherit-product, device/motorola/common/common-init.mk)
+$(call inherit-product, device/motorola/common/common-packages.mk)
+$(call inherit-product, device/motorola/common/common-perm.mk)
+$(call inherit-product, device/motorola/common/common-prop.mk)
+$(call inherit-product, device/motorola/common/common-treble.mk)

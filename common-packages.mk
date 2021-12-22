@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # TEMPORARY: These libraries are deprecated, not referenced by any AOSP
-# nor OSS HAL, but are still required by odm blobs (short term).
+# nor OSS HAL, but are still required by vendor blobs (short term).
 # We don't add a dependency on the vndk variants as those end up in
 # /system but require these in /vendor instead:
 PRODUCT_PACKAGES += \
@@ -97,18 +97,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     libwpa_client
 
-# NFC packages
-PRODUCT_PACKAGES += \
-    NfcNci \
-    Tag
-
-# CAMERA
-PRODUCT_PACKAGES += \
-    libmmcamera_interface \
-    libmmjpeg_interface \
-    libmmlib2d_interface \
-    libmm-qcamera \
-    libqomx_core
+# Camera
+#PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_PACKAGES += \
@@ -119,23 +109,9 @@ PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
 
-# OSS Power HAL
-PRODUCT_PACKAGES += \
-    librqbalance
-
-# OSS WIFI and BT MAC tool
-PRODUCT_PACKAGES += \
-    macaddrsetup
-
 # Carrier configuration
 PRODUCT_PACKAGES += \
     CarrierConfig
-
-# Telephony
-PRODUCT_PACKAGES += \
-    ModemConfig \
-    QcRilAm \
-    SimDetect
 
 # QCOM Data
 PRODUCT_PACKAGES += \
@@ -144,7 +120,9 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     libandroid_net \
-    libprotobuf-cpp-full
+    libjson \
+    libprotobuf-cpp-full \
+    libsensorndkbridge
 
 # FIXME: master: compat for libprotobuf
 # See https://android-review.googlesource.com/c/platform/prebuilts/vndk/v28/+/1109518
@@ -158,10 +136,6 @@ PRODUCT_PACKAGES += \
 # libRSDriver_adreno dependency
 PRODUCT_PACKAGES += \
     libLLVM
-
-# ExtendedSettings
-PRODUCT_PACKAGES += \
-    ExtendedSettings
 
 # Charger
 PRODUCT_PACKAGES += \

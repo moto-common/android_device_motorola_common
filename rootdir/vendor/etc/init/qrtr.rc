@@ -1,5 +1,0 @@
-service vendor.qrtr-ns /odm/bin/qrtr-ns -f
-    class core
-    user root
-    group root
-    capabilities NET_BIND_SERVICE

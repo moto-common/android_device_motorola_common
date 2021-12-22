@@ -1,6 +1,0 @@
-# QCOM Secure
-service vendor.qseecomd /odm/bin/qseecomd
-    class core
-    user root
-    group root
-    shutdown critical

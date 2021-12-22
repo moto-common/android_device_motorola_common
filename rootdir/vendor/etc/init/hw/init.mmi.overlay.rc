@@ -1,0 +1,42 @@
+on post-fs
+   # "Tap to wake" gesture
+   chown root input /sys/class/sensors/dt-gesture/enable
+   chmod 0660 /sys/class/sensors/dt-gesture/enable
+   chown root input /sys/class/sensors/dt-gesture/poll_delay
+   chmod 0660 /sys/class/sensors/dt-gesture/poll_delay
+
+on post-fs-data
+    mkdir /mnt/vendor/persist/tof 0644 oem_5004 camera
+    # change permission for stylus
+    chown system system /sys/class/touchscreen/primary/palm_settings
+
+on early-init
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules mcDrvModule
+
+on init
+    insmod /vendor/lib/modules/${ro.vendor.mot.gki.path}/bu520xx_pen.ko
+    insmod /vendor/lib/modules/${ro.vendor.mot.gki.path}/nova_0flash_mmi.ko
+
+on late-init
+    insmod /vendor/lib/modules/${ro.vendor.mot.gki.path}/mmi-smbcharger-iio.ko
+    insmod /vendor/lib/modules/${ro.vendor.mot.gki.path}/qpnp_adaptive_charge.ko
+
+on charger
+    insmod /vendor/lib/modules/${ro.vendor.mot.gki.path}/mmi-smbcharger-iio.ko
+    insmod /vendor/lib/modules/${ro.vendor.mot.gki.path}/qpnp_adaptive_charge.ko
+
+on property:vendor.hw.fps.ident=chipone
+    # config chipone fpsensor
+    chown system system /dev/fpsensor
+    chmod 0660 /dev/fpsensor
+
+on property:vendor.hw.fps.ident=goodix
+    chown system system /dev/goodix_fp
+    chmod 0664 /dev/goodix_fp
+    mkdir /data/vendor/gf_data 0770 system system
+    mkdir /mnt/vendor/persist/goodix 0770 system system
+
+on boot
+    chown system system /sys/class/touchscreen/primary/rotate
+    chmod 0660 /sys/class/touchscreen/primary/rotate
+

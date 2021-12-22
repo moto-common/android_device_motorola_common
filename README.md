@@ -1,7 +1,9 @@
+## Copyrights
+Copyright (C) LineageOS Modded Project/Electimon 2022
 Copyright (C) Sony Mobile Communications 2014
-=============================================
 
-This is the Android common configuration for Sony platforms.
+## Description
+This is the Android common configuration for Motorola platforms.
 
-Build instructions
-https://developer.sony.com/develop/open-devices/guides/aosp-build-instructions/
+Build instructions will be added soon.
+

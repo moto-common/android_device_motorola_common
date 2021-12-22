@@ -1,9 +1,0 @@
-# ADSP FastRPC
-service vendor.adsprpcd /odm/bin/adsprpcd
-   class main
-   user media
-   group media
-   disabled
-
-on property:vendor.qcom.adspup=1
-    enable vendor.adsprpcd

@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# librqbalance enablement
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/vendor/lib/librqbalance.so
-
 # Limit dex2oat threads to improve thermals
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-threads=2 \
@@ -24,12 +20,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Platform specific default properties
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0
-
-# configure adb over wifi only on the eng build
-ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
-PRODUCT_PROPERTY_OVERRIDES += \
-    service.adb.tcp.port=5555
-endif
 
 # Common property setup DS or SS devices.
 ifeq ($(PRODUCT_DEVICE_DS),true)
@@ -255,26 +245,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
-# BT address
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
-
-# BT address for devices with BCM BT
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bt.bdaddr_path=/data/vendor/bluetooth/bluetooth_bdaddr
-
 # RILD
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.rild.libpath=/odm/lib64/libril-qc-hal-qmi.so \
     ril.subscription.types=NV,RUIM
-
-# OpenGLES version
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196610
-
-# Vendor version
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.odm.expect.version=$(PLATFORM_VERSION)_$(SOMC_KERNEL_VERSION)_$(SOMC_PLATFORM)_$(TARGET_VENDOR_VERSION)
 
 # Priv-app permisisons
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -288,24 +261,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.allow_encrypt_override=true
 
-# Keymaster version to differentiate between v3 and v4
-ifeq ($(TARGET_KEYMASTER_V4),true)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=v4
-else
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.keymaster.version=v3
-endif
-
 # Reduce cost of scrypt for FBE CE decryption
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.scrypt_params=15:3:1
 
-# Look for vulkan.qcom.so instead of vulkan.$(BOARD_TARGET_PLATFORM).so
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hardware.vulkan=qcom
-
 # Disable Compressed APEX on 4.14 kernel as Android 12 enforces it and our kernel is not compatible (yet)
-ifeq ($(SOMC_KERNEL_VERSION), 4.14)
+ifeq ($(KERNEL_VERSION), 4.14)
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 endif

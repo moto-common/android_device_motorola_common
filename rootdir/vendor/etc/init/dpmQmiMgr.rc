@@ -1,4 +1,0 @@
-service vendor.dpmQmiMgr /odm/bin/dpmQmiMgr
-    class main
-    user system
-    group system

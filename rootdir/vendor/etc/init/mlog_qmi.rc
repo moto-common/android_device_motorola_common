@@ -1,5 +1,0 @@
-# MLog
-service vendor.mlog_qmi_service /odm/bin/mlog_qmi_service
-    class core
-    user root
-    shutdown critical
