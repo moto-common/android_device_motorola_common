@@ -204,7 +204,7 @@ set_xml_file()
 
 exec_parser()
 {
-	eval motobox expat -u -f $xml_file $device_params "$@" 2>/dev/null
+	eval expat -u -f $xml_file $device_params "$@" 2>/dev/null
 }
 
 reload_utags()
