@@ -7,6 +7,18 @@ sh_binary {
 }
 
 sh_binary {
+    name: "init.oem.fingerprint.sh",
+    src: "vendor/bin/init.oem.fingerprint.sh",
+    vendor: true,
+}
+
+sh_binary {
+    name: "init.oem.fingerprint2.sh",
+    src: "vendor/bin/init.oem.fingerprint2.sh",
+    vendor: true,
+}
+
+sh_binary {
     name: "init.oem.hw.sh",
     src: "vendor/bin/init.oem.hw.sh",
     vendor: true,
