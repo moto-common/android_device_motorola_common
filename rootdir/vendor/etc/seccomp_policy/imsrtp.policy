@@ -41,3 +41,7 @@ sigaltstack: 1
 socket: 1
 socketpair: 1
 write: 1
+readlinkat: 1
+fstatfs: 1
+pread64: 1
+mremap: 1
