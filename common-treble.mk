@@ -17,6 +17,10 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator@3.0.vendor \
     vendor.qti.hardware.display.mapper@2.0.vendor
 
+# Linked by Perf HAL
+PRODUCT_PACKAGES += \
+    vendor.display.config@1.0.vendor
+
 # Graphics allocator/mapper
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
@@ -69,6 +73,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl:32 \
     android.hardware.audio.service \
     android.hardware.audio.effect@6.0-impl:32 \
+    android.hardware.bluetooth@1.0.vendor \
     android.hardware.bluetooth.audio@2.0-impl \
     android.hardware.soundtrigger@2.1.vendor \
     android.hardware.soundtrigger@2.2.vendor \
@@ -77,7 +82,7 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor \
-    vendor.qti.hardware.camera.postproc@1.0
+    vendor.qti.hardware.camera.postproc@1.0.vendor
 ifeq ($(TARGET_USES_64BIT_CAMERA),true)
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:64 \
@@ -87,10 +92,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service
 endif
-
-# Wi-Fi
-PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service
 
 # GNSS
 PRODUCT_PACKAGES += \
@@ -130,8 +131,8 @@ $(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl \
-    android.hardware.boot@1.1-impl.recovery \
+    android.hardware.boot@1.1-impl-qti \
+    android.hardware.boot@1.1-impl-qti.recovery \
     android.hardware.boot@1.1-service
 endif
 
