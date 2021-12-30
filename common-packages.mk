@@ -119,10 +119,22 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    ims-moto-libs \
     libandroid_net \
     libjson \
     libprotobuf-cpp-full \
-    libsensorndkbridge
+    libsensorndkbridge \
+    moto-ims-ext \
+    moto-telephony \
+    qcrilhook \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml
+
+PRODUCT_BOOT_JARS += \
+    ims-moto-libs \
+    qcrilhook
 
 # FIXME: master: compat for libprotobuf
 # See https://android-review.googlesource.com/c/platform/prebuilts/vndk/v28/+/1109518
