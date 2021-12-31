@@ -136,6 +136,10 @@ PRODUCT_BOOT_JARS += \
     ims-moto-libs \
     qcrilhook
 
+# MotoActions
+PRODUCT_PACKAGES += \
+    MotoActions
+
 # FIXME: master: compat for libprotobuf
 # See https://android-review.googlesource.com/c/platform/prebuilts/vndk/v28/+/1109518
 PRODUCT_PACKAGES += \
