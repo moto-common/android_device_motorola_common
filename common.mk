@@ -15,15 +15,16 @@
 # Common path
 COMMON_PATH := device/motorola/common
 
+# QCOM
 ifneq ($(filter 4.19, $(KERNEL_VERSION)),)
-display_platform := sm8250
+qcom_platform := sm8250
 else
-display_platform := sm8350
+qcom_platform := sm8350
 endif
 
 # Everything prior to kernel 4.19 uses the sm8150 display HAL
 ifneq ($(filter 4.14, $(KERNEL_VERSION)),)
-display_platform := sm8150
+qcom_platform := sm8150
 endif
 
 # Enable building packages from device namspaces.
@@ -33,8 +34,9 @@ PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
     vendor/qcom/opensource/core-utils \
-    vendor/qcom/opensource/display/$(display_platform) \
-    vendor/qcom/opensource/display-commonsys-intf/$(display_platform)
+    vendor/qcom/opensource/audio/$(qcom_platform) \
+    vendor/qcom/opensource/display/$(qcom_platform) \
+    vendor/qcom/opensource/display-commonsys-intf/$(qcom_platform)
 
 # Build scripts
 MOTOROLA_CLEAR_VARS := $(COMMON_PATH)/motorola_clear_vars.mk
