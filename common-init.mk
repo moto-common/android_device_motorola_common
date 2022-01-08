@@ -15,7 +15,6 @@
 # Common init scripts
 PRODUCT_PACKAGES += \
     init.class_main.sh \
-    init.mmi.usb.rc \
     init.mmi.usb.sh \
     init.mmi.rc \
     init.oem.hw.sh \

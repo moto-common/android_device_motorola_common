@@ -1,9 +1,14 @@
 // Scripts
 
-sh_binary {
+cc_prebuilt_binary {
     name: "init.mmi.usb.sh",
-    src: "vendor/bin/init.mmi.usb.sh",
+    srcs: ["vendor/bin/init.mmi.usb.sh"],
+    init_rc: ["vendor/etc/init/hw/init.mmi.usb.rc"],
     vendor: true,
+    strip: {
+        none: true,
+    },
+    overrides: ["init.qcom.usb.sh", "init.qcom.usb.rc"],
 }
 
 sh_binary {
@@ -47,13 +52,6 @@ prebuilt_etc {
 prebuilt_etc {
     name: "init.mmi.overlay.rc",
     src: "vendor/etc/init/hw/init.mmi.overlay.rc",
-    sub_dir: "init/hw",
-    vendor: true,
-}
-
-prebuilt_etc {
-    name: "init.mmi.usb.rc",
-    src: "vendor/etc/init/hw/init.mmi.usb.rc",
     sub_dir: "init/hw",
     vendor: true,
 }
