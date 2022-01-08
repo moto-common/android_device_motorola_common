@@ -1,7 +1,5 @@
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter sm6125 sm6350 sm8150 sm8250 holi,$(TARGET_BOARD_PLATFORM)),)
-
 include $(MOTOROLA_CLEAR_VARS)
 LOCAL_MODULE := tftp_symlinks
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)
@@ -65,5 +63,3 @@ MOTOROLA_SYMLINKS += \
 endif
 
 include $(MOTOROLA_BUILD_SYMLINKS)
-
-endif
