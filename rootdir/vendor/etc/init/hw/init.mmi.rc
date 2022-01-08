@@ -88,7 +88,6 @@ on early-init
 on fs
     insmod /vendor/lib/modules/cci_intf.ko
     mkdir /mnt/vendor/persist/fps 0770 system system
-    exec_start vendor.ident-fps-sh
 
 on fs && property:ro.vendor.hw.modem_version=*
     # Super modem detection
@@ -520,32 +519,11 @@ service vendor.oem-super-image-detector-sh /vendor/bin/init.oem.hw.sh -M
     oneshot
     disabled
 
-service vendor.ident-fps-sh /vendor/bin/init.oem.fingerprint.sh
-    class core
-    user root
-    group drmrpc system
-    oneshot
-    disabled
-
 service vendor.hal-fps-sh /vendor/bin/init.oem.fingerprint2.sh
     class late_start
     user root
     group system
     oneshot
-
-service fpc_ident /vendor/bin/hw/fpc_ident
-    class late_start
-    user system
-    group system
-    oneshot
-    disabled
-
-service egis_ident /vendor/bin/hw/egis_ident
-    class late_start
-    user system
-    group system
-    oneshot
-    disabled
 
 service vendor.touch-dead-sh /vendor/bin/init.oem.hw.sh -f
     class main
