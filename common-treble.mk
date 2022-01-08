@@ -147,6 +147,10 @@ include $(QCOM_COMMON_PATH)/vendor/dsprpcd/qti-dsprpcd.mk
 include $(QCOM_COMMON_PATH)/vendor/keymaster/qti-keymaster.mk
 include $(QCOM_COMMON_PATH)/vendor/media/qti-media.mk
 include $(QCOM_COMMON_PATH)/vendor/perf/qti-perf.mk
+ifneq ($(KERNEL_VERSION),5.4)
+include $(QCOM_COMMON_PATH)/vendor/qseecomd-legacy/qti-qseecomd-legacy.mk
+else
 include $(QCOM_COMMON_PATH)/vendor/qseecomd/qti-qseecomd.mk
+endif
 include $(QCOM_COMMON_PATH)/vendor/usb/qti-usb.mk
 include $(QCOM_COMMON_PATH)/vendor/wlan/qti-wlan.mk
