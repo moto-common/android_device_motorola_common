@@ -37,13 +37,13 @@ PRODUCT_PACKAGES += \
     memtrack.default
 
 # Configstore
-# Figure out a better way of guarding this
-ifeq ($(TARGET_KEYMASTER_V4_1),true)
+ifeq ($(filter 4.14, $(KERNEL_VERSION)),)
 PRODUCT_PACKAGES += \
     disable_configstore
 else
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service
+DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.configstore_v1.1.xml
 endif
 
 # RIL
