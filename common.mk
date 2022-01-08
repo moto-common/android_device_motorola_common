@@ -36,7 +36,7 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/core-utils \
     vendor/qcom/opensource/audio/$(qcom_platform) \
     vendor/qcom/opensource/display/$(qcom_platform) \
-    vendor/qcom/opensource/display-commonsys-intf/$(qcom_platform)
+    vendor/qcom/opensource/display-commonsys-intf
 
 # Build scripts
 MOTOROLA_CLEAR_VARS := $(COMMON_PATH)/motorola_clear_vars.mk
