@@ -76,6 +76,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.sib16_support=1 \
     persist.vendor.radio.oem_socket=true
 
+# RemoteFS Storage
+# This property is needed for rmt_storage to look for fsg
+# in /vendor
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.build.vendorprefix=/vendor
+
 # Ringer
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring.multiple=false
