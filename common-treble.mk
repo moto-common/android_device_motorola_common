@@ -9,7 +9,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer-service
 else
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.3-service
+    android.hardware.graphics.composer@2.4-service
 endif
 
 # Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
