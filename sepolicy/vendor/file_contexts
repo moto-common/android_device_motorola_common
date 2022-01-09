@@ -2,6 +2,7 @@
 /persist u:object_r:rootfs:s0
 
 # Init Scripts
+/vendor/bin/init\.mmi\.touch\.sh u:object_r:vendor_moto_init_shell_exec:s0
 /vendor/bin/init\.mmi\.usb\.sh u:object_r:vendor_moto_init_shell_exec:s0
 /vendor/bin/init\.oem\.fingerprint2\.sh u:object_r:vendor_moto_init_shell_exec:s0
 /vendor/bin/init\.oem\.hw\.sh u:object_r:vendor_moto_init_shell_exec:s0

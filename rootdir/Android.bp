@@ -12,6 +12,12 @@ cc_prebuilt_binary {
 }
 
 sh_binary {
+    name: "init.mmi.touch.sh",
+    src: "vendor/bin/init.mmi.touch.sh",
+    vendor: true,
+}
+
+sh_binary {
     name: "init.oem.fingerprint2.sh",
     src: "vendor/bin/init.oem.fingerprint2.sh",
     vendor: true,
