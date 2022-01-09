@@ -143,10 +143,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio (newer CAF HALs)
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.audio.fluence.speaker=true \
+    persist.vendor.audio.fluence.speaker=false \
     persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicecomm=true \
-    persist.vendor.audio.fluence.voicerec=true \
+    persist.vendor.audio.fluence.voicerec=false \
     ro.vendor.audio.sdk.fluencetype=fluence \
     vendor.audio_hal.in_period_size=144 \
     vendor.audio_hal.period_multiplier=3 \
