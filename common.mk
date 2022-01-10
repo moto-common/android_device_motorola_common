@@ -35,6 +35,7 @@ PRODUCT_SOONG_NAMESPACES += \
     $(PLATFORM_COMMON_PATH) \
     vendor/qcom/opensource/core-utils \
     vendor/qcom/opensource/audio/$(qcom_platform) \
+    vendor/qcom/opensource/data-ipa-cfg-mgr \
     vendor/qcom/opensource/display/$(qcom_platform) \
     vendor/qcom/opensource/display-commonsys-intf
 
