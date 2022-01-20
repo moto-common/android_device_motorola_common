@@ -583,6 +583,7 @@ on property:vendor.wifi.tethering=true
 # from hardware/interfaces/sensors/2.0/multihal
 # to add input and uhid group access
 service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@2.0-service.multihal
+    override
     class hal
     user system
     group system wakelock context_hub input uhid
