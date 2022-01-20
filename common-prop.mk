@@ -182,6 +182,10 @@ PRODUCT_PRODUCT_OVERRIDES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.sys.fuse.passthrough.enable=true
 
+# Bluetooth
+PRODUCT_PROPERTY_OVERRIDES += \
+    bluetooth.profile.asha.central=true
+
 # Disable Compressed APEX on 4.14 kernel as Android 12 enforces it and our kernel is not compatible (yet)
 ifeq ($(KERNEL_VERSION), 4.14)
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
