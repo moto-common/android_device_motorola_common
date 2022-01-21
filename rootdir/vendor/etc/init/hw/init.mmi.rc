@@ -397,12 +397,6 @@ service vendor.batt_health /vendor/bin/batt_health
 on property:sys.boot_completed=1
     start vendor.batt_health
 
-on property:sys.boot_completed=1 && property:ro.vendor.zram.product_swapon=""
-    write /proc/sys/vm/page-cluster 0
-    swapon_all /vendor/etc/fstab.qcom
-    write /proc/sys/vm/swappiness 100
-    setprop sys.sysctl.swappiness 100
-
 on property:sys.boot_completed=1 && property:ro.vendor.bootreason=coldboot
     start vendor.apanic_copy
 
@@ -480,9 +474,6 @@ on property:persist.vendor.qc.sub.rdump.on=*
 
 on property:ro.vendor.hw.dualsim=false
    setprop persist.radio.multisim.config ""
-
-on property:sys.sysctl.swappiness=*
-    write /proc/sys/vm/swappiness ${sys.sysctl.swappiness}
 
 service vendor.mbm_spy /vendor/bin/mbm_spy
     class late_start
@@ -571,12 +562,6 @@ service vendor.touchRec /vendor/bin/touchRec
     oneshot
     disabled
 
-on property:vendor.wifi.tethering=false
-    write /sys/module/wlan/parameters/sar_mhs disabled
-
-on property:vendor.wifi.tethering=true
-    write /sys/module/wlan/parameters/sar_mhs enabled
-
 # Override the AOSP sensor HAL service definition
 # from hardware/interfaces/sensors/2.0/multihal
 # to add input and uhid group access
@@ -588,13 +573,6 @@ service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@
     writepid /dev/cpuset/system-background/tasks
     capabilities BLOCK_SUSPEND
     rlimit rtprio 10 10
-
-#Override fwpath string when wpa_supplicant server was killed
-on property:vendor.wifi.station=true
-    write /sys/module/wlan/parameters/sar_sta enabled
-
-on property:vendor.wifi.station=false
-    write /sys/module/wlan/parameters/sar_sta disabled
 
 on shutdown
     exec_start vendor.mmi-shutdown-sh
@@ -608,9 +586,3 @@ on property:persist.sys.locale=*
 # IKSWQ-149109: Force shutter tone on Japan softbank carrier
 on property:ro.carrier=softbank
     setprop audio.camerasound.force true
-
-on property:ro.sys.force_max_chrg_temp=*
-    write /sys/class/power_supply/battery/device/force_max_chrg_temp ${ro.sys.force_max_chrg_temp}
-
-on property:ro.sys.force_demo_mode=*
-    write /sys/class/power_supply/battery/device/force_demo_mode ${ro.sys.force_demo_mode}
