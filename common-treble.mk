@@ -154,3 +154,6 @@ include $(QCOM_COMMON_PATH)/vendor/qseecomd/qti-qseecomd.mk
 endif
 include $(QCOM_COMMON_PATH)/vendor/usb/qti-usb.mk
 include $(QCOM_COMMON_PATH)/vendor/wlan/qti-wlan.mk
+
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/common/vendor/dsprpcd
