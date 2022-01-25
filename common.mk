@@ -24,13 +24,12 @@ else
 qcom_platform := sm8150
 endif
 
-# Enable building packages from device namspaces.
+# Enable building packages from device namespaces.
 # Might be temporary! See:
 # https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
-    vendor/qcom/opensource/core-utils \
     vendor/qcom/opensource/audio/$(qcom_platform) \
     vendor/qcom/opensource/data-ipa-cfg-mgr \
     vendor/qcom/opensource/display/$(qcom_platform) \
