@@ -15,15 +15,12 @@
 # Common path
 COMMON_PATH := device/motorola/common
 
-# QCOM
-ifneq ($(filter 4.19, $(KERNEL_VERSION)),)
+# QCOM Platform selector
+ifeq ($(KERNEL_VERSION), 5.4)
+qcom_platform := sm8350
+else ifeq ($(KERNEL_VERSION), 4.19)
 qcom_platform := sm8250
 else
-qcom_platform := sm8350
-endif
-
-# Everything prior to kernel 4.19 uses the sm8150 display HAL
-ifneq ($(filter 4.14, $(KERNEL_VERSION)),)
 qcom_platform := sm8150
 endif
 
