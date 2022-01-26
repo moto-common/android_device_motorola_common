@@ -6,28 +6,6 @@ import /vendor/etc/init/hw/init.mmi.overlay.rc
 
 # Moto USB configuration
 import /vendor/etc/init/hw/init.mmi.usb.rc
-# Moto debugging
-import /vendor/etc/init/hw/init.mmi.debug.rc
-
-# Moto diag_mdlog configuration
-import /vendor/etc/init/hw/init.mmi.diag_mdlog.rc
-
-import /vendor/etc/init/hw/init.oem.rc
-import /vendor/etc/init/hw/init.mmi.common.rc
-import /vendor/etc/init/hw/init.mmi.nonab.rc
-
-#Moto wlan configuration
-import /vendor/etc/init/hw/init.mmi.wlan.rc
-
-# Moto verified boot extension
-import /vendor/etc/init/hw/init.mmi.hab.rc
-
-# Test commands
-import /vendor/etc/init/hw/init.mmi.tcmd.rc
-
-# Carrier specific script
-import /vendor/etc/init/carrier/init.${ro.boot.carrier}.rc
-import /vendor/etc/init/carrier/init.default.rc
 
 on early-boot
     write /sys/module/subsystem_restart/parameters/disable_restart_work 0x0
@@ -35,12 +13,6 @@ on early-boot
 on init
     chown system log /proc/driver/mmi_annotate
     chmod 0640 /proc/driver/mmi_annotate
-
-on early-init && property:ro.bootmode=mot-factory
-    setprop ro.vendor.mot.factory true
-
-on early-init && property:ro.vendor.build.motfactory=1
-    setprop ro.vendor.mot.factory true
 
 on early-init
     # Need to wait for platform path for UTAGs driver to succeed
@@ -80,7 +52,6 @@ on early-init
     trigger mmi-priority
 
 on fs
-    insmod /vendor/lib/modules/cci_intf.ko
     mkdir /mnt/vendor/persist/fps 0770 system system
 
 on fs && property:ro.vendor.hw.modem_version=*
@@ -164,31 +135,9 @@ on post-fs-data
     mkdir /data/vendor/dbvc 0750 oem_5004 shell
     chown drmrpc oem_5004 /mnt/vendor/persist/security
 
-    # Setup folder for Pre-Activation Kill Switch app (PAKS)
-    mkdir /mnt/vendor/persist/paks 02770 oem_5004 oem_5004
-
     chown oem_5001 oem_5001 /sys/class/power_supply/battery/cycle_count
     chmod 0664 /sys/class/power_supply/battery/cycle_count
     chmod 0664 /sys/class/power_supply/battery/charge_control_limit
-
-    # Permissions for Factory Test of Charging Paths
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_auto_enable
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_ibatt
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_itrick
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_iusb
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_idc
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_usb_suspend
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_fail_clear
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/device/force_chg_usb_otg_ctl
-
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_auto_enable
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_ibatt
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_itrick
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_iusb
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_idc
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_usb_suspend
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_fail_clear
-    chown oem_5001 oem_5001 /sys/class/power_supply/mmi_battery/device/force_chg_usb_otg_ctl
 
     chown oem_5001 oem_5001 /sys/class/power_supply/wireless/device/chip_id
     chown oem_5001 oem_5001 /sys/class/power_supply/wireless/current_now
@@ -202,22 +151,6 @@ on post-fs-data
     chown oem_5001 oem_5001 /sys/kernel/debug/regulator/smb5-vconn/enable
     chmod 0664 /sys/kernel/debug/regulator/smb5-vconn/enable
 
-    chown root oem_5020 /sys/module/qpnp_smbcharger_mmi/parameters/eb_rechrg_start_soc
-    chown root oem_5020 /sys/module/qpnp_smbcharger_mmi/parameters/eb_rechrg_stop_soc
-    chown root oem_5020 /sys/module/qpnp_smbcharger_mmi/parameters/eb_attach_start_soc
-    chown root oem_5020 /sys/module/qpnp_smbcharger_mmi/parameters/eb_attach_stop_soc
-    chown root oem_5020 /sys/module/qpnp_smbcharger_mmi/parameters/eb_low_start_soc
-    chown root oem_5020 /sys/module/qpnp_smbcharger_mmi/parameters/eb_low_stop_soc
-    chown root oem_5020 /sys/module/qpnp_smbcharger_mmi/parameters/eb_on_sw
-
-    chmod 0664 /sys/module/qpnp_smbcharger_mmi/parameters/eb_rechrg_start_soc
-    chmod 0664 /sys/module/qpnp_smbcharger_mmi/parameters/eb_rechrg_stop_soc
-    chmod 0664 /sys/module/qpnp_smbcharger_mmi/parameters/eb_attach_start_soc
-    chmod 0664 /sys/module/qpnp_smbcharger_mmi/parameters/eb_attach_stop_soc
-    chmod 0664 /sys/module/qpnp_smbcharger_mmi/parameters/eb_low_start_soc
-    chmod 0664 /sys/module/qpnp_smbcharger_mmi/parameters/eb_low_stop_soc
-    chmod 0664 /sys/module/qpnp_smbcharger_mmi/parameters/eb_on_sw
-
     chown root oem_5020 /sys/class/power_supply/usb/usb_priority
     chmod 0660 /sys/class/power_supply/usb/usb_priority
     chown root oem_5020 /sys/module/dwc3_msm/parameters/usb_priority
@@ -225,28 +158,8 @@ on post-fs-data
     chown root oem_5020 /sys/module/usbnet/parameters/force_on
     chmod 0666 /sys/module/usbnet/parameters/force_on
 
-    # Setup folder for native to transfer data to NativeDropBoxAgent
-    mkdir /data/vendor/dropbox-add 0730 log diag
-
-    # Create panic dump dir.
-    mkdir /data/vendor/dontpanic 0750 root log
-
     # Create directory for cutback
     mkdir /data/vendor/misc/cutback 0770 radio wifi
-
-    # Create bug2go folder
-    mkdir /data/vendor/bug2go 0770 log log
-
-    # Subsystem RAM-dumps
-    mkdir /data/vendor/ss-ram-dumps 0750 system log
-    mkdir /data/vendor/ss-ram-dumps/bp-dumps 0750 system log
-    mkdir /data/vendor/ss-ram-dumps/riva-dumps 0750 system log
-
-    # folder for Blueooth ramdump
-    mkdir /data/vendor/bt-ram-dumps 0750 bluetooth log
-
-    # folder for ssrdumps
-    mkdir /data/vendor/ssrdump 0775 root system
 
     #Folder for hardware properties
     mkdir /data/vendor/hardware_revisions 0755 system system
@@ -261,24 +174,12 @@ on post-fs-data
     mkdir /data/vendor/fpc 0700 system system
     mkdir /data/vendor/.fps 0770 system oem_5015
 
-    # Required by touchRec for write the touch data
-    mkdir /data/vendor/touchrec 0770 input input
-    chown input input /data/vendor/touchrec/bootindex
-    chown input input /data/vendor/touchrec/lastbootuuid
-    chown input input /data/vendor/touchrec/touch_data.txt
-    chmod 0664 /data/vendor/touchrec/touch_data.txt
-
 on boot
    # restore default console_loglevel to KERN_DEBUG
    # restore default_message_loglevel to KERN_WARNING
    write /proc/sys/kernel/printk "7 4 1 7"
 
-    # MOTO, NJH348, IKHALFMWK-1864, change system max tcp buffer sizes based on RAT changes
-    # Define system changable TCP buffer max values
-    chown system system /proc/sys/net/core/rmem_max
-    chown system system /proc/sys/net/core/wmem_max
-
- # Change ownership and permission for leds backlight
+   # Change ownership and permission for leds backlight
    chmod 0664 /sys/class/leds/lcd-backlight/brightness
    chown system system /sys/class/leds/charging/brightness
    chmod 0664 /sys/class/leds/charging/brightness
@@ -288,8 +189,6 @@ on boot
    chmod 0664 /sys/class/leds/red/brightness
 
    # Change ownership and permission for vibrator
-   chown system system /sys/class/timed_output/vibrator/enable
-   chmod 0660 /sys/class/timed_output/vibrator/enable
    chown system system /sys/class/leds/vibrator/state
    chmod 0660 /sys/class/leds/vibrator/state
    chown system system /sys/class/leds/vibrator/activate

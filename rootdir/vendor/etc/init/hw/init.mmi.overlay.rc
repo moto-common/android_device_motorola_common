@@ -29,7 +29,3 @@ on property:vendor.hw.fps.ident=goodix
     mkdir /data/vendor/gf_data 0770 system system
     mkdir /mnt/vendor/persist/goodix 0770 system system
 
-on boot
-    chown system system /sys/class/touchscreen/primary/rotate
-    chmod 0660 /sys/class/touchscreen/primary/rotate
-
