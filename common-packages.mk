@@ -45,6 +45,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libfmq
 
+# The following modules are included in debuggable builds only.
+PRODUCT_PACKAGES_DEBUG += \
+    bootctl \
+    update_engine_client
+
 # GFX
 PRODUCT_PACKAGES += \
     libhdmi \
