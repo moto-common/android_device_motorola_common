@@ -147,7 +147,8 @@ PRODUCT_PACKAGES += \
 
 # USB HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service.moto-common
+    android.hardware.usb.gadget-service.moto-common \
+    android.hardware.usb-service.moto-common
 
 # WiFi
 PRODUCT_PACKAGES += \
