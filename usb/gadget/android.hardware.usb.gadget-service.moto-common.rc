@@ -1,0 +1,18 @@
+service vendor.usb-gadget-hal-1-1 /vendor/bin/hw/android.hardware.usb.gadget-service.moto-common
+    class hal
+    user root
+    group root system shell mtp
+
+service init-gadgethal-sh /vendor/bin/init.gadgethal.sh
+    class hal
+    user root
+    disabled
+    oneshot
+
+on boot
+    chown root system /sys/class/typec/port0/power_role
+    chown root system /sys/class/typec/port0/data_role
+    chown root system /sys/class/typec/port0/port_type
+    chmod 664 /sys/class/typec/port0/power_role
+    chmod 664 /sys/class/typec/port0/data_role
+    chmod 664 /sys/class/typec/port0/port_type
