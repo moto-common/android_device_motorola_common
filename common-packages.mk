@@ -21,24 +21,10 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.a2dp.default \
     audio.bluetooth.default \
     audio.hearing_aid.default \
-    audio.r_submix.default \
-    audio.usb.default \
-    libaudio-resampler
-
-# For audio.primary
-PRODUCT_PACKAGES += \
     libtinyalsa \
-    libaudioroute \
     tinymix
-
-# Audio effects
-PRODUCT_PACKAGES += \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libqcompostprocbundle
 
 # Audio deps
 PRODUCT_PACKAGES += \
