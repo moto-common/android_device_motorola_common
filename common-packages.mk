@@ -13,9 +13,8 @@
 # limitations under the License.
 
 # TEMPORARY: These libraries are deprecated, not referenced by any AOSP
-# nor OSS HAL, but are still required by vendor blobs (short term).
-# We don't add a dependency on the vndk variants as those end up in
-# /system but require these in /vendor instead:
+# nor OSS HAL We don't add a dependency on the vndk variants as those
+# end up in /system but require these in /vendor instead:
 PRODUCT_PACKAGES += \
     libhwbinder.vendor \
     libhidltransport.vendor
