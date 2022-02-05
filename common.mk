@@ -105,8 +105,7 @@ PRODUCT_COPY_FILES += \
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/imsrtp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/imsrtp.policy \
-    $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
+    $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/imsrtp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/imsrtp.policy
 
 # Audio Configuration
 PRODUCT_COPY_FILES += \
@@ -140,3 +139,5 @@ $(call inherit-product, device/motorola/common/common-perm.mk)
 $(call inherit-product, device/motorola/common/common-prop.mk)
 $(call inherit-product, device/motorola/common/common-treble.mk)
 $(call inherit-product, vendor/motorola/common/common-vendor.mk)
+include device/qcom/common/common.mk
+

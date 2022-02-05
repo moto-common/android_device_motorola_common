@@ -139,7 +139,11 @@ include $(QCOM_COMMON_PATH)/system/overlay/qti-overlay.mk
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
 include $(QCOM_COMMON_PATH)/vendor/dsprpcd/qti-dsprpcd.mk
 include $(QCOM_COMMON_PATH)/vendor/keymaster/qti-keymaster.mk
+ifneq ($(KERNEL_VERSION),5.4)
 include $(QCOM_COMMON_PATH)/vendor/media/qti-media.mk
+else
+include $(QCOM_COMMON_PATH)/vendor/media/qti-media-legacy.mk
+endif
 include $(QCOM_COMMON_PATH)/vendor/perf/qti-perf.mk
 ifneq ($(KERNEL_VERSION),5.4)
 include $(QCOM_COMMON_PATH)/vendor/qseecomd-legacy/qti-qseecomd-legacy.mk
