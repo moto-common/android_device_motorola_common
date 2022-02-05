@@ -133,6 +133,7 @@ endif
 # Proprietary Blobs
 QCOM_COMMON_PATH := device/qcom/common
 # System
+include $(QCOM_COMMON_PATH)/system/gps/qti-gps.mk
 include $(QCOM_COMMON_PATH)/system/overlay/qti-overlay.mk
 # Vendor
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
