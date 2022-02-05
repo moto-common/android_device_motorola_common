@@ -101,18 +101,9 @@ PRODUCT_PACKAGES += \
     android.hardware.gnss@2.1-impl-qti \
     android.hardware.gnss@2.1-service-qti
 
-ifeq ($(TARGET_VIBRATOR_QTI),true)
 # QTI Haptics Vibrator
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
-else
-# Vibrator
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl \
-    android.hardware.vibrator@1.0-service
-
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.vibrator_v1.0.xml
-endif
 
 # Fingerprint
 PRODUCT_PACKAGES += \

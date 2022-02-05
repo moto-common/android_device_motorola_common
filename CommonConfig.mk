@@ -129,7 +129,8 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 # Device manifest: What HALs the device provides
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest.xml
 # Framework compatibility matrix: What the device(=vendor) expects of the framework(=system)
-DEVICE_MATRIX_FILE   += $(COMMON_PATH)/vintf/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/framework_compatibility_matrix.xml
+DEVICE_MATRIX_FILE += $(COMMON_PATH)/vintf/compatibility_matrix.xml
 
 # New vendor security patch level: https://r.android.com/660840/
 # Used by newer keymaster binaries
