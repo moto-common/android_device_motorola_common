@@ -184,7 +184,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-    bluetooth.profile.asha.central=true
+    bluetooth.profile.asha.central.enabled=true
 
 # Disable Compressed APEX on 4.14 kernel as Android 12 enforces it and our kernel is not compatible (yet)
 ifeq ($(KERNEL_VERSION), 4.14)
