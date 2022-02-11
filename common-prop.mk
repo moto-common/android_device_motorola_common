@@ -185,15 +185,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Set lmkd options
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lmk.low=1001 \
-    ro.lmk.medium=800 \
-    ro.lmk.critical=0 \
-    ro.lmk.critical_upgrade=false \
-    ro.lmk.upgrade_pressure=100 \
-    ro.lmk.downgrade_pressure=100 \
-    ro.lmk.kill_heaviest_task=true \
-    ro.lmk.kill_timeout_ms=100 \
-    ro.lmk.use_minfree_levels=true
+    ro.lmk.thrashing_limit=60 \
+    ro.lmk.swap_free_low_percentage=10 \
+    ro.lmk.psi_partial_stall_ms=50 \
+    ro.lmk.swap_util_max=90 \
+    ro.lmk.pgscan_limit=2000 \
+    ro.lmk.file_low_percentage=20 \
+    ro.lmk.threshold_decay=40
 
 # Property to enable user to access Google WFD settings.
 PRODUCT_PROPERTY_OVERRIDES += \
