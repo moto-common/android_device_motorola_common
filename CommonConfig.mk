@@ -129,3 +129,6 @@ DEVICE_MATRIX_FILE += $(COMMON_PATH)/vintf/compatibility_matrix.xml
 # New vendor security patch level: https://r.android.com/660840/
 # Used by newer keymaster binaries
 VENDOR_SECURITY_PATCH=$(PLATFORM_SECURITY_PATCH)
+
+# Memory
+MALLOC_SVELTE := true
