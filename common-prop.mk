@@ -71,7 +71,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.enableadvancedscan=true \
     persist.vendor.radio.unicode_op_names=true \
     persist.vendor.radio.sib16_support=1 \
-    persist.vendor.radio.oem_socket=true
+    persist.vendor.radio.oem_socket=true \
+    persist.vendor.radio.msgtunnel.start=true
 
 # RemoteFS Storage
 # This property is needed for rmt_storage to look for fsg
