@@ -133,6 +133,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
+# Perf
+TARGET_USES_INTERACTION_BOOST := true
+
 $(call inherit-product, device/motorola/common/common-init.mk)
 $(call inherit-product, device/motorola/common/common-packages.mk)
 $(call inherit-product, device/motorola/common/common-perm.mk)
