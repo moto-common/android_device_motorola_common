@@ -2,39 +2,10 @@
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
-# Composer
-# Everything prior to kernel 4.19 uses the sm8150 display HALs
-ifeq ($(filter 4.14, $(KERNEL_VERSION)),)
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.display.composer-service
-else
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.4-service
-endif
-
 # Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator@3.0.vendor \
     vendor.qti.hardware.display.mapper@2.0.vendor
-
-# Linked by Perf HAL
-PRODUCT_PACKAGES += \
-    vendor.display.config@1.0.vendor
-
-# Graphics allocator/mapper
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@3.0-impl-qti-display \
-    android.hardware.graphics.mapper@4.0-impl-qti-display
-
-# TODO Verify Gralloc4
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.display.allocator-service
-
-# Memtrack
-PRODUCT_PACKAGES += \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    memtrack.default
 
 # Configstore
 ifeq ($(filter 4.14, $(KERNEL_VERSION)),)
@@ -141,6 +112,7 @@ include $(QCOM_COMMON_PATH)/system/overlay/qti-overlay.mk
 include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
 # Vendor
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
+include $(QCOM_COMMON_PATH)/vendor/charging/qti-charging.mk
 include $(QCOM_COMMON_PATH)/vendor/dsprpcd/qti-dsprpcd.mk
 include $(QCOM_COMMON_PATH)/vendor/keymaster/qti-keymaster.mk
 ifeq ($(KERNEL_VERSION),5.4)

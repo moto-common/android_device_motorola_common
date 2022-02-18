@@ -37,9 +37,7 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # GFX
 PRODUCT_PACKAGES += \
-    libhdmi \
-    libqdutils \
-    libqdMetaData
+    libhdmi
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -91,10 +89,6 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     wpa_supplicant \
     wpa_supplicant.conf \
-    libwpa_client
-
-# Camera
-#PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_PACKAGES += \
@@ -104,10 +98,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
-
-# Carrier configuration
-PRODUCT_PACKAGES += \
-    CarrierConfig
 
 # QCOM Data
 PRODUCT_PACKAGES += \
@@ -157,7 +147,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Launcher3QuickStep \
     libion \
-    libjson \
     libxml2 \
 
 # External exFat tools
