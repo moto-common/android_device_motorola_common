@@ -45,3 +45,4 @@ readlinkat: 1
 fstatfs: 1
 pread64: 1
 mremap: 1
+madvise: 1
