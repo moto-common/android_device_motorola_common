@@ -1,5 +1,6 @@
 ## Copyrights
 Copyright (C) LineageOS Modded Project/Electimon 2022
+
 Copyright (C) Sony Mobile Communications 2014
 
 ## Description
