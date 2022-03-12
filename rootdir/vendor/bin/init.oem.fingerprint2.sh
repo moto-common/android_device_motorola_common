@@ -22,6 +22,9 @@ function set_permissions() {
     elif [ $fps_id == "fpc" ]
     then
         chown system:system /sys/class/fingerprint/fpc1020/irq
+    else
+        chmod 0660 /dev/esfp0
+        chown system:system /dev/esfp0
     fi
 }
 
@@ -55,6 +58,8 @@ function start_fpsensor() {
     else
         insmod /vendor/lib/modules/ets_fps_mmi.ko
         sleep 0.6
+        set_permissions
+        sleep 0.4
         start ets_hal
         sleep 1
         value=`getprop $prop_fps_status`
