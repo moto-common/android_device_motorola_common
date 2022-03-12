@@ -70,10 +70,6 @@ PRODUCT_PACKAGES += \
 
 # IMS (OSS)
 PRODUCT_PACKAGES += \
-    qti-telephony-hidl-wrapper \
-    qti_telephony_hidl_wrapper.xml \
-    qti-telephony-utils \
-    qti_telephony_utils.xml \
     telephony-ext \
     ims-ext-common \
     ims_ext_common.xml
@@ -114,13 +110,11 @@ PRODUCT_PACKAGES += \
     moto-telephony \
     qcrilhook \
     qti-telephony-hidl-wrapper \
+    qti-telephony-hidl-wrapper-prd \
     qti_telephony_hidl_wrapper.xml \
+    qti_telephony_hidl_wrapper_prd.xml \
     qti-telephony-utils \
     qti_telephony_utils.xml
-
-PRODUCT_BOOT_JARS += \
-    ims-moto-libs \
-    qcrilhook
 
 # MotoActions
 PRODUCT_PACKAGES += \
