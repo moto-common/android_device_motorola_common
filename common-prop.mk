@@ -226,6 +226,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.crypto.scrypt_params=15:3:1
 
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.camera.expose.aux=1
+
 # Disable Compressed APEX on 4.14 kernel as Android 12 enforces it and our kernel is not compatible (yet)
 ifeq ($(KERNEL_VERSION), 4.14)
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
