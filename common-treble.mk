@@ -90,6 +90,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.qti
 
+# Lights HAL
+PRODUCT_PACKAGES += \
+    android.hardware.lights-service.moto
+
 # Power HAL
 $(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
 
