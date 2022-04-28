@@ -115,72 +115,19 @@ ScopedAStatus Usb::enableUsbData(const string& in_portName, bool in_enable,
     return ScopedAStatus::ok();
 }
 
-ScopedAStatus Usb::enableUsbDataWhileDocked(const string& in_portName,
+// TODO: remove enableUsbDataWhileDocked() and add back later if ready
+/*ScopedAStatus Usb::enableUsbDataWhileDocked(const string& in_portName,
         int64_t in_transactionId) {
-    std::vector<PortStatus> currentPortStatus;
+}*/
 
-    ALOGI("Userspace enableUsbDataWhileDocked  opID:%ld", in_transactionId);
+// TODO: remove resetUsbPort() and add back later if ready
+/*ScopedAStatus Usb::resetUsbPort(const std::string& in_portName, int64_t in_transactionId) {
+}*/
 
-    pthread_mutex_lock(&mLock);
-    if (mCallback != NULL) {
-        ScopedAStatus ret = mCallback->notifyEnableUsbDataWhileDockedStatus(
-                in_portName, Status::NOT_SUPPORTED, in_transactionId);
-        if (!ret.isOk())
-            ALOGE("notifyEnableUsbDataStatus error %s", ret.getDescription().c_str());
-    } else {
-        ALOGE("Not notifying the userspace. Callback is not set");
-    }
-    pthread_mutex_unlock(&mLock);
-    queryVersionHelper(this, &currentPortStatus);
-
-    return ScopedAStatus::ok();
-}
-
-ScopedAStatus Usb::resetUsbPort(const std::string& in_portName, int64_t in_transactionId) {
-    bool result = true;
-    std::vector<PortStatus> currentPortStatus;
-
-    ALOGI("Userspace reset USB Port. opID:%ld", in_transactionId);
-
-    if (!WriteStringToFile("none", PULLUP_PATH)) {
-        ALOGI("Gadget cannot be pulled down");
-        result = false;
-    }
-
-    pthread_mutex_lock(&mLock);
-    if (mCallback != NULL) {
-        ::ndk::ScopedAStatus ret = mCallback->notifyResetUsbPortStatus(
-            in_portName, result ? Status::SUCCESS : Status::ERROR, in_transactionId);
-        if (!ret.isOk())
-            ALOGE("notifyTransactionStatus error %s", ret.getDescription().c_str());
-    } else {
-        ALOGE("Not notifying the userspace. Callback is not set");
-    }
-    pthread_mutex_unlock(&mLock);
-
-    return ::ndk::ScopedAStatus::ok();
-}
-
-ScopedAStatus Usb::limitPowerTransfer(const string& in_portName, bool in_limit,
+// TODO: remove limitPowerTransfer() and add back later if ready
+/*ScopedAStatus Usb::limitPowerTransfer(const string& in_portName, bool in_limit,
         int64_t in_transactionId) {
-    std::vector<PortStatus> currentPortStatus;
-
-    ALOGI("limitPowerTransfer limit:%c opId:%ld", in_limit ? 'y' : 'n', in_transactionId);
-    pthread_mutex_lock(&mLock);
-    if (mCallback != NULL && in_transactionId >= 0) {
-        ScopedAStatus ret = mCallback->notifyLimitPowerTransferStatus(
-                in_portName, in_limit, Status::NOT_SUPPORTED, in_transactionId);
-        if (!ret.isOk())
-            ALOGE("limitPowerTransfer error %s", ret.getDescription().c_str());
-    } else {
-        ALOGE("Not notifying the userspace. Callback is not set");
-    }
-
-    pthread_mutex_unlock(&mLock);
-    queryVersionHelper(this, &currentPortStatus);
-
-    return ScopedAStatus::ok();
-}
+}*/
 
 Status queryMoistureDetectionStatus(std::vector<PortStatus> *currentPortStatus) {
     string enabled, status, path, DetectedPath;
@@ -583,13 +530,7 @@ Status getPortStatusHelper(android::hardware::usb::Usb *usb,
                 port.second ? canSwitchRoleHelper(port.first) : false;
 
             (*currentPortStatus)[i].supportedModes.push_back(PortMode::DRP);
-
-            if (!usb->mUsbDataEnabled) {
-                (*currentPortStatus)[i].usbDataStatus.push_back(UsbDataStatus::DISABLED_FORCE);
-            } else {
-                (*currentPortStatus)[i].usbDataStatus.push_back(UsbDataStatus::ENABLED);
-            }
-	    (*currentPortStatus)[i].powerBrickStatus = PowerBrickStatus::UNKNOWN;
+	    (*currentPortStatus)[i].usbDataEnabled = usb->mUsbDataEnabled; //temporary
 
             ALOGI("%d:%s connected:%d canChangeMode:%d canChagedata:%d canChangePower:%d "
                 "usbDataEnabled:%d",
