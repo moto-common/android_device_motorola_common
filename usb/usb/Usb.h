@@ -49,6 +49,11 @@ constexpr char kGadgetName[] = "a600000.dwc3";
 #define USB_DATA_PATH SOC_PATH "usb_data_enabled"
 #define VBUS_PATH SOC_PATH "b_sess"
 
+#define USB_POWER_LIMIT_PATH "/sys/devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-02/c440000.qcom,spmi:qcom,pm7250b@2:qcom,usb-pdphy@1700/usbpd0/"
+#define SINK_CURRENT_LIMIT_PATH USB_POWER_LIMIT_PATH "usb_limit_sink_current"
+#define SINK_LIMIT_ENABLE_PATH USB_POWER_LIMIT_PATH "usb_limit_sink_enable"
+#define SOURCE_LIMIT_ENABLE_PATH USB_POWER_LIMIT_PATH "usb_limit_source_enable"
+
 struct Usb : public BnUsb {
     Usb();
 
@@ -60,6 +65,11 @@ struct Usb : public BnUsb {
             int64_t in_transactionId) override;
     ScopedAStatus enableUsbData(const string& in_portName, bool in_enable,
             int64_t in_transactionId) override;
+    ScopedAStatus enableUsbDataWhileDocked(const string& in_portName,
+            int64_t in_transactionId) override;
+    ScopedAStatus limitPowerTransfer(const string& in_portName, bool in_limit,
+            int64_t in_transactionId) override;
+    ScopedAStatus resetUsbPort(const string& in_portName, int64_t in_transactionId) override;
 
     std::shared_ptr<::aidl::android::hardware::usb::IUsbCallback> mCallback;
     // Protects mCallback variable
