@@ -117,6 +117,7 @@ include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
 # Vendor
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
 include $(QCOM_COMMON_PATH)/vendor/charging/qti-charging.mk
+include $(QCOM_COMMON_PATH)/vendor/drm/qti-drm.mk
 include $(QCOM_COMMON_PATH)/vendor/dsprpcd/qti-dsprpcd.mk
 include $(QCOM_COMMON_PATH)/vendor/keymaster/qti-keymaster.mk
 ifeq ($(KERNEL_VERSION),5.4)
