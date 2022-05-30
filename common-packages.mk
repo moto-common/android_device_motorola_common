@@ -49,25 +49,6 @@ PRODUCT_PACKAGES += \
     libOmxVdecHevc \
     libOmxVenc
 
-# GPS
-PRODUCT_PACKAGES += \
-    flp.conf \
-    gnss@2.0-base.policy \
-    gnss@2.0-xtra-daemon.policy \
-    gnss@2.0-xtwifi-client.policy \
-    gnss@2.0-xtwifi-inet-agent.policy \
-    gnss_antenna_info.conf \
-    gps.conf \
-    libbatching \
-    libgeofencing \
-    libgnss
-
-# Location
-PRODUCT_PACKAGES += \
-    libloc_api_v02 \
-    libgnsspps \
-    libsynergy_loc_api
-
 # IMS (OSS)
 PRODUCT_PACKAGES += \
     telephony-ext \
