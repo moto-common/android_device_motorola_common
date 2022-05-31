@@ -99,6 +99,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.lights-service.moto
 
+# FM
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.fm@1.0 \
+    vendor.qti.hardware.fm@1.0.vendor
+
 # Power HAL
 $(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
 

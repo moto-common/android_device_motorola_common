@@ -138,3 +138,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0.vendor
+
+# FM
+PRODUCT_PACKAGES += \
+    FM2 \
+    libfm-hci \
+    libqcomfm_jni \
+    fm_helium \
+    qcom.fmradio
