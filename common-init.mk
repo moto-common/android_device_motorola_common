@@ -15,11 +15,17 @@
 # Common init scripts
 PRODUCT_PACKAGES += \
     init.class_main.sh \
+    init.mmi.charge_only.rc \
+    init.mmi.chipset.rc \
+    init.mmi.overlay.rc \
     init.mmi.touch.sh \
     init.mmi.usb.sh \
     init.mmi.rc \
+    init.oem.fingerprint2.sh \
     init.oem.hw.sh \
     init.qcom.ipastart.sh \
     init.qcom.rc \
     init.qti.kernel.rc \
-    init.qti.kernel.sh
+    init.qti.kernel.sh \
+    init.target.rc \
+    vendor_modprobe.sh

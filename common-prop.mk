@@ -21,15 +21,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.qmi.adb_logmask=0
 
-# Common property setup DS or SS devices.
-ifeq ($(PRODUCT_DEVICE_DS),true)
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.radio.multisim.config=dsds
-else
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.default_network=9
-endif
-
 # System props for the data modules
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.use_data_netmgrd=true \
@@ -111,10 +102,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.thumbnail.prefer_hw_codecs=true
 
-# Delay reduction
-PRODUCT_PROPERTY_OVERRIDES += \
-    sdm.debug.rotator_downscale=1
-
 # DRM service
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
@@ -125,8 +112,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
-    fmas.hdph_sgain=0 \
-    media.aac_51_output_enabled=true \
     ro.config.media_vol_steps=25 \
     ro.config.vc_call_vol_steps=7
 
@@ -136,48 +121,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicecomm=true \
     persist.vendor.audio.fluence.voicerec=false \
-    ro.vendor.audio.sdk.fluencetype=fluence \
-    vendor.audio_hal.in_period_size=144 \
-    vendor.audio_hal.period_multiplier=3 \
-    vendor.audio_hal.period_size=192 \
-    vendor.audio.offload.gapless.enabled=true \
-    vendor.audio.offload.passthrough=false \
-    vendor.audio.volume.headset.gain.depcal=true
-
-# Audio Features
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.audio.feature.afe_proxy.enable=true \
-    vendor.audio.feature.anc_headset.enable=true \
-    vendor.audio.feature.audiozoom.enable=false \
-    vendor.audio.feature.battery_listener.enable=false \
-    vendor.audio.feature.compr_cap.enable=false \
-    vendor.audio.feature.compress_meta_data.enable=true \
-    vendor.audio.feature.deepbuffer_as_primary.enable=false \
-    vendor.audio.feature.dsm_feedback.enable=false \
-    vendor.audio.feature.ext_hw_plugin.enable=false \
-    vendor.audio.feature.external_dsp.enable=false \
-    vendor.audio.feature.external_speaker_tfa.enable=false \
-    vendor.audio.feature.external_speaker.enable=false \
-    vendor.audio.feature.fluence.enable=true \
-    vendor.audio.feature.fm.enable=true \
-    vendor.audio.feature.hfp.enable=true \
-    vendor.audio.feature.hifi_audio.enable=false \
-    vendor.audio.feature.hwdep_cal.enable=false \
-    vendor.audio.feature.incall_music.enable=false \
-    vendor.audio.feature.keep_alive.enable=false \
-    vendor.audio.feature.maxx_audio.enable=false \
-    vendor.audio.feature.multi_voice_session.enable=true \
-    vendor.audio.feature.ras.enable=true \
-    vendor.audio.feature.record_play_concurency.enable=false \
-    vendor.audio.feature.snd_mon.enable=true \
-    vendor.audio.feature.spkr_prot.enable=true \
-    vendor.audio.feature.src_trkn.enable=true \
-    vendor.audio.feature.ssrec.enable=true \
-    vendor.audio.feature.usb_offload_burst_mode.enable=false \
-    vendor.audio.feature.usb_offload_sidetone_volume.enable=false \
-    vendor.audio.feature.usb_offload.enable=true \
-    vendor.audio.feature.vbat.enable=true \
-    vendor.audio.feature.wsa.enable=false
+    ro.vendor.audio.sdk.fluencetype=fluence
 
 # Enable stats logging in LMKD
 TARGET_LMKD_STATS_LOG := true

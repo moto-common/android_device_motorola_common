@@ -22,7 +22,6 @@ PRODUCT_PACKAGES += \
 # Audio
 PRODUCT_PACKAGES += \
     audio.bluetooth.default \
-    audio.hearing_aid.default \
     libtinyalsa \
     tinymix
 
@@ -35,37 +34,11 @@ PRODUCT_PACKAGES_DEBUG += \
     bootctl \
     update_engine_client
 
-# GFX
-PRODUCT_PACKAGES += \
-    libhdmi
-
-# OMX
-PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libstagefrighthw \
-    libOmxCore \
-    libmm-omxcore \
-    libOmxVdec \
-    libOmxVdecHevc \
-    libOmxVenc
-
 # IMS (OSS)
 PRODUCT_PACKAGES += \
     telephony-ext \
     ims-ext-common \
     ims_ext_common.xml
-
-# IPA
-PRODUCT_PACKAGES += \
-    IPACM_cfg.xml \
-    ipacm
-
-# WLAN
-PRODUCT_PACKAGES += \
-    hostapd \
-    libwpa_client \
-    wpa_supplicant \
-    wpa_supplicant.conf \
 
 # Media
 PRODUCT_PACKAGES += \
@@ -106,28 +79,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat
 
-# RenderScript
-PRODUCT_PACKAGES += \
-    librsjni
-
-# libRSDriver_adreno dependency
-PRODUCT_PACKAGES += \
-    libLLVM
-
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
 
 # AOSP Packages
 PRODUCT_PACKAGES += \
-    Launcher3QuickStep \
     libion \
     libxml2 \
-
-# External exFat tools
-PRODUCT_PACKAGES += \
-    mkfs.exfat \
-    fsck.exfat
 
 # For config.fs
 PRODUCT_PACKAGES += \

@@ -1,7 +1,3 @@
-# RenderScript HAL
-PRODUCT_PACKAGES += \
-    android.hardware.renderscript@1.0-impl
-
 # Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator@3.0.vendor \
@@ -145,4 +141,5 @@ include $(QCOM_COMMON_PATH)/vendor/usb/qti-usb.mk
 include $(QCOM_COMMON_PATH)/vendor/wlan/qti-wlan.mk
 
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/qcom/common/vendor/dsprpcd
+    vendor/qcom/common/vendor/dsprpcd \
+    vendor/qcom/common/vendor/perf
