@@ -4,14 +4,8 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.mapper@2.0.vendor
 
 # Configstore
-ifeq ($(filter 4.14, $(KERNEL_VERSION)),)
 PRODUCT_PACKAGES += \
     disable_configstore
-else
-PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.1-service
-DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.configstore_v1.1.xml
-endif
 
 # RIL
 # Interface library needed by vendor blobs:
