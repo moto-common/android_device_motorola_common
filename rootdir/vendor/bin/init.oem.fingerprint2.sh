@@ -28,10 +28,14 @@ function set_permissions() {
     fi
 }
 
+function load_module() {
+    modprobe -a -d /vendor/lib/modules $1
+}
+
 function start_fpsensor() {
     if [ $fps_id == "chipone" ]
     then
-        insmod /vendor/lib/modules/fpsensor_spi_tee.ko
+        load_module fpsensor_spi_tee.ko
         sleep 0.6
         set_permissions
         sleep 0.4
@@ -44,11 +48,11 @@ function start_fpsensor() {
         fi
     elif [ $fps_id == "fpc" ]
     then
-        insmod /vendor/lib/modules/fpc1020_mmi.ko
+        load_module fpc1020_mmi.ko
         sleep 0.6
         set_permissions
         sleep 0.4
-        start fps_hal
+        start vendor.fps_hal
         sleep 1
         value=`getprop $prop_fps_status`
         if [ $value == "ok" ];
@@ -56,11 +60,11 @@ function start_fpsensor() {
             setprop $prop_persist_fps $fps_id
         fi
     else
-        insmod /vendor/lib/modules/ets_fps_mmi.ko
+        load_module ets_fps_mmi.ko
         sleep 0.6
         set_permissions
         sleep 0.4
-        start ets_hal
+        start vendor.ets_hal
         sleep 1
         value=`getprop $prop_fps_status`
         if [ $value == "ok" ];
