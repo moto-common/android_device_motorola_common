@@ -1,1 +1,6 @@
+# Partitions
+type vendor_hw_block_device, dev_type;
+type vendor_utags_block_device, dev_type;
+
+# Thermal
 type thermal_device, dev_type;

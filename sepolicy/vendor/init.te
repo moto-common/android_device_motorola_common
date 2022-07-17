@@ -1,0 +1,7 @@
+# FSG mounting
+allow vendor_fsg_file self:filesystem associate;
+allow init vendor_fsg_file:dir mounton;
+allow init vendor_fsg_file:filesystem { getattr mount relabelfrom unmount };
+
+# Product persist mounting
+allow init mnt_product_file:dir mounton;

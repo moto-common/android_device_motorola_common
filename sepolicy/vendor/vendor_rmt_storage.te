@@ -1,0 +1,8 @@
+get_prop(vendor_rmt_storage, vendor_radio_prop)
+
+allow vendor_rmt_storage { mnt_vendor_file vendor_persist_rfs_file }:dir search;
+allow vendor_rmt_storage vendor_persist_rfs_file:file rw_file_perms;
+
+# FSG
+allow vendor_rmt_storage vendor_fsg_file:dir r_dir_perms;
+allow vendor_rmt_storage vendor_fsg_file:file r_file_perms;

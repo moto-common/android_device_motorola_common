@@ -1,3 +1,16 @@
+# Camera
+/data/vendor/misc/imager u:object_r:vendor_camera_data_file:s0
+/mnt/vendor/persist/camera(/.*)? u:object_r:vendor_persist_camera_file:s0
+
+# Expat
+/vendor/bin/expat u:object_r:vendor_expat_exec:s0
+
+# Fingerprint
+/(mnt/vendor/persist|persist)/fps(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
+
+# FSG
+/vendor/fsg u:object_r:vendor_fsg_file:s0
+
 # Init Scripts
 /vendor/bin/init\.mmi\.touch\.sh u:object_r:vendor_moto_init_shell_exec:s0
 /vendor/bin/init\.mmi\.usb\.sh u:object_r:vendor_moto_init_shell_exec:s0
@@ -7,8 +20,23 @@
 # Lights
 /vendor/bin/hw/android\.hardware\.lights-service\.moto u:object_r:hal_light_default_exec:s0
 
+# Partitions
+/dev/block/platform/soc/4744000\.sdhci/by-name/fsg_[ab] u:object_r:vendor_modem_efs_partition_device:s0
+/dev/block/platform/soc/4744000\.sdhci/by-name/hw u:object_r:vendor_hw_block_device:s0
+/dev/block/platform/soc/4744000\.sdhci/by-name/utags u:object_r:vendor_utags_block_device:s0
+/dev/block/platform/soc/4744000\.sdhci/by-name/utagsBackup u:object_r:vendor_utags_block_device:s0
+
+# RILD Cutback
+/data/vendor/misc/cutback(/.*)? u:object_r:cutback_data_file:s0
+#/dev/socket/cutback u:object_r:cutback_socket:s0
+
 # Rootfs
 /persist u:object_r:rootfs:s0
 
 # Thermal
 /dev/mmi_sys_temp u:object_r:thermal_device:s0
+
+# Wakeups
+/sys/devices/virtual/input/input[0-9]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc/[^*]+/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
+/sys/devices/virtual/misc/[^*]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0

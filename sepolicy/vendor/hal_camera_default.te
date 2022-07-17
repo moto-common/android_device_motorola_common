@@ -1,0 +1,5 @@
+# /mnt/vendor/persist/camera
+r_dir_file(hal_camera_default, vendor_persist_camera_file)
+allow hal_camera_default vendor_sysfs_camera:dir r_dir_perms;
+allow hal_camera_default vendor_sysfs_camera:file r_file_perms;
+

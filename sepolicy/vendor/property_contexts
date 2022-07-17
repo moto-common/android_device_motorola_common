@@ -1,0 +1,8 @@
+# FPS
+vendor.hw.fingerprint.status u:object_r:vendor_mot_prop:s0
+
+# Motorola
+vendor.hw.touch.status u:object_r:vendor_mot_prop:s0
+
+# SKU
+ro.boot.product.vendor.sku u:object_r:vendor_sku_prop:s0

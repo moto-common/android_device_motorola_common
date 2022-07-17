@@ -1,0 +1,8 @@
+# Fingerprint
+#type vendor_ctl_fps_prop, property_type;
+
+# Motorola
+vendor_internal_prop(vendor_mot_prop);
+
+# SKU prop
+vendor_internal_prop(vendor_sku_prop);

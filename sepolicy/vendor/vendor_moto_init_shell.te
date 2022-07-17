@@ -1,4 +1,38 @@
+# Domain
 type vendor_moto_init_shell, domain;
 type vendor_moto_init_shell_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(vendor_moto_init_shell)
+
+# Permissions
+# Chown
+allow vendor_moto_init_shell self:capability chown;
+# Exec
+allow vendor_moto_init_shell { vendor_toolbox_exec vendor_expat_exec vendor_shell_exec }:file rx_file_perms;
+
+# /mnt/vendor/persist/fps access
+allow vendor_moto_init_shell vendor_persist_fingerprint_file:file rw_file_perms;
+
+# /proc/hw RW access
+allow vendor_moto_init_shell vendor_proc_hw:dir r_dir_perms;
+allow vendor_moto_init_shell vendor_proc_hw:file rw_file_perms;
+
+# /sys/class/fingerprint chown access
+allow vendor_moto_init_shell vendor_sysfs_fingerprint:dir r_dir_perms;
+allow vendor_moto_init_shell vendor_sysfs_fingerprint:file { getattr setattr };
+
+# /sys/class/touchscreen access
+r_dir_file(vendor_moto_init_shell, vendor_sysfs_touchpanel)
+allow vendor_moto_init_shell vendor_sysfs_touchpanel:file { write setattr };
+
+# Properties
+set_prop(vendor_moto_init_shell, vendor_mot_prop)
+set_prop(vendor_moto_init_shell, vendor_usb_prop)
+
+# KMod
+allow vendor_moto_init_shell self:capability sys_module;
+allow vendor_moto_init_shell vendor_file:system module_load;
+
+# Start FPS HALs
+#set_prop(vendor_moto_init_shell, vendor_ctl_fps_prop)
+allow vendor_moto_init_shell ctl_start_prop:property_service set;
