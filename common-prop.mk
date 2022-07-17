@@ -174,6 +174,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.camera.expose.aux=1
 
+# One Handed-Mode
+PRODUCT_PRODUCT_OVERRIDES += \
+    ro.support_one_handed_mode=true
+
 # Disable Compressed APEX on 4.14 kernel as Android 12 enforces it and our kernel is not compatible (yet)
 ifeq ($(KERNEL_VERSION), 4.14)
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
