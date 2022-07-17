@@ -6,6 +6,7 @@
 /vendor/bin/expat u:object_r:vendor_expat_exec:s0
 
 # Fingerprint
+/dev/esfp0 u:object_r:tee_device:s0
 /(mnt/vendor/persist|persist)/fps(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
 
 # FSG

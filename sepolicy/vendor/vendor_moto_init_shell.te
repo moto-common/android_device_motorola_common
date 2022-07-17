@@ -36,3 +36,6 @@ allow vendor_moto_init_shell vendor_file:system module_load;
 # Start FPS HALs
 #set_prop(vendor_moto_init_shell, vendor_ctl_fps_prop)
 allow vendor_moto_init_shell ctl_start_prop:property_service set;
+
+# /dev/esfp0
+allow vendor_moto_init_shell tee_device:chr_file { getattr setattr };
