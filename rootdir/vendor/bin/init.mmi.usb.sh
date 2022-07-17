@@ -37,13 +37,13 @@ dbg_on=0
 log_dbg()
 {
 	echo "${0##*/}: $*"
-	[ $dbg_on ] && echo "${0##*/}: $*" > /dev/kmsg
+	[ $dbg_on ] && log -t "${0##*/}" -p d "$*"
 }
 
 log_info()
 {
 	echo "${0##*/}: $*"
-	echo "${0##*/}: $*" > /dev/kmsg
+	log -t "${0##*/}" -p i "$*"
 }
 
 target=`getprop ro.board.platform`
@@ -312,9 +312,8 @@ bootmode=`getprop ro.bootmode`
 buildtype=`getprop ro.build.type`
 securehw=`getprop ro.boot.secure_hardware`
 cid=`getprop ro.vendor.boot.cid`
-diagmode=`getprop persist.vendor.radio.usbdiag`
 
-log_info "mmi-usb-sh: persist usb configs = \"$usb_config\", \"$mot_usb_config\", \"$diagmode\""
+log_info "mmi-usb-sh: persist usb configs = \"$usb_config\", \"$mot_usb_config\""
 
 
 phonelock_type=`getprop persist.sys.phonelock.mode`
@@ -336,32 +335,6 @@ then
         esac
     fi
 fi
-
-# ##DIAG# mode option
-case "$diagmode" in
-    "1" )
-        case "$usb_config" in
-            "$bpt_usb_config" | "$bpt_adb_usb_config" )
-            ;;
-            * )
-		case "$securehw" in
-		    "1" )
-			setprop persist.vendor.usb.config $bpt_usb_config
-		    ;;
-		    *)
-			setprop persist.vendor.usb.config $bpt_adb_usb_config
-                    ;;
-                esac
-            ;;
-        esac
-        exit 0
-    ;;
-    * )
-        # Do nothing. USB enumeration will be set by bootmode
-    ;;
-esac
-
-
 
 case "$bootmode" in
     "bp-tools" )
