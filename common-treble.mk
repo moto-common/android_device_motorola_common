@@ -113,7 +113,9 @@ include $(QCOM_COMMON_PATH)/system/av/qti-av.mk
 include $(QCOM_COMMON_PATH)/system/display/qti-display.mk
 include $(QCOM_COMMON_PATH)/system/gps/qti-gps.mk
 include $(QCOM_COMMON_PATH)/system/overlay/qti-overlay.mk
+ifneq ($(BOARD_USES_PIXEL_POWER_HAL),true)
 include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
+endif
 # Vendor
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
 include $(QCOM_COMMON_PATH)/vendor/charging/qti-charging.mk
@@ -125,7 +127,9 @@ include $(QCOM_COMMON_PATH)/vendor/media/qti-media.mk
 else
 include $(QCOM_COMMON_PATH)/vendor/media-legacy/qti-media-legacy.mk
 endif
+ifneq ($(BOARD_USES_PIXEL_POWER_HAL),true)
 include $(QCOM_COMMON_PATH)/vendor/perf/qti-perf.mk
+endif
 ifneq ($(KERNEL_VERSION),5.4)
 include $(QCOM_COMMON_PATH)/vendor/qseecomd-legacy/qti-qseecomd-legacy.mk
 else
