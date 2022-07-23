@@ -105,7 +105,7 @@ endif
 # USB HAL
 ifeq ($(PRODUCT_USES_PIXEL_USB_HAL),true)
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.2-service.moto-common
+    android.hardware.usb@1.3-service.moto-common
 else
 include $(QCOM_COMMON_PATH)/vendor/usb/qti-usb.mk
 endif
