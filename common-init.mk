@@ -31,6 +31,7 @@ PRODUCT_PACKAGES += \
 
 ifeq ($(PRODUCT_USES_PIXEL_USB_HAL),true)
 PRODUCT_PACKAGES += \
+    init.gadgethal.sh \
     init.usb.rc
 else
 PRODUCT_PACKAGES += \

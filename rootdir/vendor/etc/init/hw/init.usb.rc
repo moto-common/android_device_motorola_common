@@ -49,7 +49,7 @@ on early-boot
     mount functionfs mtp /dev/usb-ffs/mtp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
     mount functionfs ptp /dev/usb-ffs/ptp rmode=0770,fmode=0660,uid=1024,gid=1024,no_disconnect=1
     setprop sys.usb.mtp.device_type 3
-    setprop sys.usb.controller "a600000.dwc3"
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
     symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
     write /sys/module/libcomposite/parameters/disable_l1_for_hs "y"
     write /config/usb_gadget/g1/functions/gsi.rndis/rndis_class_id 1

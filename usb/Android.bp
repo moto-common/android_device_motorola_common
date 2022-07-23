@@ -17,15 +17,15 @@ soong_config_module_type {
     name: "moto_common_usb_hal",
     module_type: "cc_defaults",
     config_namespace: "MOTO_COMMON_USB",
-    value_variables: ["USB_GADGET_NAME"],
+    value_variables: ["USB_CONTROLLER_NAME"],
     properties: ["cppflags"],
 }
 
 moto_common_usb_hal {
     name: "moto_common_usb_hal_cc_defaults",
     soong_config_variables: {
-        USB_GADGET_NAME: {
-            cppflags: ["-DUSB_GADGET_NAME=\"%s\""],
+        USB_CONTROLLER_NAME: {
+            cppflags: ["-DUSB_CONTROLLER_NAME=\"%s\""],
         },
     },
 }

@@ -65,8 +65,8 @@ enum class HALVersion{
     V1_3
 };
 
-constexpr char kGadgetName[] = "a600000.dwc3";
-#define SOC_PATH "/sys/devices/platform/soc/a600000.ssusb/"
+#define kGadgetName USB_CONTROLLER_NAME ".dwc3"
+#define SOC_PATH "/sys/devices/platform/soc/" USB_CONTROLLER_NAME ".ssusb/"
 #define ID_PATH SOC_PATH "id"
 #define VBUS_PATH SOC_PATH "b_sess"
 #define USB_DATA_PATH SOC_PATH "usb_data_enabled"

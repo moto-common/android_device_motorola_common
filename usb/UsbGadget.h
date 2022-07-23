@@ -65,7 +65,7 @@ using ::android::hardware::usb::gadget::V1_0::Status;
 using ::android::hardware::usb::gadget::V1_1::IUsbGadget;
 using ::std::string;
 
-static MonitorFfs monitorFfs(USB_GADGET_NAME);
+static MonitorFfs monitorFfs(USB_CONTROLLER_NAME ".dwc3");
 
 struct UsbGadget : public IUsbGadget {
     UsbGadget();
