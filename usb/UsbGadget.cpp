@@ -191,7 +191,7 @@ Return<Status> UsbGadget::reset() {
 
     usleep(kDisconnectWaitUs);
 
-    if (!WriteStringToFile(kGadgetName, PULLUP_PATH)) {
+    if (!WriteStringToFile(USB_GADGET_NAME, PULLUP_PATH)) {
         ALOGI("Gadget cannot be pulled up");
         return Status::ERROR;
     }
@@ -218,7 +218,7 @@ V1_0::Status UsbGadget::setupFunctions(uint64_t functions,
 
     // Pull up the gadget right away when there are no ffs functions.
     if (!ffsEnabled) {
-        if (!WriteStringToFile(kGadgetName, PULLUP_PATH))
+        if (!WriteStringToFile(USB_GADGET_NAME, PULLUP_PATH))
             return Status::ERROR;
         mCurrentUsbFunctionsApplied = true;
         if (callback)

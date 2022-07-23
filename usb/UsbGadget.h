@@ -65,8 +65,7 @@ using ::android::hardware::usb::gadget::V1_0::Status;
 using ::android::hardware::usb::gadget::V1_1::IUsbGadget;
 using ::std::string;
 
-constexpr char kGadgetName[] = "a600000.dwc3";
-static MonitorFfs monitorFfs(kGadgetName);
+static MonitorFfs monitorFfs(USB_GADGET_NAME);
 
 struct UsbGadget : public IUsbGadget {
     UsbGadget();
