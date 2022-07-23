@@ -28,7 +28,7 @@
 /dev/block/platform/soc/4744000\.sdhci/by-name/utagsBackup u:object_r:vendor_utags_block_device:s0
 
 # Power
-/vendor/bin/hw/android\.hardware\.power@1\.2-service\.moto-common u:object_r:hal_power_default_exec:s0
+/vendor/bin/hw/android\.hardware\.power-service\.moto-common-libperfmgr u:object_r:hal_power_default_exec:s0
 
 # RILD Cutback
 /data/vendor/misc/cutback(/.*)? u:object_r:cutback_data_file:s0

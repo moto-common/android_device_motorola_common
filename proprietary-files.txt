@@ -70,3 +70,6 @@ vendor/bin/thermal-engine
 vendor/etc/init/init_thermal-engine.rc
 -vendor/lib/libthermalclient.so
 -vendor/lib64/libthermalclient.so
+
+# Power - from redfin S3B1.220318.003
+vendor/lib64/pixel-power-ext-V1-ndk_platform.so

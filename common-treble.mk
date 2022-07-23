@@ -95,7 +95,12 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.fm@1.0.vendor
 
 # Power HAL
+ifeq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
+PRODUCT_PACKAGES += \
+    android.hardware.power-service.moto-common-libperfmgr
+else
 $(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
+endif
 
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
@@ -113,7 +118,7 @@ include $(QCOM_COMMON_PATH)/system/av/qti-av.mk
 include $(QCOM_COMMON_PATH)/system/display/qti-display.mk
 include $(QCOM_COMMON_PATH)/system/gps/qti-gps.mk
 include $(QCOM_COMMON_PATH)/system/overlay/qti-overlay.mk
-ifneq ($(BOARD_USES_PIXEL_POWER_HAL),true)
+ifneq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
 include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
 endif
 # Vendor
@@ -127,7 +132,7 @@ include $(QCOM_COMMON_PATH)/vendor/media/qti-media.mk
 else
 include $(QCOM_COMMON_PATH)/vendor/media-legacy/qti-media-legacy.mk
 endif
-ifneq ($(BOARD_USES_PIXEL_POWER_HAL),true)
+ifneq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
 include $(QCOM_COMMON_PATH)/vendor/perf/qti-perf.mk
 endif
 ifneq ($(KERNEL_VERSION),5.4)

@@ -35,6 +35,11 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/display/$(qcom_platform) \
     vendor/qcom/opensource/display-commonsys-intf
 
+ifeq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
+PRODUCT_SOONG_NAMESPACES += \
+    hardware/google/pixel
+endif
+
 # Build scripts
 MOTOROLA_CLEAR_VARS := $(COMMON_PATH)/motorola_clear_vars.mk
 MOTOROLA_BUILD_SYMLINKS := $(COMMON_PATH)/motorola_build_symlinks.mk

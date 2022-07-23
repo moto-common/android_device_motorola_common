@@ -105,3 +105,9 @@ PRODUCT_PACKAGES += \
     libqcomfm_jni \
     fm_helium \
     qcom.fmradio
+
+# Power
+ifeq ($(BOARD_USES_PIXEL_POWER_HAL),true)
+PRODUCT_PACKAGES += \
+    libperfmgr.vendor
+endif
