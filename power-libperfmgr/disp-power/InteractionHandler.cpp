@@ -29,7 +29,7 @@
 
 #include "InteractionHandler.h"
 
-#define FB_IDLE_PATH "/sys/class/graphics/fb0/idle_state"
+#define FB_IDLE_PATH "/sys/devices/platform/soc/5e00000.qcom,mdss_mdp/idle_state"
 #define MAX_LENGTH 64
 
 #define MSINSEC 1000L
