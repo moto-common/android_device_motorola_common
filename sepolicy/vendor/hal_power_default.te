@@ -1,0 +1,25 @@
+# CPU
+r_dir_file(hal_power_default, sysfs_devices_system_cpu)
+allow hal_power_default sysfs_devices_system_cpu:file rw_file_perms;
+
+# Devfreq
+r_dir_file(hal_power_default, vendor_sysfs_devfreq)
+allow hal_power_default vendor_sysfs_devfreq:file rw_file_perms;
+
+# idle_state node
+r_dir_file(hal_power_default, vendor_sysfs_graphics)
+
+# KGSL
+r_dir_file(hal_power_default, vendor_sysfs_kgsl)
+allow hal_power_default vendor_sysfs_kgsl:file rw_file_perms;
+
+# Sched
+allow hal_power_default vendor_proc_kernel_sched:file rw_file_perms;
+
+# Sensors (DT2W)
+r_dir_file(hal_power_default, vendor_sysfs_sensors)
+allow hal_power_default vendor_sysfs_sensors:file rw_file_perms;
+
+# Userdata F2FS
+r_dir_file(hal_power_default, sysfs_fs_f2fs)
+allow hal_power_default sysfs_fs_f2fs:file rw_file_perms;

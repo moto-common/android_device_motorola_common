@@ -1,6 +1,9 @@
 # Camera
 genfscon sysfs /devices/platform/soc/5c0c000.qcom,cci u:object_r:vendor_sysfs_camera:s0
 
+# Graphics
+genfscon sysfs /devices/platform/soc/5e00000.qcom,mdss_mdp u:object_r:vendor_sysfs_graphics:s0
+
 # Input Devices
 genfscon sysfs /devices/virtual/input u:object_r:vendor_sysfs_input:s0
 # Fingerprint
@@ -12,6 +15,9 @@ genfscon sysfs /module/stmvl53l1 u:object_r:vendor_sysfs_laser:s0
 # Motorola Specific filesystem entries
 genfscon proc /config u:object_r:vendor_proc_hw:s0
 genfscon proc /hw u:object_r:vendor_proc_hw:s0
+
+# Sched
+genfscon proc /sys/kernel/sched_boost u:object_r:vendor_proc_kernel_sched:s0
 
 # Touchpanel
 genfscon sysfs /class/touchscreen u:object_r:vendor_sysfs_touchpanel:s0

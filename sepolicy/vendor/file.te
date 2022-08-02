@@ -16,6 +16,9 @@ type vendor_sysfs_input, sysfs_type, fs_type;
 # /proc/hw
 type vendor_proc_hw, proc_type, fs_type;
 
+# /proc/sys/kernel/sched_boost
+type vendor_proc_kernel_sched, fs_type, proc_type;
+
 # Partitions
 type fsg_file, file_type, contextmount_type, vendor_file_type;
 
