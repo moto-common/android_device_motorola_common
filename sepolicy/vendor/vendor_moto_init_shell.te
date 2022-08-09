@@ -11,6 +11,7 @@ allow vendor_moto_init_shell self:capability chown;
 allow vendor_moto_init_shell { vendor_toolbox_exec vendor_expat_exec vendor_shell_exec }:file rx_file_perms;
 
 # /mnt/vendor/persist/fps access
+allow vendor_moto_init_shell mnt_vendor_file:dir search;
 allow vendor_moto_init_shell vendor_persist_fingerprint_file:dir r_dir_perms;
 allow vendor_moto_init_shell vendor_persist_fingerprint_file:file rw_file_perms;
 
