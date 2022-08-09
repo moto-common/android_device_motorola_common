@@ -2,6 +2,7 @@
 vendor.hw.fingerprint.status u:object_r:vendor_mot_prop:s0
 
 # Motorola
+vendor.camera.coming.cts u:object_r:vendor_camera_prop:s0
 vendor.hw.touch.status u:object_r:vendor_mot_prop:s0
 
 # SKU
