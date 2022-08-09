@@ -8,7 +8,7 @@ on late-fs
     start vendor.power-hal-aidl
 
 # start powerHAL
-on property:vendor.boot_completed=1
+on property:sys.boot_completed=1
     setprop vendor.powerhal.init 1
 
 # restart powerHAL when framework died
