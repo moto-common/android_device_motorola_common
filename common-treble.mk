@@ -131,6 +131,7 @@ include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
 endif
 # Vendor
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
+include $(QCOM_COMMON_PATH)/vendor/display/$(KERNEL_VERSION)/qti-display.mk
 include $(QCOM_COMMON_PATH)/vendor/charging/qti-charging.mk
 include $(QCOM_COMMON_PATH)/vendor/drm/qti-drm.mk
 include $(QCOM_COMMON_PATH)/vendor/dsprpcd/qti-dsprpcd.mk
