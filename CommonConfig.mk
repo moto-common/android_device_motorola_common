@@ -49,6 +49,8 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 
+TARGET_SUPPORTS_64_BIT_APPS := true
+
 # Use mke2fs to create ext4/f2fs images
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
