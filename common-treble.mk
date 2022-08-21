@@ -39,7 +39,10 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.1.vendor \
     android.hardware.soundtrigger@2.2.vendor \
     android.hardware.soundtrigger@2.3.vendor \
-    android.hardware.soundtrigger@2.3-impl
+    android.hardware.soundtrigger@2.3-impl \
+    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
+    vendor.qti.hardware.btconfigstore@1.0.vendor \
+    vendor.qti.hardware.btconfigstore@2.0.vendor
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -137,6 +140,7 @@ include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
 endif
 # Vendor
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
+include $(QCOM_COMMON_PATH)/vendor/audio/qti-audio.mk
 include $(QCOM_COMMON_PATH)/vendor/display/$(KERNEL_VERSION)/qti-display.mk
 include $(QCOM_COMMON_PATH)/vendor/charging/qti-charging.mk
 include $(QCOM_COMMON_PATH)/vendor/drm/qti-drm.mk
