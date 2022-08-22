@@ -29,3 +29,6 @@ allow hal_power_default sysfs_fs_f2fs:file rw_file_perms;
 # DMA Latency
 allow hal_power_default vendor_latency_device:file rw_file_perms;
 allow hal_power_default vendor_latency_device:chr_file rw_file_perms;
+
+# EXPENSIVE_RENDERING setprop
+set_prop(hal_power_default, vendor_power_prop)
