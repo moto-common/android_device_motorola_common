@@ -5,5 +5,8 @@ vendor.hw.fingerprint.status u:object_r:vendor_mot_prop:s0
 vendor.camera.coming.cts u:object_r:vendor_camera_prop:s0
 vendor.hw.touch.status u:object_r:vendor_mot_prop:s0
 
+# Power
+vendor.powerhal. u:object_r:vendor_power_prop:s0
+
 # SKU
 ro.boot.product.vendor.sku u:object_r:vendor_sku_prop:s0
