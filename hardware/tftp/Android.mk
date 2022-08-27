@@ -8,7 +8,7 @@ target_combinations := \
     /mnt/vendor/persist/rfs/shared:shared \
     /mnt/vendor/persist/hlos_rfs/shared:hlos \
     /vendor/firmware_mnt:readonly/firmware \
-    /odm/firmware:readonly/vendor/firmware
+    /vendor/fsg:readonly/vendor/fsg
 
 target_prefixes := \
     mpss \
