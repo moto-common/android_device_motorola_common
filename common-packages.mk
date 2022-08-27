@@ -106,6 +106,10 @@ PRODUCT_PACKAGES += \
     fm_helium \
     qcom.fmradio
 
+# RIL
+PRODUCT_PACKAGES += \
+    libqsap_sdk
+
 # Power
 ifeq ($(BOARD_USES_PIXEL_POWER_HAL),true)
 PRODUCT_PACKAGES += \
