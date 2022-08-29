@@ -103,6 +103,10 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.1.vendor \
     android.hardware.power@1.2.vendor
 
+# Wifi
+PRODUCT_PACKAGES += \
+    android.hardware.wifi.hostapd@1.0.vendor
+
 # Power HAL
 ifeq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
 PRODUCT_PACKAGES += \
