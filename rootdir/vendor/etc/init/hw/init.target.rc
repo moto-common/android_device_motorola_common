@@ -79,6 +79,7 @@ on late-fs
     start surfaceflinger
     start bootanim
     start vendor.configstore-hal
+    start vendor.hwcomposer-2-4
     start vendor.qti.hardware.display.composer
     start vendor.qti.hardware.display.allocator
 
