@@ -35,10 +35,9 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/display/$(qcom_platform) \
     vendor/qcom/opensource/display-commonsys-intf
 
-ifneq ($(filter $(PRODUCT_USES_PIXEL_POWER_HAL) $(PRODUCT_USES_PIXEL_USB_HAL),true)),)
+# Enable pixel soong namespace for Pixel USB and Power HAL
 PRODUCT_SOONG_NAMESPACES += \
     hardware/google/pixel
-endif
 
 # Build scripts
 MOTOROLA_CLEAR_VARS := $(COMMON_PATH)/motorola_clear_vars.mk

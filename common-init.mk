@@ -15,6 +15,7 @@
 # Common init scripts
 PRODUCT_PACKAGES += \
     init.class_main.sh \
+    init.gadgethal.sh \
     init.mmi.charge_only.rc \
     init.mmi.chipset.rc \
     init.mmi.overlay.rc \
@@ -27,13 +28,5 @@ PRODUCT_PACKAGES += \
     init.qti.kernel.rc \
     init.qti.kernel.sh \
     init.target.rc \
+    init.usb.rc \
     vendor_modprobe.sh
-
-ifeq ($(PRODUCT_USES_PIXEL_USB_HAL),true)
-PRODUCT_PACKAGES += \
-    init.gadgethal.sh \
-    init.usb.rc
-else
-PRODUCT_PACKAGES += \
-    init.mmi.usb.sh
-endif

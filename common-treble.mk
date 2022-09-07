@@ -112,12 +112,8 @@ $(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
 endif
 
 # USB HAL
-ifeq ($(PRODUCT_USES_PIXEL_USB_HAL),true)
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.3-service.moto-common
-else
-include $(QCOM_COMMON_PATH)/vendor/usb/qti-usb.mk
-endif
 
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
