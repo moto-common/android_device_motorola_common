@@ -16,9 +16,9 @@
 COMMON_PATH := device/motorola/common
 
 # QCOM Platform selector
-ifeq ($(KERNEL_VERSION), 5.4)
+ifeq ($(TARGET_KERNEL_VERSION), 5.4)
 qcom_platform := sm8350
-else ifeq ($(KERNEL_VERSION), 4.19)
+else ifeq ($(TARGET_KERNEL_VERSION), 4.19)
 qcom_platform := sm8250
 else
 qcom_platform := sm8150
@@ -76,12 +76,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_BUILD_RECOVERY_IMAGE := true
 
 # Kernel Path
-KERNEL_PATH := kernel/motorola/msm-$(KERNEL_VERSION)
+KERNEL_PATH := kernel/motorola/msm-$(TARGET_KERNEL_VERSION)
 
 # Configure qti-headers auxiliary module via soong
 SOONG_CONFIG_NAMESPACES += qti_kernel_headers
 SOONG_CONFIG_qti_kernel_headers := version
-SOONG_CONFIG_qti_kernel_headers_version := $(KERNEL_VERSION)
+SOONG_CONFIG_qti_kernel_headers_version := $(TARGET_KERNEL_VERSION)
 
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
