@@ -25,6 +25,8 @@ function set_permissions() {
     else
         chmod 0660 /dev/esfp0
         chown system:system /dev/esfp0
+        chmod 0660 /sys/devices/platform/egis_input/navigation_event
+        chown system:system /sys/devices/platform/egis_input/navigation_event
     fi
 }
 

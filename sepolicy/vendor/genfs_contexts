@@ -8,6 +8,7 @@ genfscon sysfs /devices/platform/soc/5e00000.qcom,mdss_mdp u:object_r:vendor_sys
 genfscon sysfs /devices/virtual/input u:object_r:vendor_sysfs_input:s0
 # Fingerprint
 genfscon sysfs /devices/virtual/fingerprint u:object_r:vendor_sysfs_fingerprint:s0
+genfscon sysfs /devices/platform/egis_input u:object_r:vendor_sysfs_fingerprint:s0
 # Laser
 genfscon sysfs /devices/virtual/laser u:object_r:vendor_sysfs_laser:s0
 genfscon sysfs /module/stmvl53l1 u:object_r:vendor_sysfs_laser:s0
