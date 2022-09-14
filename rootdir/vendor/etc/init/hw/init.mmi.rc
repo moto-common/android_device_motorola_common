@@ -260,6 +260,7 @@ service vendor.hal-fps-sh /vendor/bin/init.oem.fingerprint2.sh
     user root
     group system
     oneshot
+    disabled
 
 service vendor.touch-dead-sh /vendor/bin/init.oem.hw.sh -f
     class main
@@ -306,3 +307,6 @@ on property:ro.vendor.hw.dualsim=true
 
 on property:ro.vendor.hw.dualsim=false
    setprop persist.vendor.radio.multisim.config ""
+
+on post-fs-data
+   start vendor.hal-fps-sh
