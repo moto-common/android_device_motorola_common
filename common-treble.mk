@@ -40,6 +40,7 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.2.vendor \
     android.hardware.soundtrigger@2.3.vendor \
     android.hardware.soundtrigger@2.3-impl \
+    com.dsi.ant@1.0.vendor \
     com.qualcomm.qti.bluetooth_audio@1.0.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor
