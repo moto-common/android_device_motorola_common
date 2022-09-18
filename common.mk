@@ -35,6 +35,11 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/display/$(qcom_platform) \
     vendor/qcom/opensource/display-commonsys-intf
 
+ifeq ($(TARGET_BUILDS_AOSP),true)
+PRODUCT_SOONG_NAMESPACES += \
+    device/qcom/common/vendor/embmssl
+endif
+
 # Enable pixel soong namespace for Pixel USB and Power HAL
 PRODUCT_SOONG_NAMESPACES += \
     hardware/google/pixel
