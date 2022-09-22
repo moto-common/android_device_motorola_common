@@ -13,5 +13,5 @@ on boot
    chown system system /sys/module/qpnp_adaptive_charge/parameters/upper_limit
    chown system system /sys/module/qpnp_adaptive_charge/parameters/lower_limit
 
-on property:vendor.boot_completed=1
+on property:sys.boot_completed=1
     start thermal-engine
