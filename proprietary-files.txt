@@ -1,3 +1,5 @@
+# These files are from S2RES32.29-16-1-5 unless specified otherwise
+
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
@@ -38,6 +40,12 @@ lib64/libaptX_encoder.so
 # Misc
 vendor/bin/motobox:vendor/bin/expat
 
+# Perf
+vendor/bin/msm_irqbalance
+
+# Power - from barbet tp1a.220624.014
+vendor/lib64/pixel-power-ext-V1-ndk.so
+
 # SCVE
 vendor/lib/rfsa/adsp/libscveObjectSegmentation_skel.so
 vendor/lib/rfsa/adsp/libscveT2T_skel.so
@@ -63,6 +71,3 @@ vendor/bin/thermal-engine
 vendor/etc/init/init_thermal-engine.rc
 -vendor/lib/libthermalclient.so
 -vendor/lib64/libthermalclient.so
-
-# Power - from barbet tp1a.220624.014
-vendor/lib64/pixel-power-ext-V1-ndk.so
