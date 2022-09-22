@@ -27,6 +27,8 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qti.kernel.rc \
     init.qti.kernel.sh \
+    init.qti.qcv.rc \
+    init.qti.qcv.sh \
     init.target.rc \
     init.usb.rc \
     vendor_modprobe.sh
