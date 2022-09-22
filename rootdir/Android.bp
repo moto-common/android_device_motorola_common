@@ -6,17 +6,6 @@ sh_binary {
     vendor: true,
 }
 
-cc_prebuilt_binary {
-    name: "init.mmi.usb.sh",
-    srcs: ["vendor/bin/init.mmi.usb.sh"],
-    init_rc: ["vendor/etc/init/hw/init.mmi.usb.rc"],
-    vendor: true,
-    strip: {
-        none: true,
-    },
-    overrides: ["init.qcom.usb.sh", "init.qcom.usb.rc"],
-}
-
 sh_binary {
     name: "init.mmi.touch.sh",
     src: "vendor/bin/init.mmi.touch.sh",

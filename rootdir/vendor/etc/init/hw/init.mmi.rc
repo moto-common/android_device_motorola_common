@@ -5,7 +5,6 @@ import /vendor/etc/init/hw/init.mmi.chipset.rc
 import /vendor/etc/init/hw/init.mmi.overlay.rc
 
 # USB configuration
-import /vendor/etc/init/hw/init.mmi.usb.rc
 import /vendor/etc/init/hw/init.usb.rc
 
 on early-boot
