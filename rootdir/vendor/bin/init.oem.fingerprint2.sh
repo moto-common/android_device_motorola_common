@@ -45,7 +45,7 @@ function start_fpsensor() {
         sleep 0.6
         set_permissions
         sleep 0.4
-        start chipone_fp_hal
+        start vendor.chipone_fp_hal
         sleep 1
         value=`getprop $prop_fps_status`
         if [ $value == "ok" ];
@@ -71,7 +71,7 @@ function start_fpsensor() {
         sleep 0.6
         set_permissions
         sleep 0.4
-        start goodix_hal
+        start vendor.goodix_hal
         sleep 1
         value=`getprop $prop_fps_status`
         if [ $value == "ok" ];
