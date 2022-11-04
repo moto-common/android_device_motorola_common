@@ -24,8 +24,17 @@ TARGET_BUILDS_AOSP := true
 # Recovery
 TARGET_NO_RECOVERY ?= false
 
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME ?= $(PRODUCT_DEVICE)
+
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_PREBUILT_DTBIMAGE_DIR ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbs
+BOARD_PREBUILT_DTBOIMAGE ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbo.img
+
+# Kernel Modules
+BOARD_VENDOR_KERNEL_MODULES ?= \
+    $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
 
 # common cmdline parameters
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
@@ -77,7 +86,6 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 # Enable dex-preoptimization to speed up first boot sequence
 WITH_DEXPREOPT := true
-WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= false
 
 # SELinux
 include device/qcom/sepolicy_vndr/SEPolicy.mk

@@ -60,9 +60,6 @@ PRODUCT_PACKAGES += \
     libjson \
     libprotobuf-cpp-full \
     libsensorndkbridge \
-    moto-ims-ext \
-    moto-telephony \
-    qcrilhook \
     qti-telephony-hidl-wrapper \
     qti-telephony-hidl-wrapper-prd \
     qti_telephony_hidl_wrapper.xml \
@@ -97,14 +94,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0.vendor
-
-# FM
-PRODUCT_PACKAGES += \
-    FM2 \
-    libfm-hci \
-    libqcomfm_jni \
-    fm_helium \
-    qcom.fmradio
 
 # RIL
 PRODUCT_PACKAGES += \

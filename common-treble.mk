@@ -134,7 +134,6 @@ QCOM_COMMON_PATH := device/qcom/common
 include $(QCOM_COMMON_PATH)/system/audio/qti-audio.mk
 include $(QCOM_COMMON_PATH)/system/av/qti-av.mk
 include $(QCOM_COMMON_PATH)/system/display/qti-display.mk
-include $(QCOM_COMMON_PATH)/system/gps/qti-gps.mk
 include $(QCOM_COMMON_PATH)/system/overlay/qti-overlay.mk
 ifneq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
 include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
