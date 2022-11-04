@@ -1,0 +1,9 @@
+service chipone_fp_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service-chipone
+    # "class hal" causes a race condition on some devices due to files created
+    # in /data. As a workaround, postpone startup until later in boot once
+    # /data is mounted.
+    # interface vendor.fpsensor.hardware.fpsensorhidlsvc@2.0::IFpsensorHidlSvc default
+    class late_start
+    user system
+    group system input uhid
+    disabled
