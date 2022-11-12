@@ -1,4 +1,4 @@
-# These files are from S2RES32.29-16-1-5 unless specified otherwise
+# These files are fromS2RUBS32.51-15-3-2 unless specified otherwise
 
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti

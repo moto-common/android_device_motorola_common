@@ -30,6 +30,7 @@ PRODUCT_PACKAGES += \
     init.qti.qcv.rc \
     init.qti.qcv.sh \
     init.target.rc \
+    init.recovery.qcom.rc \
     init.usb.rc \
     vendor_modprobe.sh
 
