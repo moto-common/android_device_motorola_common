@@ -29,6 +29,7 @@ PRODUCT_PACKAGES += \
     init.qti.kernel.sh \
     init.qti.qcv.rc \
     init.qti.qcv.sh \
+    init.recovery.qcom.rc \
     init.target.rc \
     init.usb.rc \
     vendor_modprobe.sh
@@ -45,7 +46,7 @@ endif
 
 ifeq ($(TARGET_USES_GOODIX_FINGERPRINT),true)
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service-chipone2.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.biometrics.fingerprint@2.1-service-chipone2.rc
+    $(COMMON_PATH)/rootdir/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-goodixservice.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.biometrics.fingerprint@2.1-goodixservice.rc
 endif
 
 ifeq ($(TARGET_USES_EGISTEC_FINGERPRINT),true)
