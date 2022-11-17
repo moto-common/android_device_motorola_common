@@ -86,6 +86,9 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.4-service-lazy.clearkey
 
 # Thermal HAL
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/thermal
+
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0-service.qti
 
