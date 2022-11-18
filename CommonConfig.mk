@@ -97,7 +97,7 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest.xml
 # Framework compatibility matrix: What the device(=vendor) expects of the framework(=system)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/framework_compatibility_matrix.xml
 DEVICE_MATRIX_FILE += $(COMMON_PATH)/vintf/compatibility_matrix.xml
-ifeq ($(TARGET_USES_FINGERPRINT_V2_1),false)
+ifneq ($(TARGET_USES_FINGERPRINT_V2_1),false)
 DEVICE_MATRIX_FILE += $(COMMON_PATH)/vintf/android.hardware.biometrics.fingerprint_v2.1.xml
 endif
 
