@@ -19,12 +19,16 @@ cc_library {
     srcs: [
         "disp-power/InteractionHandler.cpp",
     ],
-     shared_libs: [
+    shared_libs: [
         "libbase",
         "libcutils",
         "liblog",
         "libperfmgr",
         "libutils",
+    ],
+    defaults: [
+        "hidl_defaults",
+        "moto_common_power_hal_cc_defaults"
     ],
 }
 
@@ -80,4 +84,21 @@ cc_binary {
         "aidl/Power.cpp",
         "aidl/PowerExt.cpp",
     ],
+}
+
+soong_config_module_type {
+    name: "moto_common_power_hal",
+    module_type: "cc_defaults",
+    config_namespace: "MOTO_COMMON_POWER",
+    value_variables: ["FB_IDLE_PATH"],
+    properties: ["cppflags"],
+}
+
+moto_common_power_hal {
+    name: "moto_common_power_hal_cc_defaults",
+    soong_config_variables: {
+        FB_IDLE_PATH: {
+            cppflags: ["-DFB_IDLE_PATH=\"%s\""],
+        },
+    },
 }
