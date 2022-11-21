@@ -4,3 +4,4 @@ allow hal_fingerprint_default tee_device:chr_file { open read write ioctl getatt
 allow hal_fingerprint_default uhid_device:chr_file { open read write ioctl getattr };
 allow hal_fingerprint_default property_socket:sock_file write;
 allow hal_fingerprint_default self:unix_stream_socket { connectto };
+allow hal_fingerprint_default hal_fingerprint_default:netlink_socket { create bind write read };

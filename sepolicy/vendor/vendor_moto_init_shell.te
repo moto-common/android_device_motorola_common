@@ -41,3 +41,6 @@ allow vendor_moto_init_shell ctl_start_prop:property_service set;
 
 # /dev/esfp0
 allow vendor_moto_init_shell tee_device:chr_file { getattr setattr };
+
+# Touchscreen reflash access
+allow vendor_moto_init_shell vendor_sysfs_touch:file rw_file_perms;

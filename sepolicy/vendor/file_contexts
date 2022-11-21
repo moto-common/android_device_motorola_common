@@ -7,7 +7,10 @@
 
 # Fingerprint
 /dev/esfp0 u:object_r:tee_device:s0
+/dev/goodix_fp u:object_r:tee_device:s0
+/data/vendor/.fps(/.*)?  u:object_r:fingerprint_vendor_data_file:s0
 /(mnt/vendor/persist|persist)/fps(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
+/(mnt/vendor/persist|persist)/goodix(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
 
 # FSG
 /vendor/fsg u:object_r:vendor_fsg_file:s0
@@ -47,5 +50,6 @@
 
 # Wakeups
 /sys/devices/virtual/input/input[0-9]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
+/sys/devices/virtual/fastrpc/adsprpc-smd/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc/[^*]+/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/misc/[^*]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0

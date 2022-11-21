@@ -18,3 +18,5 @@ allow hal_usb_impl vendor_sysfs_usb_supply:file w_file_perms;
 # Battery Supply
 r_dir_file(hal_usb_impl, sysfs_batteryinfo)
 allow hal_usb_impl sysfs_batteryinfo:file w_file_perms;
+
+allow hal_usb_impl functionfs:dir { watch watch_reads };
