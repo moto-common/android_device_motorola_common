@@ -30,7 +30,9 @@ TARGET_BOOTLOADER_BOARD_NAME ?= $(PRODUCT_DEVICE)
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_PREBUILT_DTBIMAGE_DIR ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbs
+ifneq ($(BOARD_USES_DTBO),false)
 BOARD_PREBUILT_DTBOIMAGE ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbo.img
+endif
 
 # Kernel Modules
 BOARD_VENDOR_KERNEL_MODULES ?= \
