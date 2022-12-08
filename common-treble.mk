@@ -142,13 +142,21 @@ ifneq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
 include $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk
 endif
 # Vendor
+ifeq ($(TARGET_BOARD_PLATFORM),sdm660)
+include $(QCOM_COMMON_PATH)/vendor/adreno-sdm660/qti-adreno-sdm660.mk
+else
 include $(QCOM_COMMON_PATH)/vendor/adreno/qti-adreno.mk
+endif
 include $(QCOM_COMMON_PATH)/vendor/audio/qti-audio.mk
 include $(QCOM_COMMON_PATH)/vendor/display/$(TARGET_KERNEL_VERSION)/qti-display.mk
 include $(QCOM_COMMON_PATH)/vendor/charging/qti-charging.mk
 include $(QCOM_COMMON_PATH)/vendor/drm/qti-drm.mk
 include $(QCOM_COMMON_PATH)/vendor/dsprpcd/qti-dsprpcd.mk
+ifeq ($(TARGET_BOARD_PLATFORM),sdm660)
+include $(QCOM_COMMON_PATH)/vendor/keymaster-legacy/qti-keymaster-legacy.mk
+else
 include $(QCOM_COMMON_PATH)/vendor/keymaster/qti-keymaster.mk
+endif
 ifeq ($(TARGET_KERNEL_VERSION),5.4)
 include $(QCOM_COMMON_PATH)/vendor/media/qti-media.mk
 else

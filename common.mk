@@ -32,8 +32,15 @@ PRODUCT_SOONG_NAMESPACES += \
     $(PLATFORM_COMMON_PATH) \
     vendor/qcom/opensource/audio/$(qcom_platform) \
     vendor/qcom/opensource/data-ipa-cfg-mgr \
-    vendor/qcom/opensource/display/$(qcom_platform) \
     vendor/qcom/opensource/display-commonsys-intf
+
+ifneq ($(TARGET_BOARD_PLATFORM),sdm660)
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/display/$(qcom_platform)
+else
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/display/sdm660
+endif
 
 # Enable pixel soong namespace for Pixel USB and Power HAL
 PRODUCT_SOONG_NAMESPACES += \
