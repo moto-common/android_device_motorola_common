@@ -30,8 +30,10 @@ endif
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
     $(PLATFORM_COMMON_PATH) \
+    hardware/google/interfaces \
     vendor/qcom/opensource/audio/$(qcom_platform) \
-    vendor/qcom/opensource/data-ipa-cfg-mgr \
+    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
+    vendor/qcom/opensource/dataservices \
     vendor/qcom/opensource/display/$(qcom_platform) \
     vendor/qcom/opensource/display-commonsys-intf
 
