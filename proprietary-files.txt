@@ -43,9 +43,6 @@ vendor/bin/motobox:vendor/bin/expat
 # Perf
 vendor/bin/msm_irqbalance
 
-# Power - from barbet tp1a.220624.014
-vendor/lib64/pixel-power-ext-V1-ndk.so
-
 # SCVE
 vendor/lib/rfsa/adsp/libscveObjectSegmentation_skel.so
 vendor/lib/rfsa/adsp/libscveT2T_skel.so
