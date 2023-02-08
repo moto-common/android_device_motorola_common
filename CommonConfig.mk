@@ -90,7 +90,6 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WITH_DEXPREOPT := true
 
 # SELinux
-include device/qcom/sepolicy_vndr/SEPolicy.mk
 include device/sony/sepolicy/sepolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 
