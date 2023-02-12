@@ -53,6 +53,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librmnetctl
 
+# FM
+PRODUCT_PACKAGES += \
+    FM2 \
+    libfm-hci \
+    libqcomfm_jni \
+    fm_helium \
+    qcom.fmradio
+
 # RIL
 PRODUCT_PACKAGES += \
     ims-moto-libs \
