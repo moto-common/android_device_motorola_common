@@ -120,6 +120,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librmnetctl
 
+ifeq ($(call device-has-characteristic,fm),true)
+  # FM
+  PRODUCT_PACKAGES += \
+      FM2 \
+      libfm-hci \
+      libqcomfm_jni \
+      fm_helium \
+      qcom.fmradio
+endif
+
 # RIL
 PRODUCT_PACKAGES += \
     ims-moto-libs \
