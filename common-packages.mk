@@ -90,11 +90,6 @@ PRODUCT_PACKAGES += \
     fs_config_files \
     fs_config_dirs
 
-# HIDL
-PRODUCT_PACKAGES += \
-    android.hidl.base@1.0 \
-    android.hidl.base@1.0.vendor
-
 # RIL
 PRODUCT_PACKAGES += \
     libqsap_sdk
