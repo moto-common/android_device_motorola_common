@@ -14,14 +14,9 @@
 
 # Common path
 COMMON_PATH := device/motorola/common
-
-# QCOM Platform selector
-ifeq ($(TARGET_KERNEL_VERSION), 5.4)
-qcom_platform := sm8350
-else ifeq ($(TARGET_KERNEL_VERSION), 4.19)
-qcom_platform := sm8250
-else
-qcom_platform := sm8150
+# QCOM
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+    include $(COMMON_PATH)/hardware/qcom/product.mk
 endif
 
 # Enable building packages from device namespaces.
@@ -133,4 +128,3 @@ $(call inherit-product, device/motorola/common/common-perm.mk)
 $(call inherit-product, device/motorola/common/common-prop.mk)
 $(call inherit-product, device/motorola/common/common-treble.mk)
 $(call inherit-product, vendor/motorola/common/common-vendor.mk)
-include device/qcom/common/common.mk

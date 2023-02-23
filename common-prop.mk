@@ -116,7 +116,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.vc_call_vol_steps=7
 
 # Audio (newer CAF HALs)
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_ODM_PROPERTIES += \
     persist.vendor.audio.fluence.speaker=false \
     persist.vendor.audio.fluence.voicecall=true \
     persist.vendor.audio.fluence.voicecomm=true \

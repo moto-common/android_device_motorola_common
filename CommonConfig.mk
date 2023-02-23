@@ -114,6 +114,9 @@ MALLOC_SVELTE := true
 ENABLE_VENDOR_RIL_SERVICE := true
 
 # QCOM
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+    include $(COMMON_PATH)/hardware/qcom/board.mk
+endif
 TARGET_USES_HARDWARE_QCOM_GPS := false
 
 # USB
@@ -122,5 +125,3 @@ SOONG_CONFIG_MOTO_COMMON_USB := USB_CONTROLLER_NAME
 SOONG_CONFIG_MOTO_COMMON_USB_USB_CONTROLLER_NAME ?= 4e00000
 SOONG_CONFIG_MOTO_COMMON_POWER := FB_IDLE_PATH
 SOONG_CONFIG_MOTO_COMMON_POWER_FB_IDLE_PATH ?= /sys/devices/platform/soc/5e00000.qcom,mdss_mdp/idle_state
-
-include device/qcom/common/BoardConfigQcom.mk
