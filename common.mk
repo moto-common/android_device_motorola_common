@@ -67,7 +67,7 @@ PRODUCT_BUILD_RECOVERY_IMAGE := true
 PRODUCT_VENDOR_KERNEL_HEADERS := $(PLATFORM_COMMON_PATH)-kernel/kernel-headers
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= $(PLATFORM_COMMON_PATH)/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(COMMON_PATH)/bluetooth
 
 # Configure qti-headers auxiliary module via soong
 SOONG_CONFIG_NAMESPACES += qti_kernel_headers
