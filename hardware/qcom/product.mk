@@ -7,11 +7,8 @@ else
     qcom_platform := sm8150
 endif
 
-# Required utils
-ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
-    include $(COMMON_PATH)/hardware/qcom/utils.mk
-endif
-
+# Audio
+$(call inherit-product-if-exists, vendor/qcom/opensource/audio/$(qcom_platform)/configs/$(TARGET_BOARD_PLATFORM)/$(TARGET_BOARD_PLATFORM).mk)
 
 # Components
 TARGET_COMMON_QTI_COMPONENTS := \
@@ -31,12 +28,17 @@ TARGET_COMMON_QTI_COMPONENTS := \
     wlan
 
 # Display
-$(call inherit-product, vendor/qcom/opensource/display/$(qcom_platform)/config/display-product.mk)
-$(call inherit-product-if-exists, vendor/qcom/opensource/display/$(qcom_platform)/config/$(TARGET_BOARD_PLATFORM).mk)
-$(call inherit-product, vendor/qcom/opensource/display-commonsys-intf/config/display-interfaces-product.mk)
+$(call inherit-product-if-exists, vendor/qcom/opensource/display/$(qcom_platform)/config/display-product.mk)
+$(call inherit-product-if-exists, vendor/qcom/opensource/display-commonsys-intf/config/display-interfaces-product.mk)
+
+# Media
+$(call inherit-product-if-exists, vendor/qcom/opensource/media/$(qcom_platform)/product.mk)
 
 # QCOM Common Product Hook
-include device/qcom/common/common.mk
+ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
+    include $(COMMON_PATH)/hardware/qcom/utils.mk
+    include device/qcom/common/common.mk
+endif
 
 # QTI VNDK Framework Detect
 PRODUCT_PACKAGES += \
