@@ -63,13 +63,25 @@ PRODUCT_PACKAGES += \
 # Force building a recovery image: Needed for OTA packaging to work since Q
 PRODUCT_BUILD_RECOVERY_IMAGE := true
 
-# Kernel Path
-KERNEL_PATH := kernel/motorola/msm-$(TARGET_KERNEL_VERSION)
+# Kernel
+PRODUCT_VENDOR_KERNEL_HEADERS := $(PLATFORM_COMMON_PATH)-kernel/kernel-headers
+
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= $(PLATFORM_COMMON_PATH)/bluetooth
 
 # Configure qti-headers auxiliary module via soong
 SOONG_CONFIG_NAMESPACES += qti_kernel_headers
 SOONG_CONFIG_qti_kernel_headers := version
 SOONG_CONFIG_qti_kernel_headers_version := $(TARGET_KERNEL_VERSION)
+
+# A/B OTA dexopt update_engine hookup
+ifeq ($(AB_OTA_UPDATER),true)
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_system=true \
+    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+    FILESYSTEM_TYPE_system=ext4 \
+    POSTINSTALL_OPTIONAL_system=true
+endif
 
 # Codecs Configuration
 PRODUCT_COPY_FILES += \
@@ -119,8 +131,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
-# Perf
-TARGET_USES_INTERACTION_BOOST := true
+# Camera
+TARGET_USES_64BIT_CAMERA ?= true
+
+# Dynamic Partitions
+ifeq ($(TARGET_USES_DYNAMIC_PARTITIONS),true)
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+endif
+
+# APEX
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 $(call inherit-product, device/motorola/common/common-init.mk)
 $(call inherit-product, device/motorola/common/common-packages.mk)

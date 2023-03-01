@@ -39,6 +39,18 @@ endif
 BOARD_VENDOR_KERNEL_MODULES ?= \
     $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
 
+# Boot Image
+BOARD_KERNEL_BASE     ?= 0x00000000
+BOARD_KERNEL_PAGESIZE ?= 4096
+BOARD_RAMDISK_OFFSET  ?= 0x01000000
+BOARD_DTB_OFFSET      ?= 0x01f00000
+BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+BOARD_BOOT_HEADER_VERSION ?= 2
+BOARD_INCLUDE_DTB_IN_BOOTIMG ?= true
+
+# DTBO
+BOARD_INCLUDE_RECOVERY_DTBO := true
+
 # common cmdline parameters
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
@@ -90,8 +102,13 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 # Enable dex-preoptimization to speed up first boot sequence
 WITH_DEXPREOPT := true
 
+# This platform has a metadata partition: declare this
+# to create a mount point for it
+BOARD_USES_METADATA_PARTITION := true
+
 # SELinux
 include device/sony/sepolicy/sepolicy.mk
+BOARD_USE_ENFORCING_SELINUX ?= true
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 
 # Device manifest: What HALs the device provides
@@ -118,6 +135,15 @@ ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
     include $(COMMON_PATH)/hardware/qcom/board.mk
 endif
 TARGET_USES_HARDWARE_QCOM_GPS := false
+
+# AVB
+ifeq ($(TARGET_HAS_VBMETA_SYSTEM),true)
+BOARD_AVB_VBMETA_SYSTEM := system
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH ?= external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM ?= SHA256_RSA2048
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+endif
 
 # USB
 SOONG_CONFIG_NAMESPACES += MOTO_COMMON_USB MOTO_COMMON_POWER

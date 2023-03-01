@@ -112,6 +112,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.wifi.hostapd@1.0.vendor
 
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@2.0-service.multihal
+
 # Power HAL
 ifeq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
 PRODUCT_PACKAGES += \

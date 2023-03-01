@@ -99,3 +99,19 @@ ifeq ($(BOARD_USES_PIXEL_POWER_HAL),true)
 PRODUCT_PACKAGES += \
     libperfmgr.vendor
 endif
+
+# A/B
+PRODUCT_PACKAGES += \
+    bootctrl.$(TARGET_BOARD_PLATFORM) \
+    bootctrl.$(TARGET_BOARD_PLATFORM).recovery \
+    otapreopt_script \
+    update_engine \
+    update_engine_client \
+    update_engine_sideload \
+    update_verifier
+
+# Dynamic
+ifeq ($(TARGET_USES_DYNAMIC_PARTITIONS),true)
+PRODUCT_PACKAGES += \
+    fastbootd
+endif
