@@ -115,3 +115,15 @@ ifeq ($(TARGET_USES_DYNAMIC_PARTITIONS),true)
 PRODUCT_PACKAGES += \
     fastbootd
 endif
+
+# Platform Overlays
+PRODUCT_PACKAGES += \
+    PlatformFrameworksOverlay \
+    PlatformSettingsOverlay \
+    PlatformSystemUIOverlay
+
+# Device Overlays
+PRODUCT_PACKAGES += \
+    $(DEVICE)FrameworksOverlay \
+    $(DEVICE)SettingsOverlay \
+    $(DEVICE)SystemUIOverlay
