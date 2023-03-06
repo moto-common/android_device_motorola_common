@@ -19,20 +19,44 @@ PRODUCT_PACKAGES += \
     libhwbinder.vendor \
     libhidltransport.vendor
 
+# A/B
+PRODUCT_PACKAGES += \
+    bootctrl.$(TARGET_BOARD_PLATFORM) \
+    bootctrl.$(TARGET_BOARD_PLATFORM).recovery \
+    otapreopt_script \
+    update_engine \
+    update_engine_client \
+    update_engine_sideload \
+    update_verifier
+
+## The following modules are included in debuggable builds only.
+PRODUCT_PACKAGES_DEBUG += \
+    bootctl
+
+# AIDs / For config.fs
+PRODUCT_PACKAGES += \
+    fs_config_files \
+    fs_config_dirs
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.bluetooth.default \
-    libtinyalsa \
     tinymix
 
-# Audio deps
+# Charger
 PRODUCT_PACKAGES += \
-    libfmq
+    charger_res_images
 
-# The following modules are included in debuggable builds only.
-PRODUCT_PACKAGES_DEBUG += \
-    bootctl \
-    update_engine_client
+# Dynamic
+ifeq ($(TARGET_USES_DYNAMIC_PARTITIONS),true)
+  PRODUCT_PACKAGES += \
+      fastbootd
+endif
+
+# FIXME: master: compat for libprotobuf
+# See https://android-review.googlesource.com/c/platform/prebuilts/vndk/v28/+/1109518
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full-vendorcompat
 
 # IMS (OSS)
 PRODUCT_PACKAGES += \
@@ -44,10 +68,38 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libavservices_minijail.vendor
 
-# OSS Time service
+# MotoActions
+PRODUCT_PACKAGES += \
+    MotoActions
+
+# OSS Time services
 PRODUCT_PACKAGES += \
     timekeep \
     TimeKeep \
+
+# Overlays
+## Common Overlays
+PRODUCT_PACKAGES += \
+    CommonFrameworksOverlay \
+    CommonSettingsOverlay
+
+## Platform Overlays
+PRODUCT_PACKAGES += \
+    PlatformFrameworksOverlay \
+    PlatformSettingsOverlay \
+    PlatformSystemUIOverlay
+
+## Device Overlays
+PRODUCT_PACKAGES += \
+    $(DEVICE)FrameworksOverlay \
+    $(DEVICE)SettingsOverlay \
+    $(DEVICE)SystemUIOverlay
+
+# Power
+ifeq ($(BOARD_USES_PIXEL_POWER_HAL),true)
+  PRODUCT_PACKAGES += \
+      libperfmgr.vendor
+endif
 
 # QCOM Data
 PRODUCT_PACKAGES += \
@@ -56,9 +108,9 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     ims-moto-libs \
-    libandroid_net \
     libjson \
     libprotobuf-cpp-full \
+    libqsap_sdk \
     libsensorndkbridge \
     qti-telephony-hidl-wrapper \
     qti-telephony-hidl-wrapper-prd \
@@ -66,64 +118,3 @@ PRODUCT_PACKAGES += \
     qti_telephony_hidl_wrapper_prd.xml \
     qti-telephony-utils \
     qti_telephony_utils.xml
-
-# MotoActions
-PRODUCT_PACKAGES += \
-    MotoActions
-
-# FIXME: master: compat for libprotobuf
-# See https://android-review.googlesource.com/c/platform/prebuilts/vndk/v28/+/1109518
-PRODUCT_PACKAGES += \
-    libprotobuf-cpp-full-vendorcompat
-
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
-# AOSP Packages
-PRODUCT_PACKAGES += \
-    libion \
-    libxml2 \
-
-# For config.fs
-PRODUCT_PACKAGES += \
-    fs_config_files \
-    fs_config_dirs
-
-# RIL
-PRODUCT_PACKAGES += \
-    libqsap_sdk
-
-# Power
-ifeq ($(BOARD_USES_PIXEL_POWER_HAL),true)
-PRODUCT_PACKAGES += \
-    libperfmgr.vendor
-endif
-
-# A/B
-PRODUCT_PACKAGES += \
-    bootctrl.$(TARGET_BOARD_PLATFORM) \
-    bootctrl.$(TARGET_BOARD_PLATFORM).recovery \
-    otapreopt_script \
-    update_engine \
-    update_engine_client \
-    update_engine_sideload \
-    update_verifier
-
-# Dynamic
-ifeq ($(TARGET_USES_DYNAMIC_PARTITIONS),true)
-PRODUCT_PACKAGES += \
-    fastbootd
-endif
-
-# Platform Overlays
-PRODUCT_PACKAGES += \
-    PlatformFrameworksOverlay \
-    PlatformSettingsOverlay \
-    PlatformSystemUIOverlay
-
-# Device Overlays
-PRODUCT_PACKAGES += \
-    $(DEVICE)FrameworksOverlay \
-    $(DEVICE)SettingsOverlay \
-    $(DEVICE)SystemUIOverlay
