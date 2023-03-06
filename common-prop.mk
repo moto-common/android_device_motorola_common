@@ -56,8 +56,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Dex2oat
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-threads=8 \
-    dalvik.vm.image-dex2oat-threads=8
+    dalvik.vm.dex2oat-threads=6 \
+    dalvik.vm.image-dex2oat-threads=6
 
 # DRM service
 PRODUCT_PROPERTY_OVERRIDES += \
