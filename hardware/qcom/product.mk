@@ -34,6 +34,9 @@ $(call inherit-product-if-exists, vendor/qcom/opensource/display-commonsys-intf/
 # Media
 $(call inherit-product-if-exists, vendor/qcom/opensource/media/$(qcom_platform)/product.mk)
 
+# Power
+TARGET_PROVIDES_POWERHAL := true
+
 # QCOM Common Product Hook
 ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
   include $(COMMON_PATH)/hardware/qcom/utils.mk
