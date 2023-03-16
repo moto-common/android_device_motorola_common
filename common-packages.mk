@@ -72,6 +72,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     MotoActions
 
+# NFC
+ifeq ($(TARGET_SUPPORTS_NFC),true)
+  PRODUCT_PACKAGES += \
+      com.android.nfc_extras \
+      libchrome.vendor \
+      NfcNci \
+      SecureElement \
+      Tag
+endif
+
 # OSS Time services
 PRODUCT_PACKAGES += \
     timekeep \

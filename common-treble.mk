@@ -92,6 +92,24 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.system.net.netd@1.1.vendor
 
+# NFC
+ifeq ($(TARGET_SUPPORTS_NFC),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.nfc@1.2.vendor \
+      android.hardware.secure_element@1.2.vendor
+endif
+
+## Specific Chips
+ifeq ($(TARGET_USES_PN5XX_PN8X_NFC),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.nfc@1.2-service
+endif
+ifeq ($(TARGET_USES_SN1XX_NFC),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.nfc_snxxx@1.2-service
+endif
+
+
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
   PRODUCT_PACKAGES += \

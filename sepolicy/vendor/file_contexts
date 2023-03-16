@@ -54,3 +54,6 @@
 /sys/devices/virtual/input/input[0-9]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc/[^*]+/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/misc/[^*]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
+
+# NFC
+/vendor/bin/hw/android\.hardware\.nfc_snxxx@1\.2-service u:object_r:hal_nfc_default_exec:s0
