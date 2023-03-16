@@ -22,6 +22,10 @@ function set_permissions() {
     elif [ $fps_id == "fpc" ]
     then
         chown system:system /sys/class/fingerprint/fpc1020/irq
+    elif [ $fps_id == "silead" ]
+    then
+        chmod 0660 /dev/silead_fp
+        chown system:system /dev/silead_fp
     elif [ $fps_id == "goodix" ]
     then
         chmod 0660 /dev/goodix_fp
@@ -65,6 +69,19 @@ function start_fpsensor() {
         then
             setprop $prop_persist_fps $fps_id
         fi
+    elif [ $fps_id == "silead" ]
+    then
+        load_module silead_fps_mmi.ko
+        sleep 0.6
+        set_permissions
+        sleep 0.4
+        start vendor.silead_hal
+        sleep 1
+        value=`getprop $prop_fps_status`
+        if [ $value == "ok" ];
+        then
+            setprop $prop_persist_fps $fps_id
+        fi
     elif [ $fps_id == "goodix" ]
     then
         load_module goodix_fod_mmi.ko
@@ -97,6 +114,7 @@ rmmod ets_fps_mmi
 rmmod fpsensor_spi_tee
 rmmod fpc1020_mmi
 rmmod goodix_fod_mmi
+rmmod silead_fps_mmi
 sleep 0.5
 if [ $fps_id == "none" ];
 then

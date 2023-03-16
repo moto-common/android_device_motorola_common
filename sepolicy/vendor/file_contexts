@@ -9,6 +9,7 @@
 /dev/esfp0 u:object_r:tee_device:s0
 /dev/fpsensor u:object_r:tee_device:s0
 /dev/goodix_fp u:object_r:tee_device:s0
+/dev/silead_fp u:object_r:tee_device:s0
 /data/vendor/.fps(/.*)?  u:object_r:fingerprint_vendor_data_file:s0
 /(mnt/vendor/persist|persist)/fps(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
 /(mnt/vendor/persist|persist)/goodix(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
