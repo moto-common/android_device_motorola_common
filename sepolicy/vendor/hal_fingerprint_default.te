@@ -7,3 +7,9 @@ allow hal_fingerprint_default uhid_device:chr_file { open read write ioctl getat
 allow hal_fingerprint_default property_socket:sock_file write;
 allow hal_fingerprint_default self:unix_stream_socket { connectto };
 allow hal_fingerprint_default hal_fingerprint_default:netlink_socket { create bind write read };
+allow hal_fingerprint_default ff_service:service_manager { add find };
+allow hal_fingerprint_default self:netlink_kobject_uevent_socket { create setopt bind read };
+allow hal_fingerprint_default hal_fingerprint_default:binder { call };
+add_service(hal_fingerprint_default, ff_service)
+vndbinder_use(hal_fingerprint_default)
+hwbinder_use(hal_fingerprint_default)

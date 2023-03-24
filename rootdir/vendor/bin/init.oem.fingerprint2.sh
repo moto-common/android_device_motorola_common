@@ -30,6 +30,10 @@ function set_permissions() {
     then
         chmod 0660 /dev/goodix_fp
         chown system:system /dev/goodix_fp
+    elif [ $fps_id == "focal" ]
+    then
+        chmod 0660 /dev/focaltech_fp
+        chown system:system /dev/focaltech_fp
     else
         chmod 0660 /dev/esfp0
         chown system:system /dev/esfp0
@@ -95,6 +99,19 @@ function start_fpsensor() {
         then
             setprop $prop_persist_fps $fps_id
         fi
+    elif [ $fps_id == "focal" ]
+    then
+        load_module focal_fps_mmi.ko
+        sleep 0.6
+        set_permissions
+        sleep 0.4
+        start vendor.focal_hal
+        sleep 1
+        value=`getprop $prop_fps_status`
+        if [ $value == "ok" ];
+        then
+            setprop $prop_persist_fps $fps_id
+        fi
     else
         load_module ets_fps_mmi.ko
         load_module rbs_fps_mmi.ko
@@ -117,6 +134,7 @@ rmmod fpsensor_spi_tee
 rmmod fpc1020_mmi
 rmmod goodix_fod_mmi
 rmmod silead_fps_mmi
+rmmod focal_fps_mmi
 sleep 0.5
 if [ $fps_id == "none" ];
 then

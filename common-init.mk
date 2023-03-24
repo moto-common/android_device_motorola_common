@@ -51,3 +51,8 @@ ifeq ($(TARGET_USES_SILEAD_FINGERPRINT),true)
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service-silead2.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.biometrics.fingerprint@2.1-service-silead2.rc
 endif
+
+ifeq ($(TARGET_USES_FOCAL_FINGERPRINT),true)
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-focalservice.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.biometrics.fingerprint@2.1-focalservice.rc
+endif
