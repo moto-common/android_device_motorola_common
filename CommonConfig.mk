@@ -71,10 +71,13 @@ TARGET_USERIMAGES_USE_F2FS := true
 # Kernel
 BOARD_FLASH_BLOCK_SIZE ?= 131072
 BOARD_KERNEL_IMAGE_NAME ?= Image.gz-dtb
-BOARD_PREBUILT_DTBIMAGE_DIR ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbs
 ifneq ($(BOARD_USES_DTBO),false)
   BOARD_DTBOIMG_PARTITION_SIZE ?= 25165824
-  BOARD_PREBUILT_DTBOIMAGE ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbo.img
+  BOARD_KERNEL_SEPARATED_DTBO := true
+  ifneq ($(TARGET_PREBUILT_KERNEL),)
+    BOARD_PREBUILT_DTBIMAGE_DIR ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbs
+    BOARD_PREBUILT_DTBOIMAGE ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbo.img
+  endif
 endif
 
 ## Common cmdline parameters
