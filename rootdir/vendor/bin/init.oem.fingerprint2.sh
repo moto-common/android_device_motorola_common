@@ -135,6 +135,12 @@ rmmod fpc1020_mmi
 rmmod goodix_fod_mmi
 rmmod silead_fps_mmi
 rmmod focal_fps_mmi
+stop vendor.ets_hal
+stop vendor.focal_hal
+stop vendor.goodix_hal
+stop vendor.silead_hal
+stop vendor.fps_hal
+stop vendor.chipone_fp_hal
 sleep 0.5
 if [ $fps_id == "none" ];
 then
