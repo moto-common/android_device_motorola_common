@@ -57,47 +57,38 @@ on post-fs-data
     mkdir /data/vendor/fpc 0700 system system
     mkdir /data/vendor/.fps 0770 system oem_5015
 
+    # Start fingerprint script
+    start vendor.hal-fps-sh
+
 on boot
-   # Change ownership and permission for vibrator
-   chown system system /sys/class/leds/vibrator/state
-   chmod 0660 /sys/class/leds/vibrator/state
-   chown system system /sys/class/leds/vibrator/activate
-   chmod 0660 /sys/class/leds/vibrator/activate
-   chown system system /sys/class/leds/vibrator/duration
-   chmod 0660 /sys/class/leds/vibrator/duration
-   chown system system /sys/class/leds/vibrator/seq
-   chmod 0660 /sys/class/leds/vibrator/seq
-   chown system system /sys/class/leds/vibrator/extra
-   chmod 0660 /sys/class/leds/vibrator/extra
-   chown root oem_5020 /sys/bus/i2c/devices/2-005a/reduce
+    # Change ownership and permission for vibrator
+    chown system system /sys/class/leds/vibrator/state
+    chmod 0660 /sys/class/leds/vibrator/state
+    chown system system /sys/class/leds/vibrator/activate
+    chmod 0660 /sys/class/leds/vibrator/activate
+    chown system system /sys/class/leds/vibrator/duration
+    chmod 0660 /sys/class/leds/vibrator/duration
+    chown system system /sys/class/leds/vibrator/seq
+    chmod 0660 /sys/class/leds/vibrator/seq
+    chown system system /sys/class/leds/vibrator/extra
+    chmod 0660 /sys/class/leds/vibrator/extra
+    chown root oem_5020 /sys/bus/i2c/devices/2-005a/reduce
 
-   # Quiet binder logs
-   write /sys/module/binder/parameters/debug_mask 0x5
+    # Quiet binder logs
+    write /sys/module/binder/parameters/debug_mask 0x5
 
-   # Change owner ship of l5 laser calibration
-   chown camera oem_5004 /mnt/vendor/persist/camera/focus/offset_cal
-   chmod 0660 /mnt/vendor/persist/camera/focus/offset_cal
+    # Change owner ship of l5 laser calibration
+    chown camera oem_5004 /mnt/vendor/persist/camera/focus/offset_cal
+    chmod 0660 /mnt/vendor/persist/camera/focus/offset_cal
 
 # translate MMI property in order to keep the consistent with QCOM
 on property:ro.vendor.hw.dualsim=true
-   setprop persist.vendor.radio.multisim.config dsds
-   setprop persist.radio.multisim.config dsds
+    setprop persist.radio.multisim.config dsds
+    setprop persist.vendor.radio.multisim.config dsds
 
 on property:ro.vendor.hw.dualsim=false
-   setprop persist.radio.multisim.config ""
-   setprop persist.vendor.radio.multisim.config ""
-
-service vendor.mmi-touch-sh /vendor/bin/init.mmi.touch.sh
-    class core
-    user root
-    oneshot
-
-service vendor.hal-fps-sh /vendor/bin/init.oem.fingerprint2.sh
-    class late_start
-    user root
-    group system
-    oneshot
-    disabled
+    setprop persist.radio.multisim.config ""
+    setprop persist.vendor.radio.multisim.config ""
 
 # Override the AOSP sensor HAL service definition
 # from hardware/interfaces/sensors/2.0/multihal
@@ -111,5 +102,14 @@ service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@
     capabilities BLOCK_SUSPEND
     rlimit rtprio 10 10
 
-on post-fs-data
-   start vendor.hal-fps-sh
+service vendor.mmi-touch-sh /vendor/bin/init.mmi.touch.sh
+    class core
+    user root
+    oneshot
+
+service vendor.hal-fps-sh /vendor/bin/init.oem.fingerprint2.sh
+    class late_start
+    user root
+    group system
+    oneshot
+    disabled
