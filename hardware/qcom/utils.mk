@@ -1,3 +1,7 @@
+# vars for use by utils
+colon := $(empty):$(empty)
+underscore := $(empty)_$(empty)
+
 # $(call match-word,w1,w2)
 # checks if w1 == w2
 # How it works
@@ -153,11 +157,7 @@ JELLY_BEAN_SDK_VERSIONS := 16 17 18
 # $(call is-platform-sdk-version-at-least,version)
 # version is a numeric SDK_VERSION defined above
 define is-platform-sdk-version-at-least
-$(strip \
-  $(if $(filter 1,$(shell echo "$$(( $(PLATFORM_SDK_VERSION) >= $(1) ))" )), \
-    true, \
-  ) \
-)
+$(call math_gt_or_eq, $(PLATFORM_SDK_VERSION), $(1))
 endef
 
 # $(call is-android-codename,codename)
