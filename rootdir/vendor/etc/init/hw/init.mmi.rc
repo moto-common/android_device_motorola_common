@@ -1,9 +1,6 @@
 # Charge only mode configuration
 import /vendor/etc/init/hw/init.mmi.charge_only.rc
 
-# Target-specific file
-import /vendor/etc/init/hw/init.mmi.overlay.rc
-
 # USB configuration
 import /vendor/etc/init/hw/init.usb.rc
 
@@ -40,6 +37,9 @@ on early-init
 
     # Trigger priority stage of MMI init
     trigger mmi-priority
+
+    # Ensure charging module load order
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules qpnp-smbcharger-mmi qpnp_adaptive_charge mmi-smbcharger-iio
 
 on fs
     mkdir /mnt/vendor/persist/fps 0770 system system
