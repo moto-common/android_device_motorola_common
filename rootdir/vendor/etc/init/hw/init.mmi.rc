@@ -15,27 +15,17 @@ on init
     chmod 0640 /proc/driver/mmi_annotate
 
 on early-init
-    # Need to wait for platform path for UTAGs driver to succeed
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}/by-name/hw
-
     # initialize ro.vendor.mot.factory with default value when it is not set
     setprop ro.vendor.mot.factory false
 
-    # If utags driver is DLKM, script will load it,
-    # otherwise it has to be already loaded
-    exec_start vendor.oem-hw-sh
-
-    # Map oem properties, this must follow
-    # execution of vendor.oem-hw-sh to set
-    # required properties.
+    # Map oem properties.
     setprop ro.carrier ${ro.boot.carrier}
     setprop ro.sf.lcd_density ${ro.boot.lcd_density}
     setprop ro.vendor.fsg-id ${ro.boot.fsg-id}
     setprop ro.vendor.hw.device ${ro.boot.device}
+    setprop ro.vendor.hw.dualsim ${ro.boot.dualsim}
     setprop ro.vendor.hw.hwrev ${ro.boot.hwrev}
-    setprop ro.vendor.hw.modelno ${ro.boot.modelno}
     setprop ro.vendor.hw.revision ${ro.boot.revision}
-    setprop ro.vendor.hw.nav_keys ${ro.boot.nav_keys}
     setprop ro.product.vendor.device ${ro.vendor.product.device}
     setprop ro.product.vendor.name ${ro.vendor.product.name}
     setprop ro.product.vendor.model ${ro.vendor.product.model}
@@ -53,23 +43,6 @@ on early-init
 
 on fs
     mkdir /mnt/vendor/persist/fps 0770 system system
-
-on fs && property:ro.vendor.hw.modem_version=*
-    # Super modem detection
-    exec_start vendor.oem-super-image-detector-sh
-
-on property:ro.vendor.hw.super_image_failure=yes
-    setprop sys.powerctl reboot,recovery
-
-on post-fs && property:ro.vendor.hw.modem_super_image=yes
-    umount /vendor/firmware_mnt
-    mount ext4 /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /vendor/super_modem ro nosuid nodev context=u:object_r:firmware_file:s0
-    mount ext4 loop@/vendor/super_modem/${ro.vendor.hw.modem_mount_file} /vendor/firmware_mnt ro nosuid nodev context=u:object_r:firmware_file:s0
-
-on post-fs && property:ro.vendor.hw.fsg_super_image=yes
-    umount /vendor/fsg
-    mount ext4 /dev/block/bootdevice/by-name/fsg${ro.boot.slot_suffix} /vendor/super_fsg ro nosuid nodev context=u:object_r:fsg_file:s0
-    mount ext4 loop@/vendor/super_fsg/${ro.vendor.hw.fsg_mount_file} /vendor/fsg ro nosuid nodev context=u:object_r:fsg_file:s0
 
 on post-fs
     mkdir /mnt/vendor/persist/camera 0755 oem_5004 oem_5004
@@ -242,48 +215,12 @@ service vendor.mmi-touch-sh /vendor/bin/init.mmi.touch.sh
     user root
     oneshot
 
-service vendor.oem-hw-sh /vendor/bin/init.oem.hw.sh
-    class core
-    user root
-    oneshot
-    disabled
-
-service vendor.oem-super-image-detector-sh /vendor/bin/init.oem.hw.sh -M
-    class core
-    user root
-    oneshot
-    disabled
-
 service vendor.hal-fps-sh /vendor/bin/init.oem.fingerprint2.sh
     class late_start
     user root
     group system
     oneshot
     disabled
-
-service vendor.touch-dead-sh /vendor/bin/init.oem.hw.sh -f
-    class main
-    user root
-    oneshot
-    disabled
-
-service vendor.touch-ready-sh /vendor/bin/init.oem.hw.sh -r
-    class main
-    user root
-    oneshot
-    disabled
-
-service vendor.oem-hw-config-sh /vendor/bin/init.oem.hw.sh -p
-    class main
-    user root
-    oneshot
-    disabled
-
-on property:vendor.hw.touch.status="dead"
-    start vendor.touch-dead-sh
-
-on property:vendor.hw.touch.status="ready"
-    start vendor.touch-ready-sh
 
 # Override the AOSP sensor HAL service definition
 # from hardware/interfaces/sensors/2.0/multihal

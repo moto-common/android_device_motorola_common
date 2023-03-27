@@ -18,12 +18,6 @@ sh_binary {
     vendor: true,
 }
 
-sh_binary {
-    name: "init.oem.hw.sh",
-    src: "vendor/bin/init.oem.hw.sh",
-    vendor: true,
-}
-
 cc_prebuilt_binary {
     name: "init.qcom.ipastart.sh",
     srcs: ["vendor/bin/init.qcom.ipastart.sh"],

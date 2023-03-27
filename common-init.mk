@@ -21,7 +21,6 @@ PRODUCT_PACKAGES += \
     init.mmi.touch.sh \
     init.mmi.rc \
     init.oem.fingerprint2.sh \
-    init.oem.hw.sh \
     init.qcom.ipastart.sh \
     init.target.rc \
     init.usb.rc \
