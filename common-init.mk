@@ -16,7 +16,6 @@
 PRODUCT_PACKAGES += \
     init.gadgethal.sh \
     init.mmi.charge_only.rc \
-    init.mmi.chipset.rc \
     init.mmi.overlay.rc \
     init.mmi.touch.sh \
     init.mmi.rc \
