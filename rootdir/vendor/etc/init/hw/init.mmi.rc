@@ -4,13 +4,6 @@ import /vendor/etc/init/hw/init.mmi.charge_only.rc
 # USB configuration
 import /vendor/etc/init/hw/init.usb.rc
 
-on early-boot
-    write /sys/module/subsystem_restart/parameters/disable_restart_work 0x0
-
-on init
-    chown system log /proc/driver/mmi_annotate
-    chmod 0640 /proc/driver/mmi_annotate
-
 on early-init
     # initialize ro.vendor.mot.factory with default value when it is not set
     setprop ro.vendor.mot.factory false
@@ -73,20 +66,6 @@ on post-fs
     # Any app with radio UID or oem_5004 GID can read/write/execute files in this dir.
     mkdir /mnt/vendor/persist/public/oma 0775 radio oem_5004
 
-    chown oem_5004 oem_5004 /mnt/vendor/persist/factory/fti
-    chmod 0664 /mnt/vendor/persist/factory/fti
-    chown oem_5004 oem_5004 /mnt/vendor/persist/factory/byte
-    chmod 0660 /mnt/vendor/persist/factory/byte
-    chmod 0660 /mnt/vendor/persist/wifi/wlan_mac.bin
-    chown oem_5004 oem_5004 /mnt/vendor/persist/bt/bt_bdaddr
-    chmod 0664 /mnt/vendor/persist/bt/bt_bdaddr
-
-    # Set life_calls and life_timer file permissions
-    chown radio oem_5004 /mnt/vendor/persist/public/hiddenmenu/life_calls
-    chmod 0775 /mnt/vendor/persist/public/hiddenmenu/life_calls
-    chown radio oem_5004 /mnt/vendor/persist/public/hiddenmenu/life_timer
-    chmod 0775 /mnt/vendor/persist/public/hiddenmenu/life_timer
-
     chmod 0711 /mnt/vendor/persist/rfs
     chmod 0711 /mnt/vendor/persist/rfs/msm
     chmod 0711 /mnt/vendor/persist/rfs/msm/mpss
@@ -98,38 +77,11 @@ on post-fs
     # Set dm-verity property for system partition
     verity_update_state
 
-    # Set capsensor calibration sysfs for MDMCTBK
-    chown radio radio /sys/class/capsense/calibrate
-    chmod 0660 /sys/class/capsense/calibrate
-
 on post-fs-data
     # Setup folders for security
     mkdir /mnt/vendor/persist/security 02770 drmrpc drmrpc
     mkdir /data/vendor/dbvc 0750 oem_5004 shell
     chown drmrpc oem_5004 /mnt/vendor/persist/security
-
-    chown oem_5001 oem_5001 /sys/class/power_supply/battery/cycle_count
-    chmod 0664 /sys/class/power_supply/battery/cycle_count
-    chmod 0664 /sys/class/power_supply/battery/charge_control_limit
-
-    chown oem_5001 oem_5001 /sys/class/power_supply/wireless/device/chip_id
-    chown oem_5001 oem_5001 /sys/class/power_supply/wireless/current_now
-    chown oem_5001 oem_5001 /sys/class/power_supply/wireless/voltage_now
-    chown oem_5001 oem_5001 /sys/class/power_supply/wireless/voltage_max
-    chmod 0664 /sys/class/power_supply/wireless/voltage_max
-    chown oem_5001 oem_5001 /sys/kernel/debug/pmic-votable/CHG_DISABLE/force_val
-    chmod 0664 /sys/kernel/debug/pmic-votable/CHG_DISABLE/force_val
-    chown oem_5001 oem_5001 /sys/kernel/debug/pmic-votable/CHG_DISABLE/force_active
-    chmod 0664 /sys/kernel/debug/pmic-votable/CHG_DISABLE/force_active
-    chown oem_5001 oem_5001 /sys/kernel/debug/regulator/smb5-vconn/enable
-    chmod 0664 /sys/kernel/debug/regulator/smb5-vconn/enable
-
-    chown root oem_5020 /sys/class/power_supply/usb/usb_priority
-    chmod 0660 /sys/class/power_supply/usb/usb_priority
-    chown root oem_5020 /sys/module/dwc3_msm/parameters/usb_priority
-    chmod 0660 /sys/module/dwc3_msm/parameters/usb_priority
-    chown root oem_5020 /sys/module/usbnet/parameters/force_on
-    chmod 0666 /sys/module/usbnet/parameters/force_on
 
     # Create directory for cutback
     mkdir /data/vendor/misc/cutback 0770 radio wifi
@@ -148,19 +100,6 @@ on post-fs-data
     mkdir /data/vendor/.fps 0770 system oem_5015
 
 on boot
-   # restore default console_loglevel to KERN_DEBUG
-   # restore default_message_loglevel to KERN_WARNING
-   write /proc/sys/kernel/printk "7 4 1 7"
-
-   # Change ownership and permission for leds backlight
-   chmod 0664 /sys/class/leds/lcd-backlight/brightness
-   chown system system /sys/class/leds/charging/brightness
-   chmod 0664 /sys/class/leds/charging/brightness
-
-   # change permission of red leds
-   chown system system /sys/class/leds/red/brightness
-   chmod 0664 /sys/class/leds/red/brightness
-
    # Change ownership and permission for vibrator
    chown system system /sys/class/leds/vibrator/state
    chmod 0660 /sys/class/leds/vibrator/state
@@ -174,11 +113,6 @@ on boot
    chmod 0660 /sys/class/leds/vibrator/extra
    chown root oem_5020 /sys/bus/i2c/devices/2-005a/reduce
 
-   # Change ownership of aov related sysfs entries
-   chown audio audio /sys/kernel/aov/trigger
-   chown audio audio /sys/kernel/aov/register
-   chown audio audio /sys/kernel/aov/event
-
    # Quiet binder logs
    write /sys/module/binder/parameters/debug_mask 0x5
 
@@ -186,21 +120,14 @@ on boot
    chown camera oem_5004 /mnt/vendor/persist/camera/focus/offset_cal
    chmod 0660 /mnt/vendor/persist/camera/focus/offset_cal
 
-   # change ownership of capsensor related sysfs node
-   chown system system /sys/class/capsense/reset
-   chown system system /sys/class/capsense/int_state
-
-service vendor.mmi-block-perm /vendor/bin/init.mmi.block_perm.sh
-    class main
-    user root
-    oneshot
-
 # translate MMI property in order to keep the consistent with QCOM
 on property:ro.vendor.hw.dualsim=true
+   setprop persist.vendor.radio.multisim.config dsds
    setprop persist.radio.multisim.config dsds
 
 on property:ro.vendor.hw.dualsim=false
    setprop persist.radio.multisim.config ""
+   setprop persist.vendor.radio.multisim.config ""
 
 service vendor.mmi-touch-sh /vendor/bin/init.mmi.touch.sh
     class core
@@ -225,16 +152,6 @@ service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@
     writepid /dev/cpuset/system-background/tasks
     capabilities BLOCK_SUSPEND
     rlimit rtprio 10 10
-
-# IKSWQ-149109: Force shutter tone on Japan softbank carrier
-on property:ro.carrier=softbank
-    setprop audio.camerasound.force true
-
-on property:ro.vendor.hw.dualsim=true
-   setprop persist.vendor.radio.multisim.config dsds
-
-on property:ro.vendor.hw.dualsim=false
-   setprop persist.vendor.radio.multisim.config ""
 
 on post-fs-data
    start vendor.hal-fps-sh
