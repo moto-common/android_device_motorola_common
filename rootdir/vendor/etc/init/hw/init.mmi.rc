@@ -43,9 +43,6 @@ on post-fs
     chmod 0711 /mnt/vendor/persist/rfs/mdm/mpss
     chmod 0771 /mnt/vendor/persist/rfs/mdm/mpss/mot_rfs
 
-    # Set dm-verity property for system partition
-    verity_update_state
-
 on post-fs-data
     # Create directory for cutback
     mkdir /data/vendor/misc/cutback 0770 radio wifi
