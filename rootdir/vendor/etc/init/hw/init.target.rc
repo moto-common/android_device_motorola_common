@@ -119,15 +119,6 @@ on boot
 on boot && property:persist.vendor.usb.controller.default=*
     setprop vendor.usb.controller ${persist.vendor.usb.controller.default}
 
-on charger
-    mount_all /vendor/etc/charger_fstab.qti --early
-    write /sys/kernel/boot_adsp/boot 1
-    #restart charger after ADSP is out of reset
-    restart charger
-    start vendor.power_off_alarm
-    setprop sys.usb.controller ${ro.boot.usbcontroller}
-    setprop sys.usb.configfs 1
-
 #pd-mapper
 service vendor.pd_mapper /vendor/bin/pd-mapper
     class core

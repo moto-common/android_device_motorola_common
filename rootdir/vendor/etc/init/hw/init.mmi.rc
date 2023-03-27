@@ -195,14 +195,6 @@ service vendor.mmi-block-perm /vendor/bin/init.mmi.block_perm.sh
     user root
     oneshot
 
-on late-fs-charger
-    class_start early_hal
-    wait_for_prop hwservicemanager.ready true
-    exec_start wait_for_keymaster
-    mount_all /vendor/etc/fstab.qcom --late
-    # Boot time fs tune
-    write /sys/block/dm-9/queue/read_ahead_kb 2048
-
 # translate MMI property in order to keep the consistent with QCOM
 on property:ro.vendor.hw.dualsim=true
    setprop persist.radio.multisim.config dsds
