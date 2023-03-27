@@ -4,6 +4,13 @@ service vendor.power-hal-aidl /vendor/bin/hw/android.hardware.power-service.moto
     group system
     priority -20
 
+on post-fs
+    # Double Tap to wake gesture
+    chown root input /sys/class/sensors/dt-gesture/enable
+    chmod 0660 /sys/class/sensors/dt-gesture/enable
+    chown root input /sys/class/sensors/dt-gesture/poll_delay
+    chmod 0660 /sys/class/sensors/dt-gesture/poll_delay
+
 on late-fs
     start vendor.power-hal-aidl
 
