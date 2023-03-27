@@ -34,39 +34,8 @@ on early-init
     # Ensure charging module load order
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules qpnp-smbcharger-mmi qpnp_adaptive_charge mmi-smbcharger-iio
 
-on fs
-    mkdir /mnt/vendor/persist/fps 0770 system system
-
 on post-fs
-    mkdir /mnt/vendor/persist/camera 0755 oem_5004 oem_5004
-    mkdir /mnt/vendor/persist/camera/dualcal 0775 camera oem_5004
-    mkdir /mnt/vendor/persist/camera/focus 0775 camera oem_5004
-    mkdir /mnt/vendor/persist/camera/ledcal 0775 camera oem_5004
-    mkdir /mnt/vendor/persist/camera/mot_ledcal 0775 camera camera
-    mkdir /mnt/vendor/persist/camera/mot_gyrocal 0775 camera camera
-    mkdir /mnt/vendor/persist/mdm 0770 radio radio
-    mkdir /mnt/vendor/persist/factory 0755 oem_5004 oem_5004
-    mkdir /mnt/vendor/persist/factory/audio 0755 oem_5004 system
-    mkdir /mnt/vendor/persist/factory/wlan 0755 oem_5004 oem_5004
-    mkdir /mnt/vendor/persist/factory/regulatory 0755 oem_5004 system
-    mkdir /mnt/vendor/persist/public 0755 oem_5004 oem_5004
-    mkdir /mnt/vendor/persist/public/att_dm 0775 radio oem_5004
-    mkdir /mnt/vendor/persist/public/hiddenmenu 0775 radio oem_5004
-    mkdir /mnt/vendor/persist/public/hiddenmenu/data 0775 system oem_5004
-    mkdir /persist/public/locale 0700 system system
-    mkdir /persist/public/omadm 0700 radio radio
-    mkdir /persist/public/svcs 0770 system system
-    mkdir /mnt/vendor/persist/wifi 0755 oem_5004 oem_5004
-    mkdir /mnt/vendor/persist/bt 0755 oem_5004 bluetooth
-    mkdir /persist/public/usc_dm 0775 radio radio
-    mkdir /mnt/vendor/persist/rfs/msm/mpss/mot_rfs 0771 oem_2951 system
-    mkdir /mnt/vendor/persist/rfs/mdm/mpss/mot_rfs 0771 oem_2951 system
-
-    # This dir is used to store any OMA(both DM and CP) files in persist partition
-    # Any app with radio UID or oem_5004 GID can read/write/execute files in this dir.
-    mkdir /mnt/vendor/persist/public/oma 0775 radio oem_5004
-
-    chmod 0711 /mnt/vendor/persist/rfs
+    # Set RFS permissions
     chmod 0711 /mnt/vendor/persist/rfs/msm
     chmod 0711 /mnt/vendor/persist/rfs/msm/mpss
     chmod 0771 /mnt/vendor/persist/rfs/msm/mpss/mot_rfs
@@ -78,16 +47,8 @@ on post-fs
     verity_update_state
 
 on post-fs-data
-    # Setup folders for security
-    mkdir /mnt/vendor/persist/security 02770 drmrpc drmrpc
-    mkdir /data/vendor/dbvc 0750 oem_5004 shell
-    chown drmrpc oem_5004 /mnt/vendor/persist/security
-
     # Create directory for cutback
     mkdir /data/vendor/misc/cutback 0770 radio wifi
-
-    #Folder for hardware properties
-    mkdir /data/vendor/hardware_revisions 0755 system system
 
     # Imager tuning data for camera subsystem
     mkdir /data/vendor/misc/imager 0771 camera camera
