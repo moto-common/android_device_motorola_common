@@ -20,11 +20,11 @@ target_soc := \
     msm
 
 ifeq ($(TARGET_USES_ESOC),true)
-target_soc += \
-    mdm
+  target_soc += \
+      mdm
 
-target_prefixes += \
-    tn
+  target_prefixes += \
+      tn
 endif
 
 # Prepend vendor and prefix directory to all link names:
@@ -56,10 +56,10 @@ MOTOROLA_SYMLINKS += \
     )
 
 ifeq ($(TARGET_USES_ESOC),true)
-MOTOROLA_SYMLINKS += \
-    $(foreach tgtsoc,$(target_soc), \
-        /data/vendor/tombstones/rfs/tn:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/tn/ramdumps \
-    )
+  MOTOROLA_SYMLINKS += \
+      $(foreach tgtsoc,$(target_soc), \
+          /data/vendor/tombstones/rfs/tn:$(TARGET_COPY_OUT_VENDOR)/rfs/$(tgtsoc)/tn/ramdumps \
+      )
 endif
 
 include $(MOTOROLA_BUILD_SYMLINKS)

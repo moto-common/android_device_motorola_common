@@ -15,72 +15,78 @@
 # Common path
 COMMON_PATH := device/motorola/common
 
-# QCOM Platform selector
-ifeq ($(TARGET_KERNEL_VERSION), 5.4)
-qcom_platform := sm8350
-else ifeq ($(TARGET_KERNEL_VERSION), 4.19)
-qcom_platform := sm8250
-else
-qcom_platform := sm8150
+# A/B OTA dexopt update_engine hookup
+ifeq ($(AB_OTA_UPDATER),true)
+  AB_OTA_POSTINSTALL_CONFIG += \
+      RUN_POSTINSTALL_system=true \
+      POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+      FILESYSTEM_TYPE_system=ext4 \
+      POSTINSTALL_OPTIONAL_system=true
 endif
 
-# Enable building packages from device namespaces.
-# Might be temporary! See:
-# https://android.googlesource.com/platform/build/soong/+/master/README.md#name-resolution
-PRODUCT_SOONG_NAMESPACES += \
-    $(COMMON_PATH) \
-    $(PLATFORM_COMMON_PATH) \
-    hardware/google/interfaces \
-    vendor/qcom/opensource/audio/$(qcom_platform) \
-    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
-    vendor/qcom/opensource/dataservices \
-    vendor/qcom/opensource/display/$(qcom_platform) \
-    vendor/qcom/opensource/display-commonsys-intf
+# Additional native libraries
+# See https://source.android.com/devices/tech/config/namespaces_libraries
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
-# Enable pixel soong namespace for Pixel USB and Power HAL
-PRODUCT_SOONG_NAMESPACES += \
-    hardware/google/pixel
+# Arch
+TARGET_ARCH := arm64
+
+# Audio Configuration
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(COMMON_PATH)/bluetooth
+
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
 # Build scripts
 MOTOROLA_CLEAR_VARS := $(COMMON_PATH)/motorola_clear_vars.mk
 MOTOROLA_BUILD_SYMLINKS := $(COMMON_PATH)/motorola_build_symlinks.mk
 
-DEVICE_PACKAGE_OVERLAYS += $(COMMON_PATH)/overlay
+# Camera
+TARGET_USES_64BIT_CAMERA ?= true
 
-PRODUCT_ENFORCE_RRO_TARGETS := *
-
+# Dexpreopt
 PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
 
-# Force using the following regardless of shipping API level:
-#   PRODUCT_TREBLE_LINKER_NAMESPACES
-#   PRODUCT_SEPOLICY_SPLIT
-#   PRODUCT_ENFORCE_VINTF_MANIFEST
-#   PRODUCT_NOTICE_SPLIT
-PRODUCT_FULL_TREBLE_OVERRIDE := true
+# Dynamic Partitions
+ifeq ($(TARGET_USES_DYNAMIC_PARTITIONS),true)
+  PRODUCT_USE_DYNAMIC_PARTITIONS := true
+endif
 
-# VNDK
-# Force using VNDK regardless of shipping API level
-PRODUCT_USE_VNDK_OVERRIDE := true
-# Include vndk/vndk-sp/ll-ndk modules
+# Filesystem: Create tftp symlinks
 PRODUCT_PACKAGES += \
-    vndk_package
+    tftp_symlinks
 
-# Force building a recovery image: Needed for OTA packaging to work since Q
-PRODUCT_BUILD_RECOVERY_IMAGE := true
+## Create firmware mount point folders in /vendor:
+PRODUCT_PACKAGES += \
+    firmware_folders
 
-# Kernel Path
-KERNEL_PATH := kernel/motorola/msm-$(TARGET_KERNEL_VERSION)
+# Kernel
+PRODUCT_VENDOR_KERNEL_HEADERS := $(PLATFORM_COMMON_PATH)-kernel/kernel-headers
 
-# Configure qti-headers auxiliary module via soong
-SOONG_CONFIG_NAMESPACES += qti_kernel_headers
-SOONG_CONFIG_qti_kernel_headers := version
-SOONG_CONFIG_qti_kernel_headers_version := $(TARGET_KERNEL_VERSION)
-
-# Codecs Configuration
+# Media codecs configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+
+# NFC
+ifneq (,$(filter $(TARGET_USES_SN1XX_NFC) $(TARGET_USES_PN5XX_PN8X_NFC), true))
+  TARGET_SUPPORTS_NFC := true
+endif
+
+# QCOM
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+  include $(COMMON_PATH)/hardware/qcom/product.mk
+endif
 
 # QMI
 PRODUCT_COPY_FILES += \
@@ -91,7 +97,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/gpfspath_oem_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/gpfspath_oem_config.xml
 
-# Sec Configuration
+## Sec Configuration
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
@@ -99,33 +105,23 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/imsrtp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/imsrtp.policy
 
-# Audio Configuration
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
-    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
-    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
-    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+# Soong
+PRODUCT_SOONG_NAMESPACES += \
+    $(COMMON_PATH) \
+    $(PLATFORM_COMMON_PATH) \
+    vendor/qcom/opensource/audio/$(qcom_platform) \
+    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
+    vendor/qcom/opensource/dataservices \
+    vendor/qcom/opensource/display/$(qcom_platform) \
+    vendor/qcom/opensource/display-commonsys-intf
 
-# Additional native libraries
-# See https://source.android.com/devices/tech/config/namespaces_libraries
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+## Enable pixel soong namespace for Pixel USB and Power HAL
+PRODUCT_SOONG_NAMESPACES += \
+    hardware/google/interfaces \
+    hardware/google/pixel
 
-# Depend on symlink creation in /vendor:
-PRODUCT_PACKAGES += \
-    tftp_symlinks
-
-# Create firmware mount point folders in /vendor:
-PRODUCT_PACKAGES += \
-    firmware_folders
-
-# Bluetooth
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
-
-# Perf
-TARGET_USES_INTERACTION_BOOST := true
+# APEX
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 $(call inherit-product, device/motorola/common/common-init.mk)
 $(call inherit-product, device/motorola/common/common-packages.mk)
@@ -133,4 +129,3 @@ $(call inherit-product, device/motorola/common/common-perm.mk)
 $(call inherit-product, device/motorola/common/common-prop.mk)
 $(call inherit-product, device/motorola/common/common-treble.mk)
 $(call inherit-product, vendor/motorola/common/common-vendor.mk)
-include device/qcom/common/common.mk

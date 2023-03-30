@@ -7,11 +7,19 @@
 
 # Fingerprint
 /dev/esfp0 u:object_r:tee_device:s0
+/dev/focaltech_fp u:object_r:tee_device:s0
 /dev/fpsensor u:object_r:tee_device:s0
 /dev/goodix_fp u:object_r:tee_device:s0
+/dev/silead_fp u:object_r:tee_device:s0
 /data/vendor/.fps(/.*)?  u:object_r:fingerprint_vendor_data_file:s0
 /(mnt/vendor/persist|persist)/fps(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
 /(mnt/vendor/persist|persist)/goodix(/.*)? u:object_r:vendor_persist_fingerprint_file:s0
+/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service-chipone u:object_r:hal_fingerprint_default_exec:s0
+/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-focalservice u:object_r:hal_fingerprint_default_exec:s0
+/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-goodixservice u:object_r:hal_fingerprint_default_exec:s0
+/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service-silead u:object_r:hal_fingerprint_default_exec:s0
+/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service-fpc u:object_r:hal_fingerprint_default_exec:s0
+/vendor/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service-ets u:object_r:hal_fingerprint_default_exec:s0
 
 # FSG
 /vendor/fsg u:object_r:vendor_fsg_file:s0
@@ -51,6 +59,8 @@
 
 # Wakeups
 /sys/devices/virtual/input/input[0-9]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/fastrpc/adsprpc-smd/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/soc/[^*]+/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
 /sys/devices/virtual/misc/[^*]+/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
+
+# NFC
+/vendor/bin/hw/android\.hardware\.nfc_snxxx@1\.2-service u:object_r:hal_nfc_default_exec:s0

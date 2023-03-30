@@ -22,10 +22,18 @@ function set_permissions() {
     elif [ $fps_id == "fpc" ]
     then
         chown system:system /sys/class/fingerprint/fpc1020/irq
+    elif [ $fps_id == "silead" ]
+    then
+        chmod 0660 /dev/silead_fp
+        chown system:system /dev/silead_fp
     elif [ $fps_id == "goodix" ]
     then
         chmod 0660 /dev/goodix_fp
         chown system:system /dev/goodix_fp
+    elif [ $fps_id == "focal" ]
+    then
+        chmod 0660 /dev/focaltech_fp
+        chown system:system /dev/focaltech_fp
     else
         chmod 0660 /dev/esfp0
         chown system:system /dev/esfp0
@@ -65,6 +73,19 @@ function start_fpsensor() {
         then
             setprop $prop_persist_fps $fps_id
         fi
+    elif [ $fps_id == "silead" ]
+    then
+        load_module silead_fps_mmi.ko
+        sleep 0.6
+        set_permissions
+        sleep 0.4
+        start vendor.silead_hal
+        sleep 1
+        value=`getprop $prop_fps_status`
+        if [ $value == "ok" ];
+        then
+            setprop $prop_persist_fps $fps_id
+        fi
     elif [ $fps_id == "goodix" ]
     then
         load_module goodix_fod_mmi.ko
@@ -78,8 +99,22 @@ function start_fpsensor() {
         then
             setprop $prop_persist_fps $fps_id
         fi
+    elif [ $fps_id == "focal" ]
+    then
+        load_module focal_fps_mmi.ko
+        sleep 0.6
+        set_permissions
+        sleep 0.4
+        start vendor.focal_hal
+        sleep 1
+        value=`getprop $prop_fps_status`
+        if [ $value == "ok" ];
+        then
+            setprop $prop_persist_fps $fps_id
+        fi
     else
         load_module ets_fps_mmi.ko
+        load_module rbs_fps_mmi.ko
         sleep 0.6
         set_permissions
         sleep 0.4
@@ -94,9 +129,18 @@ function start_fpsensor() {
 }
 
 rmmod ets_fps_mmi
+rmmod rbs_fps_mmi
 rmmod fpsensor_spi_tee
 rmmod fpc1020_mmi
 rmmod goodix_fod_mmi
+rmmod silead_fps_mmi
+rmmod focal_fps_mmi
+stop vendor.ets_hal
+stop vendor.focal_hal
+stop vendor.goodix_hal
+stop vendor.silead_hal
+stop vendor.fps_hal
+stop vendor.chipone_fp_hal
 sleep 0.5
 if [ $fps_id == "none" ];
 then

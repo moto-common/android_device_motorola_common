@@ -14,7 +14,6 @@
 
 # Common init scripts
 PRODUCT_PACKAGES += \
-    init.class_main.sh \
     init.gadgethal.sh \
     init.mmi.charge_only.rc \
     init.mmi.chipset.rc \
@@ -24,12 +23,6 @@ PRODUCT_PACKAGES += \
     init.oem.fingerprint2.sh \
     init.oem.hw.sh \
     init.qcom.ipastart.sh \
-    init.qcom.rc \
-    init.qti.kernel.rc \
-    init.qti.kernel.sh \
-    init.qti.qcv.rc \
-    init.qti.qcv.sh \
-    init.recovery.qcom.rc \
     init.target.rc \
     init.usb.rc \
     vendor_modprobe.sh
@@ -52,4 +45,14 @@ endif
 ifeq ($(TARGET_USES_EGISTEC_FINGERPRINT),true)
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service-ets2.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.biometrics.fingerprint@2.1-service-ets2.rc
+endif
+
+ifeq ($(TARGET_USES_SILEAD_FINGERPRINT),true)
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service-silead2.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.biometrics.fingerprint@2.1-service-silead2.rc
+endif
+
+ifeq ($(TARGET_USES_FOCAL_FINGERPRINT),true)
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-focalservice.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.biometrics.fingerprint@2.1-focalservice.rc
 endif
