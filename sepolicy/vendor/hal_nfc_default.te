@@ -1,0 +1,2 @@
+# NFC property
+get_prop(hal_nfc_default, vendor_nfc_prop)

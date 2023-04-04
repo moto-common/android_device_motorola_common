@@ -106,7 +106,11 @@ ifeq ($(TARGET_USES_SN1XX_NFC),true)
   PRODUCT_PACKAGES += \
       android.hardware.nfc_snxxx@1.2-service
 endif
-
+ifeq ($(TARGET_USES_ST_NFC),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.nfc@1.2-service.st \
+      nfc_nci.st21nfc.default
+endif
 
 # Only define bootctrl HAL availability on AB platforms:
 ifeq ($(AB_OTA_UPDATER),true)
