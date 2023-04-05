@@ -24,17 +24,11 @@ ifeq ($(AB_OTA_UPDATER),true)
       POSTINSTALL_OPTIONAL_system=true
 endif
 
-# Additional native libraries
-# See https://source.android.com/devices/tech/config/namespaces_libraries
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
-
 # Arch
 TARGET_ARCH := arm64
 
 # Audio Configuration
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
@@ -42,9 +36,6 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(COMMON_PATH)/bluetooth
-
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
 # Build scripts
 MOTOROLA_CLEAR_VARS := $(COMMON_PATH)/motorola_clear_vars.mk
@@ -88,22 +79,10 @@ ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
   include $(COMMON_PATH)/hardware/qcom/product.mk
 endif
 
-# QMI
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/data/dsi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/dsi_config.xml \
-    $(COMMON_PATH)/rootdir/vendor/etc/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml
-
-# QSEECOM TZ Storage
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/gpfspath_oem_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/gpfspath_oem_config.xml
-
-## Sec Configuration
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
-
-# Seccomp policy
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/vendor/etc/seccomp_policy/imsrtp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/imsrtp.policy
+# Rootdir
+$(call copy-files-recursive,$(COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
+$(call copy-files-recursive,$(DEVICE_PATH)/vendor,$(TARGET_COPY_OUT_VENDOR))
+$(call copy-files-recursive,$(PLATFORM_COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
