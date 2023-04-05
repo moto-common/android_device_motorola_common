@@ -22,6 +22,7 @@
 #include <android-base/properties.h>
 #include <android/binder_manager.h>
 #include <android/binder_process.h>
+#include <sys/stat.h>
 
 #include "Power.h"
 #include "PowerExt.h"
@@ -30,16 +31,30 @@ using aidl::google::hardware::power::impl::pixel::Power;
 using aidl::google::hardware::power::impl::pixel::PowerExt;
 using ::android::perfmgr::HintManager;
 
-constexpr char kPowerHalConfigPath[] = "/vendor/etc/powerhint.json";
+constexpr char kPowerHalConfigPathStem[] = "/vendor/etc/powerhint_";
+constexpr char kPowerHalConfigPathSuffix[] = ".json";
+constexpr char kPowerHalConfigPathDefault[] = "/vendor/etc/powerhint.json";
+constexpr char kPowerHalHardwareProp[] = "ro.vendor.qti.soc_name";
 constexpr char kPowerHalInitProp[] = "vendor.powerhal.init";
 
 int main() {
+    struct stat st;
+    std::string path = kPowerHalConfigPathDefault;
     LOG(INFO) << "Power HAL AIDL Service with Extension is starting.";
 
+    std::string hardware = ::android::base::GetProperty(kPowerHalHardwareProp, "");
+
+    if (hardware != "") {
+        std::string newPath = kPowerHalConfigPathStem + hardware + kPowerHalConfigPathSuffix;
+        if (stat(newPath.c_str(), &st) == 0) {
+            path = newPath;
+        }
+    }
+
     // Parse config but do not start the looper
-    std::shared_ptr<HintManager> hm = HintManager::GetFromJSON(kPowerHalConfigPath, false);
+    std::shared_ptr<HintManager> hm = HintManager::GetFromJSON(path, false);
     if (!hm) {
-        LOG(FATAL) << "Invalid config: " << kPowerHalConfigPath;
+        LOG(FATAL) << "Invalid config: " << path;
     }
 
     // single thread

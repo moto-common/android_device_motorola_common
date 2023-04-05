@@ -32,3 +32,6 @@ allow hal_power_default vendor_latency_device:chr_file rw_file_perms;
 
 # EXPENSIVE_RENDERING setprop
 set_prop(hal_power_default, vendor_power_prop)
+
+# SOC Name prop
+get_prop(hal_power_default, vendor_soc_name_prop)
