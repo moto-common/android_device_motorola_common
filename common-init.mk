@@ -20,6 +20,7 @@ PRODUCT_PACKAGES += \
     init.mmi.rc \
     init.oem.fingerprint2.sh \
     init.qcom.ipastart.sh \
+    init.qti.qcv.sh \
     init.target.rc \
     init.usb.rc \
     vendor_modprobe.sh

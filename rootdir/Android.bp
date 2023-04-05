@@ -28,6 +28,16 @@ cc_prebuilt_binary {
     },
 }
 
+cc_prebuilt_binary {
+    name: "init.qti.qcv.sh",
+    srcs: ["vendor/bin/init.qti.qcv.sh"],
+    init_rc: ["vendor/etc/init/init.qti.qcv.rc"],
+    vendor: true,
+    strip: {
+        none: true,
+    },
+}
+
 // Init files
 
 prebuilt_etc {
