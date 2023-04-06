@@ -32,7 +32,7 @@ import /vendor/etc/init/hw/init.mmi.rc
 import /vendor/etc/init/hw/init.qti.kernel.rc
 
 on early-init
-    exec u:r:vendor_modprobe:s0 -- /vendor/bin/vendor_modprobe.sh
+    start vendor.init_modprobe
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules q6_pdr_dlkm q6_notifier_dlkm snd_event_dlkm apr_dlkm adsp_loader_dlkm q6_dlkm native_dlkm pinctrl_lpi_dlkm swr_dlkm platform_dlkm stub_dlkm wcd_core_dlkm wsa881x_analog_dlkm bolero_cdc_dlkm va_macro_dlkm rx_macro_dlkm tx_macro_dlkm bt_fm_slim wcd938x_dlkm wcd938x_slave_dlkm wcd937x_dlkm wcd937x_slave_dlkm machine_dlkm radio-i2c-rtc6226-qca cdsprm
 
 on init
@@ -126,6 +126,15 @@ service vendor.per_proxy /vendor/bin/pm-proxy
 
 service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
     class core
+    oneshot
+
+service vendor.init_modprobe /vendor/bin/init.modprobe.sh
+    class main
+    user root
+    group root system
+    disabled
+    stdio_to_kmsg
+    seclabel u:r:vendor_modprobe:s0
     oneshot
 
 on property:init.svc.vendor.per_mgr=running
