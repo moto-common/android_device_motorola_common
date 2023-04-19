@@ -84,7 +84,8 @@ endif
 BOARD_KERNEL_CMDLINE += \
     androidboot.console=ttyMSM0 androidboot.hardware=qcom \
     androidboot.memcg=1 group.memory=nokmem,nosocket \
-    loop.max_part=7 service_locator.enable=1 swiotlb=0
+    loop.max_part=7 service_locator.enable=1 swiotlb=0 \
+    cgroup_disable=pressure
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
   BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 endif
