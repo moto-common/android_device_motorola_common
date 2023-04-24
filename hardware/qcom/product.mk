@@ -44,6 +44,9 @@ ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
 endif
 
 # QTI VNDK Framework Detect
+PRODUCT_ODM_PROPERTIES += \
+    ro.vendor.qti.va_odm.support=1
+
 PRODUCT_PACKAGES += \
     libvndfwk_detect_jni.qti \
     libqti_vndfwk_detect \
