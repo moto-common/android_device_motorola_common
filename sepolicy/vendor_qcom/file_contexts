@@ -1,0 +1,8 @@
+# Fingerprint
+/dev/goodix_fp u:object_r:tee_device:s0
+
+# NFC
+/vendor/bin/STFlashTool u:object_r:stflashtool_exec:s0
+
+# WLAN
+/vendor/bin/cnss-daemon_moto u:object_r:vendor_wcnss_service_exec:s0

@@ -7,8 +7,37 @@ else
   qcom_platform := sm8150
 endif
 
+# A/B OTA Updater
+ifeq ($(AB_OTA_UPDATER),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.boot@1.1-impl-qti \
+      android.hardware.boot@1.1-impl-qti.recovery \
+      android.hardware.boot@1.1-service
+endif
+
 # Audio
 $(call inherit-product-if-exists, vendor/qcom/opensource/audio/$(qcom_platform)/configs/$(TARGET_BOARD_PLATFORM)/$(TARGET_BOARD_PLATFORM).mk)
+
+# Bluetooth
+PRODUCT_PACKAGES += \
+    com.dsi.ant@1.0.vendor \
+    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
+    vendor.qti.hardware.btconfigstore@1.0.vendor \
+    vendor.qti.hardware.btconfigstore@2.0.vendor
+
+# Camera
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.camera.postproc@1.0.vendor
+
+ifeq ($(TARGET_USES_64BIT_CAMERA),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.camera.provider@2.4-impl:64 \
+      android.hardware.camera.provider@2.4-service_64
+else
+  PRODUCT_PACKAGES += \
+      android.hardware.camera.provider@2.4-impl:32 \
+      android.hardware.camera.provider@2.4-service
+endif
 
 # Components
 TARGET_COMMON_QTI_COMPONENTS := \
@@ -32,8 +61,29 @@ TARGET_COMMON_QTI_COMPONENTS := \
 $(call inherit-product-if-exists, vendor/qcom/opensource/display/$(qcom_platform)/config/display-product.mk)
 $(call inherit-product-if-exists, vendor/qcom/opensource/display-commonsys-intf/config/display-interfaces-product.mk)
 
+# FM
+ifeq ($(call device-has-characteristic,fm),true)
+  # FM
+  PRODUCT_PACKAGES += \
+      FM2 \
+      libfm-hci \
+      libqcomfm_jni \
+      fm_helium \
+      qcom.fmradio
+endif
+
+## Used for bluetooth
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.fm@1.0 \
+    vendor.qti.hardware.fm@1.0.vendor
+
 # GPS
 $(call inherit-product-if-exists, vendor/qcom/opensource/gps-legacy/gps_vendor_product.mk)
+
+# Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.allocator@3.0.vendor \
+    vendor.qti.hardware.display.mapper@2.0.vendor
 
 # Media
 $(call inherit-product-if-exists, vendor/qcom/opensource/media/$(qcom_platform)/product.mk)
@@ -46,6 +96,10 @@ ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
   include $(COMMON_PATH)/hardware/qcom/utils.mk
   include device/qcom/common/common.mk
 endif
+
+# QCOM Data
+PRODUCT_PACKAGES += \
+    librmnetctl
 
 # QTI VNDK Framework Detect
 PRODUCT_ODM_PROPERTIES += \
@@ -60,6 +114,39 @@ PRODUCT_PACKAGES += \
     libvndfwk_detect_jni.qti.vendor \
     libqti_vndfwk_detect.vendor
 
+# RIL
+PRODUCT_PACKAGES += \
+    libqsap_sdk \
+    qti-telephony-hidl-wrapper \
+    qti-telephony-hidl-wrapper-prd \
+    qti_telephony_hidl_wrapper.xml \
+    qti_telephony_hidl_wrapper_prd.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml
+
+# Soong
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/audio/$(qcom_platform) \
+    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
+    vendor/qcom/opensource/dataservices \
+    vendor/qcom/opensource/display/$(qcom_platform) \
+    vendor/qcom/opensource/display-commonsys-intf \
+    vendor/qcom/opensource/gps-legacy
+
 # Telephony: IMS framework
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/hardware/qcom/permissions/privapp-permissions-ims.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-ims.xml
+
+# Thermal
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/thermal
+
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0-service.qti
+
+# WLAN
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/hardware/qcom/bin/cnss-daemon_moto:$(TARGET_COPY_OUT_VENDOR)/bin/cnss-daemon_moto
+
+# Vendor
+$(call inherit-product, vendor/motorola/common/hardware/qcom/qcom-vendor.mk)

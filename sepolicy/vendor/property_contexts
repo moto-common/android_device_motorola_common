@@ -11,9 +11,6 @@ ro.vendor.touch. u:object_r:vendor_mot_prop:s0
 persist.vendor.nfc. u:object_r:vendor_nfc_prop:s0
 vendor.nfc.fw_status u:object_r:vendor_nfc_prop:s0
 
-# Power
-vendor.powerhal. u:object_r:vendor_power_prop:s0
-
 # SKU
 ro.boot.product.vendor.sku u:object_r:vendor_sku_prop:s0
 ro.boot.product.hardware.sku u:object_r:vendor_sku_prop:s0

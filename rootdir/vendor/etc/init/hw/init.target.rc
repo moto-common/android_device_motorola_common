@@ -67,7 +67,7 @@ on init
 
 on fs
     start hwservicemanager
-    mount_all /vendor/etc/fstab.qcom --early
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
     restorecon_recursive /mnt/vendor/persist
@@ -88,7 +88,10 @@ on late-fs
     wait_for_prop hwservicemanager.ready true
 
     # mount RW partitions which need run fsck
-    mount_all /vendor/etc/fstab.qcom --late
+    mount_all /vendor/etc/fstab.${ro.hardware} --late
+
+    # Userspace reboot feature
+    setprop init.userspace_reboot.userdata_remount.timeoutmillis 10000
 
 on boot
     write /dev/cpuset/audio-app/cpus 1-2
@@ -107,6 +110,9 @@ on boot
     # Set permissions for sec_nfc
     chown nfc nfc /dev/sec-nfc
     chmod 0770 /dev/sec-nfc
+
+on post-fs-data
+    setprop vold.post_fs_data_done 1
 
 #pd-mapper
 service vendor.pd_mapper /vendor/bin/pd-mapper

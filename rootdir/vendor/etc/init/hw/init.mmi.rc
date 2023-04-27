@@ -55,6 +55,17 @@ on post-fs-data
     mkdir /data/vendor/fpc 0700 system system
     mkdir /data/vendor/.fps 0770 system oem_5015
 
+    # calibration
+    mkdir /data/vendor/sensor 0774 system system
+    # Sensor
+    chmod 0660 /dev/hf_manager
+    chown system system /dev/hf_manager
+    # Change ownership and permission for sensor algo
+    chmod 0660 /sys/class/sensor/m_situ_misc/situparams
+    chown system system /sys/class/sensor/m_situ_misc/situparams
+    chmod 0660 /sys/class/sensor/m_situ_misc/situproxcal
+    chown system system /sys/class/sensor/m_situ_misc/situproxcal
+
     # Start fingerprint script
     start vendor.hal-fps-sh
 
@@ -79,6 +90,33 @@ on boot
     chown camera oem_5004 /mnt/vendor/persist/camera/focus/offset_cal
     chmod 0660 /mnt/vendor/persist/camera/focus/offset_cal
 
+    # change permission for capsensor
+    chmod 0660 /sys/class/capsense/reset
+    chown system system /sys/class/capsense/reset
+    chown radio system /sys/class/capsense/reg
+    chown radio system /sys/class/capsense/fw_download_status
+    chmod 0660 /sys/class/capsense/reg
+    chmod 0660 /sys/class/capsense/fw_download_status
+
+    chown system system /sys/class/sensors/capsense_bottom/enable
+    chown system system /sys/class/sensors/capsense_bottom/poll_delay
+    chown system system /sys/class/sensors/capsense_top_left/enable
+    chown system system /sys/class/sensors/capsense_top_left/poll_delay
+    chown system system /sys/class/sensors/capsense_top_right/enable
+    chown system system /sys/class/sensors/capsense_top_right/poll_delay
+    chown system system /sys/class/capsense/int_state
+
+
+on late-init
+    #moto algo params
+    chmod 0660 /sys/bus/platform/drivers/mtk_nanohub/algo_params
+    chown system system /sys/bus/platform/drivers/mtk_nanohub/algo_params
+    chown system system /dev/input/event2
+    chown system system /dev/input/event3
+    chown system system /dev/input/event4
+    chown system system /dev/input/event5
+    chown system system /dev/input/event6
+
 # translate MMI property in order to keep the consistent with QCOM
 on property:ro.vendor.hw.dualsim=true
     setprop persist.radio.multisim.config dsds
@@ -92,10 +130,37 @@ on property:ro.vendor.hw.dualsim=false
 on property:ro.boot.dualsim=true
     setprop persist.radio.multisim.config dsds
     setprop persist.vendor.radio.multisim.config dsds
+    setprop ro.vendor.hw.dualsim true
 
 on property:ro.boot.dualsim=false
     setprop persist.radio.multisim.config ""
     setprop persist.vendor.radio.multisim.config ""
+    setprop ro.vendor.hw.dualsim false
+
+# Mtk RIL Config
+on property:ro.vendor.hw.dualsim=true && property:ro.vendor.hardware=mtk
+   setprop persist.vendor.radio.msimmode dsds
+   setprop telephony.active_modems.max_count 2
+   setprop ro.vendor.radio.max.multisim dsds
+   setprop ro.telephony.sim.count 2
+   setprop persist.vendor.mims_support 2
+   setprop persist.vendor.radio.smart.data.switch 1
+   setprop ro.vendor.mtk_disable_cap_switch 0
+   setprop ro.vendor.mtk_data_config 1
+
+on property:ro.vendor.hw.dualsim=false && property:ro.vendor.hardware=mtk
+   setprop persist.radio.multisim.config ss
+   setprop persist.vendor.radio.msimmode ss
+   setprop telephony.active_modems.max_count 1
+   setprop ro.vendor.radio.max.multisim ss
+   setprop ro.telephony.sim.count 1
+   setprop persist.vendor.mims_support 1
+   setprop persist.vendor.radio.smart.data.switch 0
+   setprop ro.vendor.mtk_disable_cap_switch 1
+   setprop ro.vendor.mtk_data_config 0
+
+on property:ro.vendor.hardware=qcom
+   start cnss-daemon
 
 # Override the AOSP sensor HAL service definition
 # from hardware/interfaces/sensors/2.0/multihal
@@ -117,6 +182,7 @@ service cnss-daemon /vendor/bin/cnss-daemon_moto -n -l
     user system
     group system inet net_admin wifi
     capabilities NET_ADMIN
+    disabled
 
 service vendor.mmi-touch-sh /vendor/bin/init.mmi.touch.sh
     class core
@@ -135,3 +201,12 @@ service vendor.oem-hw-sh /vendor/bin/init.oem.hw.sh
     user root
     oneshot
     disabled
+
+# Charger
+service charger /system/bin/charger
+    class charger
+    user system
+    group system graphics input
+    capabilities SYS_BOOT
+    seclabel u:r:charger:s0
+

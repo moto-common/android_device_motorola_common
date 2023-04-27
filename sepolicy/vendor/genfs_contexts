@@ -1,12 +1,3 @@
-# Health
-genfscon sysfs /devices/platform/soc/c440000.qcom,spmi/spmi-0/spmi0-00/c440000.qcom,spmi:qcom,pm6150@0:qcom,qpnp-smb5/power_supply u:object_r:vendor_sysfs_usb_supply:s0
-
-# Camera
-genfscon sysfs /devices/platform/soc/5c0c000.qcom,cci u:object_r:vendor_sysfs_camera:s0
-
-# Graphics
-genfscon sysfs /devices/platform/soc/5e00000.qcom,mdss_mdp u:object_r:vendor_sysfs_graphics:s0
-
 # Input Devices
 genfscon sysfs /devices/virtual/input u:object_r:vendor_sysfs_input:s0
 # Fingerprint
@@ -27,5 +18,3 @@ genfscon proc /sys/kernel/sched_energy_aware u:object_r:vendor_proc_kernel_sched
 # Touchpanel
 genfscon sysfs /class/touchscreen u:object_r:vendor_sysfs_touchpanel:s0
 genfscon sysfs /devices/virtual/touchscreen u:object_r:vendor_sysfs_touchpanel:s0
-genfscon sysfs /devices/platform/soc/4a80000.spi u:object_r:vendor_sysfs_touchpanel:s0
-genfscon sysfs /devices/platform/soc/4a88000.spi u:object_r:vendor_sysfs_touchpanel:s0

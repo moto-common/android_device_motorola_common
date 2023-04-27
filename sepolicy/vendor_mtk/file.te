@@ -1,0 +1,5 @@
+typeattribute mnt_vendor_file vendor_persist_type;
+type vendor_camera_data_file, file_type, data_file_type;
+type vendor_sysfs_fingerprint, sysfs_type, fs_type;
+type vendor_sysfs_laser, sysfs_type, fs_type;
+type mnt_vendor_trustlet_file, file_type, data_file_type;

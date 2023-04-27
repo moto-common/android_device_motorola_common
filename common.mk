@@ -71,14 +71,21 @@ PRODUCT_PACKAGES += \
 ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true) # QCOM uses qcom
  FSTAB_SUFFIX := qcom
 else ifeq ($(PRODUCT_USES_MTK_HARDWARE),true) # MTK uses board platform
- FSTAB_SUFFIX := $(TARGET_BOARD_PLAFORM)
+ FSTAB_SUFFIX := $(TARGET_BOARD_PLATFORM)
 endif
 
 ## Select fstab path based on vendor_boot's existence.
 ## Always copy fstab to vendor.
 ifeq ($(call has-partition,vendor_boot),false)
-  PRODUCT_COPY_FILES += \
-      $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_RAMDISK)/fstab.$(FSTAB_SUFFIX)
+  ifeq ($(AB_OTA_UPDATER),true)
+    ifeq ($(call has-partition,recovery),true)
+      PRODUCT_COPY_FILES += \
+          $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_RAMDISK)/fstab.$(FSTAB_SUFFIX)
+    else
+      PRODUCT_COPY_FILES += \
+          $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.$(FSTAB_SUFFIX)
+    endif
+  endif
 else
   PRODUCT_COPY_FILES += \
       $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.$(FSTAB_SUFFIX)
@@ -94,6 +101,11 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+
+# Mediatek
+ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
+  include $(COMMON_PATH)/hardware/mediatek/product.mk
+endif
 
 # NFC
 ifneq (,$(filter $(TARGET_USES_SN1XX_NFC) $(TARGET_USES_PN5XX_PN8X_NFC) $(TARGET_USES_ST_NFC) $(TARGET_USES_SEC_NFC), true))
@@ -119,13 +131,7 @@ $(call add-device-sku,n,nfc)
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \
-    $(PLATFORM_COMMON_PATH) \
-    vendor/qcom/opensource/audio/$(qcom_platform) \
-    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
-    vendor/qcom/opensource/dataservices \
-    vendor/qcom/opensource/display/$(qcom_platform) \
-    vendor/qcom/opensource/display-commonsys-intf \
-    vendor/qcom/opensource/gps-legacy
+    $(PLATFORM_COMMON_PATH)
 
 ## Enable pixel soong namespace for Pixel USB and Power HAL
 PRODUCT_SOONG_NAMESPACES += \
@@ -140,4 +146,3 @@ $(call inherit-product, device/motorola/common/common-packages.mk)
 $(call inherit-product, device/motorola/common/common-perm.mk)
 $(call inherit-product, device/motorola/common/common-prop.mk)
 $(call inherit-product, device/motorola/common/common-treble.mk)
-$(call inherit-product, vendor/motorola/common/common-vendor.mk)

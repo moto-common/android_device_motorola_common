@@ -14,35 +14,29 @@
 
 # Audio
 PRODUCT_PACKAGES += \
+    android.hardware.audio.common@7.0.vendor \
+    android.hardware.audio.effect@7.0.vendor \
+    android.hardware.audio.common@7.0-util.vendor \
     android.hardware.audio@6.0-impl:32 \
+    android.hardware.audio@7.0.vendor \
     android.hardware.audio.service \
     android.hardware.audio.effect@6.0-impl:32 \
     android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth@1.1.vendor \
     android.hardware.bluetooth.audio-impl \
     android.hardware.soundtrigger@2.1.vendor \
     android.hardware.soundtrigger@2.2.vendor \
     android.hardware.soundtrigger@2.3.vendor \
-    android.hardware.soundtrigger@2.3-impl \
-    com.dsi.ant@1.0.vendor \
-    com.qualcomm.qti.bluetooth_audio@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@2.0.vendor
+    android.hardware.soundtrigger@2.3-impl
 
 # Camera
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.5 \
+    android.hardware.camera.device@3.5.vendor \
+    android.hardware.camera.device@3.6.vendor \
+    android.hardware.camera.provider@2.5.vendor \
+    android.hardware.camera.provider@2.6.vendor \
     android.frameworks.displayservice@1.0.vendor \
-    android.frameworks.sensorservice@1.0.vendor \
-    vendor.qti.hardware.camera.postproc@1.0.vendor
-ifeq ($(TARGET_USES_64BIT_CAMERA),true)
-  PRODUCT_PACKAGES += \
-      android.hardware.camera.provider@2.4-impl:64 \
-      android.hardware.camera.provider@2.4-service_64
-else
-  PRODUCT_PACKAGES += \
-      android.hardware.camera.provider@2.4-impl:32 \
-      android.hardware.camera.provider@2.4-service
-endif
+    android.frameworks.sensorservice@1.0.vendor
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -62,11 +56,6 @@ PRODUCT_PACKAGES += \
     com.motorola.hardware.biometric.fingerprint@1.0.vendor \
     vendor.egistec.hardware.fingerprint@4.0.vendor
 
-# FM
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.fm@1.0 \
-    vendor.qti.hardware.fm@1.0.vendor
-
 # GNSS
 PRODUCT_PACKAGES += \
     android.hardware.gnss.measurement_corrections@1.0.vendor \
@@ -85,11 +74,6 @@ PRODUCT_PACKAGES += \
 # Lights HAL
 PRODUCT_PACKAGES += \
     android.hardware.lights-service.moto
-
-# Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.display.allocator@3.0.vendor \
-    vendor.qti.hardware.display.mapper@2.0.vendor
 
 # Netmgrd
 PRODUCT_PACKAGES += \
@@ -123,27 +107,17 @@ ifeq ($(TARGET_USES_ST_NFC),true)
 endif
 
 # Only define bootctrl HAL availability on AB platforms:
-ifeq ($(AB_OTA_UPDATER),true)
-  PRODUCT_PACKAGES += \
-      android.hardware.boot@1.1-impl-qti \
-      android.hardware.boot@1.1-impl-qti.recovery \
-      android.hardware.boot@1.1-service
-endif
-
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0.vendor \
     android.hardware.power@1.1.vendor \
     android.hardware.power@1.2.vendor
 
-ifeq ($(PRODUCT_USES_PIXEL_POWER_HAL),true)
-  PRODUCT_PACKAGES += \
-      android.hardware.power-service.moto-common-libperfmgr
-else
-  $(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
-endif
+PRODUCT_PACKAGES += \
+    android.hardware.power-service.moto-common-libperfmgr
 
 # QTI Haptics Vibrator
+## Used on MTK and QCOM for now
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
@@ -161,15 +135,15 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.2.vendor
 
 # Sensors
-PRODUCT_PACKAGES += \
-    android.hardware.sensors@2.0-service.multihal
+ifneq ($(PRODUCT_USES_MTK_HARDWARE),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.sensors@2.0-service.multihal
+endif
 
 # Thermal HAL
-PRODUCT_SOONG_NAMESPACES += \
-    vendor/qcom/opensource/thermal
-
 PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.qti
+    android.hardware.thermal@1.0.vendor \
+    android.hardware.thermal@2.0.vendor
 
 # USB HAL
 PRODUCT_PACKAGES += \
@@ -177,4 +151,7 @@ PRODUCT_PACKAGES += \
 
 # WiFi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi.hostapd@1.0.vendor
+    android.hardware.wifi.hostapd@1.0.vendor \
+    android.hardware.wifi@1.0-service-lazy \
+    wpa_supplicant \
+    hostapd

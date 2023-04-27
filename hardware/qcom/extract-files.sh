@@ -18,14 +18,14 @@
 
 set -e
 
-DEVICE=common
-VENDOR=motorola
+DEVICE=qcom
+VENDOR=motorola/common/hardware
 
 # Load extract utilities and do some sanity checks.
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "${MY_DIR}" ]]; then MY_DIR="${PWD}"; fi
 
-ANDROID_ROOT="${MY_DIR}/../../.."
+ANDROID_ROOT="${MY_DIR}/../../../../.."
 
 HELPER="${ANDROID_ROOT}/tools/extract-utils/extract_utils.sh"
 if [ ! -f "${HELPER}" ]; then

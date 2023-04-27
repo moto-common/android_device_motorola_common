@@ -1,0 +1,620 @@
+import /vendor/etc/init/hw/init.mtk.perf.rc
+import /vendor/etc/init/hw/init.mtk.charger.rc
+
+# Radio
+on early-init
+    write /sys/class/net/ccmni0/queues/rx-0/rps_cpus "0f"
+    write /sys/class/net/ccmni1/queues/rx-0/rps_cpus "0f"
+    write /sys/class/net/ccmni2/queues/rx-0/rps_cpus "0f"
+
+on init
+# increase sysctl_rmem_max and sysctl_wmem_max values to 2M
+    write /proc/sys/net/core/wmem_max 8388608
+    write /proc/sys/net/core/rmem_max 8388608
+
+on boot
+    chown system radio /dev/ttyGS0
+    chmod 0660 /dev/ttyGS0
+    chown system radio /dev/ttyGS1
+    chmod 0660 /dev/ttyGS1
+    chown system radio /dev/ttyGS2
+    chmod 0660 /dev/ttyGS2
+    chown system radio /dev/ttyGS3
+    chmod 0660 /dev/ttyGS3
+
+    chmod 0660 /sys/power/autosleep
+
+    chown system system /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
+    chmod 0660 /sys/devices/system/cpu/cpufreq/hotplug/cpu_num_base
+    chown system system /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+    chown system system /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+    chmod 0660 /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+    chown system system /sys/devices/system/cpu/rq-stats/htasks_thresh
+    chmod 0660 /sys/devices/system/cpu/rq-stats/htasks_thresh
+    chown system system /sys/devices/system/cpu/rq-stats/avg_htasks_thresh
+    chmod 0660 /sys/devices/system/cpu/rq-stats/avg_htasks_thresh
+
+    chown system /sys/module/mlog/parameters/do_mlog
+    chown system /sys/module/mlog/parameters/timer_intval
+
+# PPM
+    chown system system /proc/ppm/mode
+    chmod 0660 /proc/ppm/mode
+    chown system system /proc/ppm/policy/perfserv_min_perf_idx
+    chmod 0440 /proc/ppm/policy/perfserv_min_perf_idx
+    chown system system /proc/ppm/policy/perfserv_max_perf_idx
+    chmod 0440 /proc/ppm/policy/perfserv_max_perf_idx
+    chown system system /proc/ppm/policy/perfserv_perf_idx
+    chmod 0660 /proc/ppm/policy/perfserv_perf_idx
+    chown system system /proc/ppm/policy/userlimit_min_cpu_freq
+    chmod 0660 /proc/ppm/policy/userlimit_min_cpu_freq
+    chown system system /proc/ppm/policy/userlimit_max_cpu_freq
+    chmod 0660 /proc/ppm/policy/userlimit_max_cpu_freq
+    chown system system /proc/ppm/policy/userlimit_min_cpu_core
+    chmod 0660 /proc/ppm/policy/userlimit_min_cpu_core
+    chown system system /proc/ppm/policy/userlimit_max_cpu_core
+    chmod 0660 /proc/ppm/policy/userlimit_max_cpu_core
+    chown system system /proc/ppm/policy/userlimit_cpu_core
+    chmod 0660 /proc/ppm/policy/userlimit_cpu_core
+    chown system system /proc/ppm/policy/userlimit_cpu_freq
+    chmod 0660 /proc/ppm/policy/userlimit_cpu_freq
+    chown system system /proc/ppm/dump_cluster_0_dvfs_table
+    chmod 0440 /proc/ppm/dump_cluster_0_dvfs_table
+    chown system system /proc/ppm/dump_cluster_1_dvfs_table
+    chmod 0440 /proc/ppm/dump_cluster_1_dvfs_table
+    chown system system /proc/ppm/dump_cluster_2_dvfs_table
+    chmod 0440 /proc/ppm/dump_cluster_2_dvfs_table
+    chown system system /proc/ppm/root_cluster
+    chmod 0660 /proc/ppm/root_cluster
+    chown system system /proc/ppm/policy/hica_variant
+    chmod 0660 /proc/ppm/policy/hica_variant
+    chown system system /proc/ppm/policy/hica_settings/L_ONLY_to_4L_LL/loading_hold_time
+    chmod 0660 /proc/ppm/policy/hica_settings/L_ONLY_to_4L_LL/loading_hold_time
+
+# cpu_loading
+    chown system system /proc/cpu_loading/onoff
+    chmod 0664 /proc/cpu_loading/onoff
+    chown system system /proc/cpu_loading/overThrhld
+    chmod 0664 /proc/cpu_loading/overThrhld
+    chown system system /proc/cpu_loading/poltime_nsecs
+    chmod 0664 /proc/cpu_loading/poltime_nsecs
+    chown system system /proc/cpu_loading/poltime_secs
+    chmod 0664 /proc/cpu_loading/poltime_secs
+    chown system system /proc/cpu_loading/uevent_enable
+    chmod 0664 /proc/cpu_loading/uevent_enable
+
+# CPU freq
+    chown system system /proc/cpufreq/cpufreq_limited_by_hevc
+    chmod 0660 /proc/cpufreq/cpufreq_limited_by_hevc
+    chown system system /proc/cpufreq/cpufreq_limited_max_freq_by_user
+    chmod 0660 /proc/cpufreq/cpufreq_limited_max_freq_by_user
+    chown system system /proc/cpufreq/cpufreq_power_mode
+    chmod 0660 /proc/cpufreq/cpufreq_power_mode
+    chown system system /proc/cpufreq/enable_hw_gov
+    chmod 0660 /proc/cpufreq/enable_hw_gov
+
+# perfmgr
+    chown system system /proc/perfmgr/smart/hps_is_heavy
+    chmod 0660 /proc/perfmgr/smart/hps_is_heavy
+    chown system system /proc/perfmgr/smart/hps_check_duration
+    chmod 0660 /proc/perfmgr/smart/hps_check_duration
+    chown system system /proc/perfmgr/smart/hps_check_last_duration
+    chmod 0660 /proc/perfmgr/smart/hps_check_last_duration
+    chown system system /proc/perfmgr/smart/hps_uevent_enable
+    chmod 0660 /proc/perfmgr/smart/hps_uevent_enable
+    chown system system /sys/power/dcm_state
+    chmod 0660 /sys/power/dcm_state
+
+#Power Manager
+    write /sys/power/pm_freeze_timeout 2000
+
+on post-fs-data
+#/dev/ttyMT2 for Connectivity BT/FM/GPS usage
+    chmod 0660 /dev/ttyMT2
+    chown system system /dev/ttyMT2
+
+#/dev/ttyMT1 for GPS 3337 usage
+    chmod 0660 /dev/ttyMT1
+    chown system system /dev/ttyMT1
+
+# GPS
+    mkdir /data/vendor/gps 0770 gps system
+    mkdir /data/vendor/log 0770 gps system
+    mkdir /data/vendor/log/gps 0770 gps system
+
+# WiFi
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+    chown system system /mnt/vendor/nvcfg/fg
+    chown system system /mnt/vendor/nvcfg/fg/old_fg_data
+    chown system system /mnt/vendor/nvcfg/fg/car_tune_value
+
+# TZ
+    restorecon_recursive /mnt/vendor/tzapp
+
+    # create basic filesystem structure
+    # We chown/chmod /mnt/vendor/nvdata again so because mount is run as root + defaults
+    chown root system /mnt/vendor/nvdata
+    chmod 0771 /mnt/vendor/nvdata
+    mkdir /mnt/vendor/nvdata/media 0771 media audio
+
+    #Create cct mount point
+    mkdir /mnt/vendor/cct
+    chown root system /mnt/vendor/cct
+    chmod 0771 /mnt/vendor/cct
+
+    #Create flash folder
+    mkdir /data/vendor/flash
+    chown root system /data/vendor/flash
+    chmod 0771 /data/vendor/flash
+
+    #Create shading mount point
+    mkdir /data/vendor/shading
+    chown root system /data/vendor/shading
+    chmod 0771 /data/vendor/shading
+
+    #Create shading_otp mount point
+    mkdir /data/vendor/shading_otp
+    chown root system /data/vendor/shading_otp
+    chmod 0771 /data/vendor/shading_otp
+
+    mkdir /data/vendor/camera_dump
+    chown root system /data/vendor/camera_dump
+    chmod 0771 /data/vendor/camera_dump
+
+    #Create Camera Dip Debug Folder
+    mkdir /data/vendor/dipdebug
+    chown root system /data/vendor/dipdebug
+    chmod 0771 /data/vendor/dipdebug
+
+    #Create flicker mount point
+    mkdir /data/vendor/flicker
+    chown root system /data/vendor/flicker
+    chmod 0771 /data/vendor/flicker
+
+    # Set SELinux security contexts on upgrade or policy update.
+    restorecon_recursive /mnt/vendor/nvdata
+
+    #give system access to rfkill device node
+    chmod 0660 /dev/rfkill
+
+    # create for muxd pts device node , to operate without root
+    mkdir /dev/radio 0770 radio radio
+
+    chmod 0660 /dev/spm
+    chown system system /dev/spm
+
+    # SCP log
+    chmod 0660 /sys/class/misc/scp/scp_mobile_log
+    chown root system /sys/class/misc/scp/scp_mobile_log
+    chmod 0220 /sys/class/misc/scp/scp_log_flush
+    chown root system /sys/class/misc/scp/scp_log_flush
+    chmod 0440 /dev/scp
+    chown root system /dev/scp
+    chmod 0664 /sys/class/misc/scp/scp_ee_force_ke
+    chown root system /sys/class/misc/scp/scp_ee_force_ke
+
+    # SSPM log
+    chmod 0620 /sys/class/misc/sspm/sspm_mobile_log
+    chown root system /sys/class/misc/sspm/sspm_mobile_log
+    chmod 0440 /dev/sspm
+    chown root system /dev/sspm
+
+    # Mali 3D GPU driver
+    chmod 666 /dev/mali0
+
+    # set ptmx group to non-root
+    chown root radio /dev/ptmx
+
+    # M4U
+    chmod 0444 /dev/m4u
+    chmod 0640 /proc/m4u
+    chown system media /proc/m4u
+
+    #set mlock limit to infinate (for m4u operation)
+    setrlimit 8 -1 -1
+
+    # CMDQ
+    chmod 0640 /dev/mtk_cmdq
+    chown system system /dev/mtk_cmdq
+
+    # MDP SYNC
+    chmod 0640 /dev/mdp_sync
+    chown system system /dev/mdp_sync
+
+    #VideoCodec
+    chmod 0660 /dev/vcu
+    chown media system /dev/vcu
+    chmod 0660 /dev/video0
+    chown media system /dev/video0
+    chmod 0660 /dev/video1
+    chown media system /dev/video1
+    mkdir /data/vendor/vcodec 0777 media system
+    mkdir /data/vendor/vcodec/log 0770 media system
+    mkdir /data/vendor/vcodec/in 0770 media system
+    mkdir /data/vendor/vcodec/out 0770 media system
+
+    #MDDB
+    mkdir /data/vendor_de/meta 0770 system system
+    mkdir /data/vendor_de/meta/mddb 0770 system system
+
+    chown system /sys/class/input/input1/enable
+    chown system /sys/class/input/input1/delay
+    chown system /sys/class/input/input1/wake
+    chown system /sys/class/input/input1/offsets
+    chown system /sys/class/input/input2/enable
+    chown system /sys/class/input/input2/delay
+    chown system /sys/class/input/input2/wake
+    chown system /sys/class/input/input2/offsets
+    chown system /sys/class/input/input3/enable
+    chown system /sys/class/input/input3/delay
+    chown system /sys/class/input/input3/wake
+    chown system /sys/class/input/input3/offsets
+    chown system /sys/class/input/input4/enable
+    chown system /sys/class/input/input4/delay
+    chown system /sys/class/input/input4/wake
+    chown system /sys/class/input/input4/offsets
+    chown system /sys/class/input/input5/enable
+    chown system /sys/class/input/input5/delay
+    chown system /sys/class/input/input5/wake
+    chown system /sys/class/input/input5/offsets
+    chown system /sys/class/input/input6/enable
+    chown system /sys/class/input/input6/delay
+    chown system /sys/class/input/input6/wake
+    chown system /sys/class/input/input6/offsets
+    chown system /sys/class/input/input7/enable
+    chown system /sys/class/input/input7/delay
+    chown system /sys/class/input/input7/wake
+    chown system /sys/class/input/input7/offsets
+    chown system /sys/class/input/input8/enable
+    chown system /sys/class/input/input8/delay
+    chown system /sys/class/input/input8/wake
+    chown system /sys/class/input/input8/offsets
+    chown system /sys/class/input/input9/enable
+    chown system /sys/class/input/input9/delay
+    chown system /sys/class/input/input9/wake
+    chown system /sys/class/input/input9/offsets
+    chown system /sys/class/input/input10/enable
+    chown system /sys/class/input/input10/delay
+    chown system /sys/class/input/input10/wake
+    chown system /sys/class/input/input10/offsets
+
+    # Display
+    chmod 0660 /dev/graphics/fb0
+    chown system graphics /dev/graphics/fb0
+
+    chmod 0660 /dev/mtk_disp_mgr
+    chown system graphics /dev/mtk_disp_mgr
+
+    # Android SEC related device nodes
+    chmod 0660 /dev/sec
+    chown root system /dev/sec
+
+    # FM Radio device node
+    chmod 0660 /dev/fm
+    chown media media /dev/fm
+
+    # device apc settings
+
+    # device info /proc interface
+    chmod 0440 /dev/devmap
+    chown root system /dev/devmap
+
+    #Use uinput's default permission
+    chown system net_bt_admin /dev/uinput
+
+    # DISP
+    chmod 0444 /dev/mtk_disp
+
+    # gz device
+    chmod 0660 /dev/gz_kree
+    chown system camera /dev/gz_kree
+
+    #Camera
+    chmod 0660 /dev/camera-sysram
+    chmod 0660 /dev/camera-isp
+    chmod 0660 /dev/camera-dip
+    chmod 0660 /dev/camera-tsf
+    chmod 0660 /dev/camera-dpe
+    chmod 0660 /dev/camera-mfb
+    chmod 0660 /dev/camera-rsc
+    chmod 0660 /dev/camera-owe
+    chmod 0660 /dev/camera-fdvt
+    chmod 0660 /dev/camera-wpe
+    chmod 0660 /dev/camera-pipemgr
+    chmod 0660 /dev/kd_camera_hw
+    chmod 0660 /dev/seninf
+    chmod 0660 /dev/flashlight
+    chmod 0660 /dev/kd_camera_hw_bus2
+    chmod 0660 /dev/FM50AF
+    chmod 0660 /dev/CAM_CAL_DRV
+    chmod 0660 /dev/MAINAF
+    chmod 0660 /dev/MAIN2AF
+    chmod 0660 /dev/MAIN3AF
+    chmod 0660 /dev/SUBAF
+    chmod 0660 /dev/vpu
+
+    chown system camera /dev/camera-sysram
+    chown system camera /dev/camera-isp
+    chown system camera /dev/camera-dip
+    chown system camera /dev/camera-dpe
+    chown system camera /dev/camera-mfb
+    chown system camera /dev/camera-rsc
+    chown system camera /dev/camera-owe
+    chown system camera /dev/camera-tsf
+    chown system camera /dev/camera-fdvt
+    chown system camera /dev/camera-wpe
+    chown system camera /dev/camera-pipemgr
+    chown system camera /dev/kd_camera_hw
+    chown system camera /dev/seninf
+    chown system camera /dev/flashlight
+    chown system camera /dev/kd_camera_hw_bus2
+    chown system camera /dev/FM50AF
+    chown system camera /dev/CAM_CAL_DRV
+    chown system camera /dev/MAINAF
+    chown system camera /dev/MAIN2AF
+    chown system camera /dev/MAIN3AF
+    chown system camera /dev/SUBAF
+    chown system camera /dev/vpu
+
+    #CCU
+    chmod 0660 /dev/ccu
+    chown system camera /dev/ccu
+
+    # SMI
+    chmod 0660 /dev/MTK_SMI
+    chown media media /dev/MTK_SMI
+
+    chmod 0664 /sys/bus/platform/drivers/emi_ctrl/concurrency_scenario
+    chown media media /sys/bus/platform/drivers/emi_ctrl/concurrency_scenario
+
+    #Thermal
+    mkdir /data/vendor/.tp/ 0775 system system
+    # power manager
+    write /sys/power/pm_async 0
+
+    #RTC
+    chmod 660 /dev/alarm
+    chown root system /dev/alarm
+
+    #Sensors
+    # calibration
+    mkdir /data/vendor/sensor 0774 system system
+    chmod 0660 /dev/hwmsensor
+    chmod 0660 /dev/msensor
+    chmod 0660 /dev/gsensor
+    chmod 0660 /dev/als_ps
+    chmod 0660 /dev/gyroscope
+    chmod 0660 /dev/aal_als
+    chmod 0660 /dev/humidity
+    chmod 0660 /dev/barometer
+    chmod 0660 /dev/m_als_misc
+    chmod 0660 /dev/m_baro_misc
+    chmod 0660 /dev/m_hmdy_misc
+    chmod 0660 /dev/m_ps_misc
+    chmod 0660 /dev/m_acc_misc
+    chmod 0660 /dev/m_mag_misc
+    chmod 0660 /dev/m_gyro_misc
+    chmod 0660 /dev/m_act_misc
+    chmod 0660 /dev/m_pedo_misc
+    chmod 0660 /dev/m_situ_misc
+    chmod 0660 /dev/m_step_c_misc
+    chmod 0660 /dev/m_fusion_misc
+    chmod 0660 /dev/m_bio_misc
+    chmod 0660 /dev/biometric
+    chmod 0660 /dev/sensorlist
+
+    chown system system /dev/hwmsensor
+    chown system system /dev/msensor
+    chown radio system /dev/gsensor
+    chown radio system /dev/als_ps
+    chown radio system /dev/gyroscope
+    chown system system /dev/aal_als
+    chown system system /dev/humidity
+    chown system system /dev/barometer
+    chown system system /dev/m_als_misc
+    chown system system /dev/m_baro_misc
+    chown system system /dev/m_hmdy_misc
+    chown system system /dev/m_ps_misc
+    chown system system /dev/m_acc_misc
+    chown system system /dev/m_mag_misc
+    chown system system /dev/m_gyro_misc
+    chown system system /dev/m_act_misc
+    chown system system /dev/m_pedo_misc
+    chown system system /dev/m_situ_misc
+    chown system system /dev/m_step_c_misc
+    chown system system /dev/m_fusion_misc
+    chown system system /dev/m_bio_misc
+    chown system system /dev/biometric
+    chown system system /dev/sensorlist
+
+    chmod 0660 /sys/class/sensor/m_acc_misc/accenablenodata
+    chmod 0660 /sys/class/sensor/m_acc_misc/accactive
+    chmod 0660 /sys/class/sensor/m_acc_misc/accdelay
+    chmod 0660 /sys/class/sensor/m_acc_misc/accbatch
+    chmod 0660 /sys/class/sensor/m_acc_misc/accflush
+    chmod 0660 /sys/class/sensor/m_acc_misc/acccali
+    chown system system /sys/class/sensor/m_acc_misc/accenablenodata
+    chown system system /sys/class/sensor/m_acc_misc/accactive
+    chown system system /sys/class/sensor/m_acc_misc/accdelay
+    chown system system /sys/class/sensor/m_acc_misc/accbatch
+    chown system system /sys/class/sensor/m_acc_misc/accflush
+    chown system system /sys/class/sensor/m_acc_misc/acccali
+
+    chmod 0660 /sys/class/sensor/m_mag_misc/magactive
+    chmod 0660 /sys/class/sensor/m_mag_misc/magdelay
+    chmod 0660 /sys/class/sensor/m_mag_misc/magbatch
+    chmod 0660 /sys/class/sensor/m_mag_misc/magflush
+    chmod 0660 /sys/class/sensor/m_mag_misc/magcali
+    chmod 0660 /sys/class/sensor/m_mag_misc/maglibinfo
+    chown system system /sys/class/sensor/m_mag_misc/magactive
+    chown system system /sys/class/sensor/m_mag_misc/magdelay
+    chown system system /sys/class/sensor/m_mag_misc/magbatch
+    chown system system /sys/class/sensor/m_mag_misc/magflush
+    chown system system /sys/class/sensor/m_mag_misc/magcali
+    chown system system /sys/class/sensor/m_mag_misc/maglibinfo
+
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyroenablenodata
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyroactive
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyrodelay
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyrobatch
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyroflush
+    chmod 0660 /sys/class/sensor/m_gyro_misc/gyrocali
+    chown system system /sys/class/sensor/m_gyro_misc/gyroenablenodata
+    chown system system /sys/class/sensor/m_gyro_misc/gyroactive
+    chown system system /sys/class/sensor/m_gyro_misc/gyrodelay
+    chown system system /sys/class/sensor/m_gyro_misc/gyrobatch
+    chown system system /sys/class/sensor/m_gyro_misc/gyroflush
+    chown system system /sys/class/sensor/m_gyro_misc/gyrocali
+
+    chmod 0660 /sys/class/sensor/m_als_misc/alsactive
+    chmod 0660 /sys/class/sensor/m_als_misc/alsdelay
+    chmod 0660 /sys/class/sensor/m_als_misc/alsbatch
+    chmod 0660 /sys/class/sensor/m_als_misc/alsflush
+    chmod 0660 /sys/class/sensor/m_als_misc/alscali
+    chmod 0660 /sys/class/sensor/m_ps_misc/psactive
+    chmod 0660 /sys/class/sensor/m_ps_misc/psdelay
+    chmod 0660 /sys/class/sensor/m_ps_misc/psbatch
+    chmod 0660 /sys/class/sensor/m_ps_misc/psflush
+    chmod 0660 /sys/class/sensor/m_ps_misc/pscali
+    chown system system /sys/class/sensor/m_als_misc/alsactive
+    chown system system /sys/class/sensor/m_als_misc/alsdelay
+    chown system system /sys/class/sensor/m_als_misc/alsbatch
+    chown system system /sys/class/sensor/m_als_misc/alsflush
+    chown system system /sys/class/sensor/m_als_misc/alscali
+    chown system system /sys/class/sensor/m_ps_misc/psactive
+    chown system system /sys/class/sensor/m_ps_misc/psdelay
+    chown system system /sys/class/sensor/m_ps_misc/psbatch
+    chown system system /sys/class/sensor/m_ps_misc/psflush
+    chown system system /sys/class/sensor/m_ps_misc/pscali
+
+    chmod 0660 /sys/class/sensor/m_baro_misc/baroenablenodata
+    chmod 0660 /sys/class/sensor/m_baro_misc/baroactive
+    chmod 0660 /sys/class/sensor/m_baro_misc/barodelay
+    chmod 0660 /sys/class/sensor/m_baro_misc/barobatch
+    chmod 0660 /sys/class/sensor/m_baro_misc/baroflush
+    chmod 0660 /sys/class/sensor/m_baro_misc/barocali
+    chown system system /sys/class/sensor/m_baro_misc/baroenablenodata
+    chown system system /sys/class/sensor/m_baro_misc/baroactive
+    chown system system /sys/class/sensor/m_baro_misc/barodelay
+    chown system system /sys/class/sensor/m_baro_misc/barobatch
+    chown system system /sys/class/sensor/m_baro_misc/baroflush
+    chown system system /sys/class/sensor/m_baro_misc/barocali
+    
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdyenablenodata
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdyactive
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdydelay
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdybatch
+    chmod 0660 /sys/class/sensor/m_hmdy_misc/hmdyflush
+
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdyenablenodata
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdyactive
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdydelay
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdybatch
+    chown system system /sys/class/sensor/m_hmdy_misc/hmdyflush
+
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedoactive
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedodelay
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedobatch
+    chmod 0660 /sys/class/sensor/m_pedo_misc/pedoflush
+    chown system system /sys/class/sensor/m_pedo_misc/pedoactive
+    chown system system /sys/class/sensor/m_pedo_misc/pedodelay
+    chown system system /sys/class/sensor/m_pedo_misc/pedobatch
+    chown system system /sys/class/sensor/m_pedo_misc/pedoflush
+
+    chmod 0660 /sys/class/sensor/m_situ_misc/situactive
+    chmod 0660 /sys/class/sensor/m_situ_misc/situdelay
+    chmod 0660 /sys/class/sensor/m_situ_misc/situbatch
+    chmod 0660 /sys/class/sensor/m_situ_misc/situflush
+    chown system system /sys/class/sensor/m_situ_misc/situactive
+    chown system system /sys/class/sensor/m_situ_misc/situdelay
+    chown system system /sys/class/sensor/m_situ_misc/situbatch
+    chown system system /sys/class/sensor/m_situ_misc/situflush
+
+    chmod 0660 /sys/class/sensor/m_act_misc/actactive
+    chmod 0660 /sys/class/sensor/m_act_misc/actdelay
+    chmod 0660 /sys/class/sensor/m_act_misc/actbatch
+    chmod 0660 /sys/class/sensor/m_act_misc/actflush
+    chown system system /sys/class/sensor/m_act_misc/actactive
+    chown system system /sys/class/sensor/m_act_misc/actdelay
+    chown system system /sys/class/sensor/m_act_misc/actbatch
+    chown system system /sys/class/sensor/m_act_misc/actflush
+
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cactive
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cdelay
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cbatch
+    chmod 0660 /sys/class/sensor/m_step_c_misc/step_cflush
+    chown system system /sys/class/sensor/m_step_c_misc/step_cactive
+    chown system system /sys/class/sensor/m_step_c_misc/step_cdelay
+    chown system system /sys/class/sensor/m_step_c_misc/step_cbatch
+    chown system system /sys/class/sensor/m_step_c_misc/step_cflush
+
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusionactive
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusiondelay
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusionbatch
+    chmod 0660 /sys/class/sensor/m_fusion_misc/fusionflush
+    chown system system /sys/class/sensor/m_fusion_misc/fusionactive
+    chown system system /sys/class/sensor/m_fusion_misc/fusiondelay
+    chown system system /sys/class/sensor/m_fusion_misc/fusionbatch
+    chown system system /sys/class/sensor/m_fusion_misc/fusionflush
+
+    chmod 0660 /sys/class/sensor/m_bio_misc/bioactive
+    chmod 0660 /sys/class/sensor/m_bio_misc/biodelay
+    chmod 0660 /sys/class/sensor/m_bio_misc/biobatch
+    chmod 0660 /sys/class/sensor/m_bio_misc/bioflush
+    chown system system /sys/class/sensor/m_bio_misc/bioactive
+    chown system system /sys/class/sensor/m_bio_misc/biodelay
+    chown system system /sys/class/sensor/m_bio_misc/biobatch
+    chown system system /sys/class/sensor/m_bio_misc/bioflush
+
+on property:sys.boot_completed=1
+    write /proc/pl_lk "0"
+    swapon_all /vendor/etc/fstab.zram
+
+on property:vold.decrypt=trigger_reset_main
+    write /proc/bootprof "INIT:vold.decrypt=trigger_reset_main"
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+on property:vold.decrypt=trigger_restart_min_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_min_framework"
+    start nvram_daemon
+    start msensord
+
+on property:vold.decrypt=trigger_restart_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_framework"
+    start nvram_daemon
+    start msensord
+
+on property:vold.decrypt=trigger_shutdown_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_shutdown_framework"
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+
+
+# GPS
+service mnld /vendor/bin/mnld
+    class main
+    user gps
+    capabilities WAKE_ALARM
+    group gps inet misc sdcard_rw sdcard_r media_rw system radio wakelock
+    socket mnld stream 660 gps system
+
+# WMT
+service wmt_loader /vendor/bin/wmt_loader
+    class early_hal
+    user system
+    group system
+    oneshot
+
+service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/ -o 1
+    class early_hal
+    user system
+    group system
+

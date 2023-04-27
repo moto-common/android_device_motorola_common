@@ -12,6 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Hardware
+## Mediatek
+ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
+  include $(COMMON_PATH)/hardware/mediatek/board.mk
+endif
+
+## QCOM
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+  include $(COMMON_PATH)/hardware/qcom/board.mk
+endif
+
 # Common path
 COMMON_PATH := device/motorola/common
 
@@ -72,14 +83,14 @@ ifneq ($(BOARD_USES_DTBO),false)
     BOARD_PREBUILT_DTBIMAGE_DIR ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbs
     BOARD_PREBUILT_DTBOIMAGE ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbo.img
   endif
+  BOARD_INCLUDE_RECOVERY_DTBO := true
 endif
 
 ## Common cmdline parameters
 BOARD_KERNEL_CMDLINE += \
-    androidboot.console=ttyMSM0 androidboot.hardware=qcom \
-    androidboot.memcg=1 group.memory=nokmem,nosocket \
-    loop.max_part=7 service_locator.enable=1 swiotlb=0 \
-    cgroup_disable=pressure
+    cgroup_disable=pressure loop.max_part=7 swiotlb=0 \
+    cgroup.memory=nokmem,nosocket
+
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
   BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 endif
@@ -95,11 +106,19 @@ ifneq ($(TARGET_PREBUILT_KERNEL),)
       $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
 endif
 
-# QCOM
-ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
-  include $(COMMON_PATH)/hardware/qcom/board.mk
+# Partitions
+ifeq ($(call has-partition,product),true)
+  BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE ?= ext4
+  TARGET_COPY_OUT_PRODUCT := product
 endif
-TARGET_USES_HARDWARE_QCOM_GPS := false
+ifeq ($(call has-partition,system_ext),true)
+  BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE ?= ext4
+  TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+endif
+ifeq ($(call has-partition,vendor),true)
+  BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE ?= ext4
+  TARGET_COPY_OUT_VENDOR := vendor
+endif
 
 # Recovery
 BOARD_INCLUDE_RECOVERY_DTBO := true
@@ -131,11 +150,21 @@ VENDOR_SECURITY_PATCH=$(PLATFORM_SECURITY_PATCH)
 include device/sony/sepolicy/sepolicy.mk
 BOARD_USE_ENFORCING_SELINUX ?= true
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+  BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor_qcom
+endif
+ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
+  BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor_mtk
+endif
 
 # USB
 SOONG_CONFIG_NAMESPACES += MOTO_COMMON_USB MOTO_COMMON_POWER
 SOONG_CONFIG_MOTO_COMMON_USB := USB_CONTROLLER_NAME
-SOONG_CONFIG_MOTO_COMMON_USB_USB_CONTROLLER_NAME ?= 4e00000
+ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
+  SOONG_CONFIG_MOTO_COMMON_USB_USB_CONTROLLER_NAME ?= musb-hdrc
+else
+  SOONG_CONFIG_MOTO_COMMON_USB_USB_CONTROLLER_NAME ?= 4e00000.dwc3
+endif
 SOONG_CONFIG_MOTO_COMMON_POWER := FB_IDLE_PATH
 SOONG_CONFIG_MOTO_COMMON_POWER_FB_IDLE_PATH ?= /sys/devices/platform/soc/5e00000.qcom,mdss_mdp/idle_state
 
@@ -144,6 +173,17 @@ DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest.xml
 ifneq ($(TARGET_USES_FINGERPRINT_V2_1),false)
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.biometrics.fingerprint_v2.1.xml
 endif
+ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-mtk.xml
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.1.xml
+else
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom.xml
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.0.xml
+endif
+ifeq ($(TARGET_SUPPORTS_NFC),true)
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.nfc_v1.2.xml
+endif
+
 ## Framework compatibility matrix: What the device(=vendor) expects of the framework(=system)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/framework_compatibility_matrix.xml
 DEVICE_MATRIX_FILE += $(COMMON_PATH)/vintf/compatibility_matrix.xml

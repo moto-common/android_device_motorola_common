@@ -1,0 +1,5 @@
+allow hal_camera vendor_camera_data_file:dir rw_dir_perms;
+allow hal_camera vendor_camera_data_file:dir create_dir_perms;
+allow hal_camera vendor_camera_data_file:sock_file write;
+allow hal_camera vendor_camera_data_file:file create_file_perms;
+set_prop(hal_camera, vendor_camera_prop)

@@ -1,0 +1,8 @@
+# Charging led
+genfscon sysfs /devices/platform/odm/odm:gpio-leds/leds/charging u:object_r:sysfs_leds:s0
+
+# GPU
+genfscon sysfs /devices/platform/13040000.mali u:object_r:sysfs_gpu:s0
+
+# Touchpanel
+genfscon sysfs /devices/platform/11007000.i2c0/i2c-0/0-0038 u:object_r:vendor_sysfs_touchpanel:s0

@@ -51,6 +51,7 @@ function start_fpsensor() {
     elif [ "$fps_id" == "fpc" ]
     then
         load_module fpc1020_mmi.ko
+        load_module fpc_mtk_tee.ko
         sleep 0.6
         set_permissions
         sleep 0.4
@@ -82,6 +83,7 @@ function start_fpsensor() {
         sleep 1
     else
         load_module ets_fps_mmi.ko
+        load_module ets_fps.ko
         load_module rbs_fps_mmi.ko
         load_module rbs_fod_mmi.ko
         sleep 0.6
@@ -93,10 +95,12 @@ function start_fpsensor() {
 }
 
 rmmod ets_fps_mmi
+rmmod ets_fps
 rmmod rbs_fps_mmi
 rmmod rbs_fod_mmi
 rmmod fpsensor_spi_tee
 rmmod fpc1020_mmi
+rmmod fpc_mtk_tee
 rmmod goodix_fod_mmi
 rmmod silead_fps_mmi
 rmmod focal_fps_mmi

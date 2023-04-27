@@ -1,0 +1,8 @@
+# Camera
+/data/vendor/camera(/.*)? u:object_r:vendor_camera_data_file:s0
+
+# Mobicore TEE
+/mnt/vendor/tzapp(/.*)? u:object_r:mnt_vendor_trustlet_file:s0
+
+# Vibrator
+/vendor/bin/hw/vendor\.qti\.hardware\.vibrator\.service u:object_r:hal_vibrator_default_exec:s0

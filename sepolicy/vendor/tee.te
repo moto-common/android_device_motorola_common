@@ -1,5 +1,2 @@
-# /dev/block/by=name/ssd
-allow tee vendor_xbl_block_device:blk_file rw_file_perms;
-
 # /mnt/vendor/persist/goodix
 r_dir_file(tee, vendor_persist_fingerprint_file)
