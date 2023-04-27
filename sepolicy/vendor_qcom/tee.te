@@ -1,0 +1,1 @@
+allow tee vendor_xbl_block_device:blk_file rw_file_perms;

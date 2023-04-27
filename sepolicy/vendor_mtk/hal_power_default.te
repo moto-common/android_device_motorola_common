@@ -1,0 +1,26 @@
+# Devfreq
+allow hal_power_default proc_cpufreq:dir r_dir_perms;
+allow hal_power_default proc_cpufreq:file rw_file_perms;
+
+# DMA Latency
+allow hal_power_default cpu_dma_latency_device:file rw_file_perms;
+allow hal_power_default cpu_dma_latency_device:chr_file rw_file_perms;
+
+# FBT
+allow hal_power_default sysfs_fbt_cpu:dir r_dir_perms;
+allow hal_power_default sysfs_fbt_cpu:file rw_file_perms;
+
+# FPSGO
+allow hal_power_default sysfs_fpsgo:dir r_dir_perms;
+allow hal_power_default sysfs_fpsgo:file rw_file_perms;
+
+# GPU
+allow hal_power_default sysfs_gpu:dir r_dir_perms;
+allow hal_power_default sysfs_gpu:file rw_file_perms;
+
+# Powerhal props
+set_prop(hal_power_default, vendor_mtk_powerhal_prop)
+
+# Sensors
+r_dir_file(hal_power_default, sysfs_sensor)
+allow hal_power_default sysfs_sensor:file rw_file_perms;

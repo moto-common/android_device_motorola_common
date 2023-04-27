@@ -1,0 +1,32 @@
+on charger
+    write /proc/perfmgr/boost_ctrl/cpu_ctrl/boot_freq "-1 -1 -1 -1"
+    write /sys/devices/platform/10012000.dvfsrc/helio-dvfsrc/dvfsrc_req_ddr_opp -1
+    chmod 0775 /mnt/vendor
+    mkdir /mnt/vendor/nvcfg
+    mount ext4 /dev/block/platform/bootdevice/by-name/nvcfg /mnt/vendor/nvcfg rw wait
+    chown system system /mnt/vendor/nvcfg
+    chmod 0771 /mnt/vendor/nvcfg
+    restorecon_recursive /mnt/vendor/nvcfg
+    exec /system/bin/e2fsck -f -p /dev/block/platform/bootdevice/by-name/cache
+    mount ext4 /dev/block/platform/bootdevice/by-name/cache /cache rw wait
+    chmod 0666 /dev/kmsg
+    write /sys/devices/platform/battery_meter/FG_daemon_log_level 7
+    write /sys/bus/platform/devices/battery/FG_daemon_log_level 7
+    # Permissions for System Server and daemons.
+    chown system system /sys/power/autosleep
+    chown system system /sys/power/state
+    chown system system /sys/power/wakeup_count
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+    chmod 0660 /sys/power/wakeup_count
+    write /sys/power/pm_async 0
+    write /sys/power/pm_freeze_timeout 2000
+
+    start fuelgauged
+    start fuelgauged_nvram
+
+    # Stop bootprof
+    write /proc/bootprof "0"

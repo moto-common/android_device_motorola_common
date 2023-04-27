@@ -1,0 +1,6 @@
+# Fingerprint device
+allow vendor_moto_init_shell fingerprint_device:chr_file { getattr setattr };
+
+# Properties
+set_prop(vendor_moto_init_shell, vendor_mtk_usb_prop)
+

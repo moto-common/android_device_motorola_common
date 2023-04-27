@@ -1,0 +1,6 @@
+# properties
+set_prop(hal_usb_impl, vendor_mtk_usb_prop)
+
+# /sys/class/typec,usb
+allow hal_usb_impl sysfs_usb_nonplat:dir r_dir_perms;
+allow hal_usb_impl sysfs_usb_nonplat:file rw_file_perms;

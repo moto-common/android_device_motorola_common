@@ -1,6 +1,15 @@
 # Display
 -include vendor/qcom/opensource/display/$(qcom_platform)/config/display-board.mk
 
+# GPS
+TARGET_USES_HARDWARE_QCOM_GPS := false
+
+# Kernel
+BOARD_KERNEL_CMDLINE += \
+    androidboot.console=ttyMSM0 \
+    androidboot.hardware=qcom \
+    service_locator.enable=1
+
 # Media
 TARGET_USES_ION := true
 

@@ -5,16 +5,6 @@ hal_server_domain(hal_usb_impl, hal_usb_gadget)
 type hal_usb_impl_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_usb_impl)
 
-set_prop(hal_usb_impl, vendor_usb_prop)
-
-# /sys/class/typec
-r_dir_file(hal_usb_impl, vendor_sysfs_usb_c)
-allow hal_usb_impl vendor_sysfs_usb_c:file w_file_perms;
-
-# USB Supply
-r_dir_file(hal_usb_impl, vendor_sysfs_usb_supply)
-allow hal_usb_impl vendor_sysfs_usb_supply:file w_file_perms;
-
 # Battery Supply
 r_dir_file(hal_usb_impl, vendor_sysfs_battery_supply)
 allow hal_usb_impl vendor_sysfs_battery_supply:file w_file_perms;

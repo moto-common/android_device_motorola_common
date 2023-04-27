@@ -1,0 +1,2 @@
+allow mobicore mnt_vendor_trustlet_file:dir r_dir_perms;
+allow mobicore mnt_vendor_trustlet_file:file rw_file_perms;
