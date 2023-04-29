@@ -91,8 +91,10 @@ ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
 endif
 
 ### Kernel Modules
-BOARD_VENDOR_KERNEL_MODULES ?= \
-    $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
+ifneq ($(TARGET_PREBUILT_KERNEL),)
+  BOARD_VENDOR_KERNEL_MODULES ?= \
+      $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
+endif
 
 # Memory
 MALLOC_SVELTE := true
