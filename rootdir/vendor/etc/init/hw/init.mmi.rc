@@ -87,6 +87,15 @@ on property:ro.vendor.hw.dualsim=false
     setprop persist.radio.multisim.config ""
     setprop persist.vendor.radio.multisim.config ""
 
+# Fallback dualsim property
+on property:ro.boot.dualsim=true
+    setprop persist.radio.multisim.config dsds
+    setprop persist.vendor.radio.multisim.config dsds
+
+on property:ro.boot.dualsim=false
+    setprop persist.radio.multisim.config ""
+    setprop persist.vendor.radio.multisim.config ""
+
 # Override the AOSP sensor HAL service definition
 # from hardware/interfaces/sensors/2.0/multihal
 # to add input and uhid group access
