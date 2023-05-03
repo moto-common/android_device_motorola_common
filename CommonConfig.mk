@@ -56,9 +56,6 @@ BOARD_MKBOOTIMG_ARGS += \
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME ?= $(PRODUCT_DEVICE)
 
-# Dexpreopt
-WITH_DEXPREOPT := true
-
 # Filesystem
 BOARD_ROOT_EXTRA_SYMLINKS += /mnt/vendor/persist:/persist
 BOARD_USES_METADATA_PARTITION := true
