@@ -109,12 +109,6 @@ PRODUCT_PACKAGES += \
     $(DEVICE)SettingsOverlay \
     $(DEVICE)SystemUIOverlay
 
-# Power
-ifeq ($(BOARD_USES_PIXEL_POWER_HAL),true)
-  PRODUCT_PACKAGES += \
-      libperfmgr.vendor
-endif
-
 # QCOM Data
 PRODUCT_PACKAGES += \
     librmnetctl
