@@ -33,9 +33,6 @@ vendor/lib64/libsoc_helper_jni.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 
-# Misc
-vendor/bin/motobox:vendor/bin/expat
-
 # Perf
 vendor/bin/msm_irqbalance
 

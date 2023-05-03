@@ -8,7 +8,7 @@ init_daemon_domain(vendor_moto_init_shell)
 # Chown
 allow vendor_moto_init_shell self:capability chown;
 # Exec
-allow vendor_moto_init_shell { vendor_toolbox_exec vendor_expat_exec vendor_shell_exec }:file rx_file_perms;
+allow vendor_moto_init_shell { vendor_toolbox_exec vendor_shell_exec }:file rx_file_perms;
 
 # /mnt/vendor/persist/fps access
 allow vendor_moto_init_shell mnt_vendor_file:dir search;

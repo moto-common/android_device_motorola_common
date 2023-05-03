@@ -2,9 +2,6 @@
 /data/vendor/misc/imager u:object_r:vendor_camera_data_file:s0
 /mnt/vendor/persist/camera(/.*)? u:object_r:vendor_persist_camera_file:s0
 
-# Expat
-/vendor/bin/expat u:object_r:vendor_expat_exec:s0
-
 # Fingerprint
 /dev/esfp0 u:object_r:tee_device:s0
 /dev/focaltech_fp u:object_r:tee_device:s0
