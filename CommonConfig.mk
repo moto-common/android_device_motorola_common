@@ -101,6 +101,11 @@ BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_NO_RECOVERY ?= false
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
+## Move recovery resources to vendor_boot
+ifeq ($(call has-partition,vendor_boot),true)
+  BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+endif
+
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
 

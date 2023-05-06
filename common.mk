@@ -58,6 +58,26 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     firmware_folders
 
+# FSTab Handling
+## Define suffix for fstab
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true) # QCOM uses qcom
+ FSTAB_SUFFIX := qcom
+else ifeq ($(PRODUCT_USES_MTK_HARDWARE),true) # MTK uses board platform
+ FSTAB_SUFFIX := $(TARGET_BOARD_PLAFORM)
+endif
+
+## Select fstab path based on vendor_boot's existence.
+## Always copy fstab to vendor.
+ifeq ($(call has-partition,vendor_boot),false)
+  PRODUCT_COPY_FILES += \
+      $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_RAMDISK)/fstab.$(FSTAB_SUFFIX)
+else
+  PRODUCT_COPY_FILES += \
+      $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.$(FSTAB_SUFFIX)
+endif
+PRODUCT_COPY_FILES += \
+    $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(FSTAB_SUFFIX)
+
 # Kernel
 PRODUCT_VENDOR_KERNEL_HEADERS := $(PLATFORM_COMMON_PATH)-kernel/kernel-headers
 
@@ -76,6 +96,9 @@ endif
 ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
   include $(COMMON_PATH)/hardware/qcom/product.mk
 endif
+
+# Recovery
+TARGET_RECOVERY_FSTAB := $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab)
 
 # Rootdir
 $(call copy-files-recursive,$(COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
