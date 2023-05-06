@@ -44,3 +44,6 @@ allow vendor_moto_init_shell tee_device:chr_file { getattr setattr };
 
 # Touchscreen reflash access
 allow vendor_moto_init_shell vendor_sysfs_touch:file rw_file_perms;
+
+# /proc/meminfo
+allow vendor_moto_init_shell proc_meminfo:file r_file_perms;

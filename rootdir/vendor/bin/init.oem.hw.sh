@@ -23,3 +23,11 @@ for dir in /proc/hw/*; do
         setprop "ro.vendor.hw.${dir:9}" "$ascii"
     fi
 done
+
+# Set RAM property based on system RAM
+# Get amount of RAM in the system
+MemTotalStr=`cat /proc/meminfo | grep MemTotal`
+MemTotal=${MemTotalStr:16:8}
+let RamSizeGB="( $MemTotal / 1048576 ) + 1"
+
+setprop ro.vendor.hw.ram "$RamSizeGB"GB

@@ -145,3 +145,36 @@ on property:sys.shutdown.requested=*
 
 on fs && property:ro.boot.console=""
     stop console
+
+# Dalvik Props
+on property:ro.vendor.hw.ram=3GB
+    setprop dalvik.vm.heapstartsize 8m
+    setprop dalvik.vm.heapgrowthlimit 192m
+    setprop dalvik.vm.heapsize 512m
+    setprop dalvik.vm.heaptargetutilization 0.75
+    setprop dalvik.vm.heapminfree 512k
+    setprop dalvik.vm.heapmaxfree 8m
+
+on property:ro.vendor.hw.ram=4GB
+    setprop dalvik.vm.heapstartsize 8m
+    setprop dalvik.vm.heapgrowthlimit 192m
+    setprop dalvik.vm.heapsize 512m
+    setprop dalvik.vm.heaptargetutilization 0.6
+    setprop dalvik.vm.heapminfree 8m
+    setprop dalvik.vm.heapmaxfree 16m
+
+on property:ro.vendor.hw.ram=6GB
+    setprop dalvik.vm.heapstartsize 16m
+    setprop dalvik.vm.heapgrowthlimit 256m
+    setprop dalvik.vm.heapsize 512m
+    setprop dalvik.vm.heaptargetutilization 0.5
+    setprop dalvik.vm.heapminfree 8m
+    setprop dalvik.vm.heapmaxfree 32m
+
+on property:ro.vendor.hw.ram=8GB
+    setprop dalvik.vm.heapstartsize 24m
+    setprop dalvik.vm.heapgrowthlimit 256m
+    setprop dalvik.vm.heapsize 512m
+    setprop dalvik.vm.heaptargetutilization 0.46
+    setprop dalvik.vm.heapminfree 8m
+    setprop dalvik.vm.heapmaxfree 48m
