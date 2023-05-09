@@ -26,7 +26,7 @@ done
 
 # Set RAM property based on system RAM
 # Get amount of RAM in the system
-MemTotalStr=`cat /proc/meminfo | grep MemTotal`
+MemTotalStr=$(cat /proc/meminfo | grep MemTotal)
 MemTotal=${MemTotalStr:16:8}
 let RamSizeGB="( $MemTotal / 1048576 ) + 1"
 

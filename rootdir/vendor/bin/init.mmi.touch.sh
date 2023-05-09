@@ -87,7 +87,7 @@ error_and_leave()
 {
 	local err_code=$1
 	local touch_status="unknown"
-	error_msg $err_code
+	error_msg "$err_code"
 	case $err_code in
 		1|4)  touch_status="dead";;
 		5|6|8)  touch_status="absent";;
@@ -112,7 +112,7 @@ error_and_leave()
 	fi
 
 	setprop $touch_status_prop $touch_status
-	notice "property [$touch_status_prop] set to [`getprop $touch_status_prop`]"
+	notice "property [$touch_status_prop] set to [$(getprop $touch_status_prop)]"
 
 	if [ "$touch_status" == "dead" ]; then
 		notice "Touch is not responding; no further action!!!"
@@ -126,7 +126,7 @@ error_and_leave()
 		#fi
 	fi
 
-	exit $err_code
+	exit "$err_code"
 }
 
 prepend()
@@ -137,14 +137,14 @@ prepend()
 	for name in $*; do
 		list="$list$prefix/$name "
 	done
-	echo $list
+	echo "$list"
 }
 
 dump_statistics()
 {
 	debug "dumping touch statistics"
-	cat $touch_path/ic_ver
-	[ -f $touch_path/stats ] && cat $touch_path/stats
+	cat "$touch_path"/ic_ver
+	[ -f "$touch_path"/stats ] && cat "$touch_path"/stats
 	return 0
 }
 
@@ -157,7 +157,7 @@ wait_for_poweron()
 	wait_nomore=60
 	count=0
 	while true; do
-		readiness=$(cat $touch_path/poweron)
+		readiness=$(cat "$touch_path"/poweron)
 		if [ "$readiness" == "1" ]; then
 			debug "ready to flash!!!"
 			break;
@@ -186,12 +186,12 @@ setup_permissions()
 			  samsung)	key_path="/sys/devices/virtual/sec/sec_ts/"
 						key_files=$(ls $key_path 2>/dev/null)
 						# Set optional permissions to LSI touch tests
-						[ -f $touch_path/size ] && chown root:oem_5004 $touch_path/size
-						[ -f $touch_path/address ] && chown root:oem_5004 $touch_path/address
-						[ -f $touch_path/write ] && chown root:oem_5004 $touch_path/write
+						[ -f "$touch_path"/size ] && chown root:oem_5004 "$touch_path"/size
+						[ -f "$touch_path"/address ] && chown root:oem_5004 "$touch_path"/address
+						[ -f "$touch_path"/write ] && chown root:oem_5004 "$touch_path"/write
 						;;
 			synaptics)	key_path=$touch_path
-						key_files=$(prepend f54 `ls $touch_path/f54/ 2>/dev/null`)
+						key_files=$(prepend f54 $(ls "$touch_path"/f54/ 2>/dev/null))
 						key_files=$key_files"reporting query stats";;
 			focaltech)	key_path="/proc/"
 						key_files="ftxxxx-debug";;
@@ -211,21 +211,21 @@ setup_permissions()
 		done
 	fi
 	# Set permissions to enable factory touch tests
-	chown root:oem_5004 $touch_path/drv_irq
-	chown root:oem_5004 $touch_path/hw_irqstat
-	chown root:oem_5004 $touch_path/reset
+	chown root:oem_5004 "$touch_path"/drv_irq
+	chown root:oem_5004 "$touch_path"/hw_irqstat
+	chown root:oem_5004 "$touch_path"/reset
 
 	# Set permissions to allow Bug2Go access to touch statistics
-	chown root:log $touch_path/stats
+	chown root:log "$touch_path"/stats
 	# Erase is optional
-	[ -f $touch_path/erase_all ] && chown root:oem_5004 $touch_path/erase_all
+	[ -f "$touch_path"/erase_all ] && chown root:oem_5004 "$touch_path"/erase_all
 }
 
 read_touch_property()
 {
 	property=""
 	debug "retrieving property: [$touch_path/$1]"
-	property=$(cat $touch_path/$1 2> /dev/null)
+	property=$(cat "$touch_path"/"$1" 2> /dev/null)
 	debug "touch property [$1] is: [$property]"
 	[ -z "$property" ] && return 1
 	return 0
@@ -235,7 +235,7 @@ read_panel_property()
 {
 	property=""
 	debug "retrieving panel property: [$panel_path/$1]"
-	property=$(cat $panel_path/$1 2> /dev/null)
+	property=$(cat $panel_path/"$1" 2> /dev/null)
 	debug "panel property [$1] is: [$property]"
 	[ -z "$property" ] && return 1
 	return 0
@@ -249,16 +249,16 @@ find_latest_config_id()
 	str_cfg_id_latest=""
 	debug "scanning dir for files matching [$fw_mask]"
 	let dec=0; max=0;
-	for file in $(ls $fw_mask 2>/dev/null); do
+	for file in $(ls "$fw_mask" 2>/dev/null); do
 		z=$file
 		i=0
-		while [ ! $i -eq $skip_fields ]; do
+		while [ ! $i -eq "$skip_fields" ]; do
 			z=${z#*-}
 			i=$((i+1))
 		done
 		str_hex=${z%%-*};
 		let dec=0x$str_hex
-		if [ $dec -gt $max ]; then
+		if [ "$dec" -gt $max ]; then
 			let max=$dec; dec_cfg_id_latest=$dec;
 			str_cfg_id_latest=$str_hex
 		fi
@@ -288,9 +288,9 @@ find_best_match()
 	done
 	[ -z "$str_cfg_id_latest" ] && return 1
 	if [ -z "$panel_supplier" ]; then
-		firmware_file=$(ls $touch_vendor-$touch_product_id-$str_cfg_id_latest-*-$product_id$hw_mask.*)
+		firmware_file=$(ls "$touch_vendor"-"$touch_product_id"-"$str_cfg_id_latest"-*-"$product_id""$hw_mask".*)
 	else
-		firmware_file=$(ls $touch_vendor-$panel_supplier-$touch_product_id-$str_cfg_id_latest-*-$product_id$hw_mask.*)
+		firmware_file=$(ls "$touch_vendor"-"$panel_supplier"-"$touch_product_id"-"$str_cfg_id_latest"-*-"$product_id""$hw_mask".*)
 	fi
 	notice "Firmware file for upgrade $firmware_file"
 	return 0
@@ -338,7 +338,7 @@ load_driver_modules()
 	if [ "$supplier" ]; then
 		if [ -f $oem_panel_script ]; then
 			debug "load_driver_modules()"
-			$oem_panel_script -s $supplier
+			$oem_panel_script -s "$supplier"
 		fi
 	fi
 }
@@ -376,12 +376,12 @@ run_firmware_upgrade()
 		notice "  bl mode = $bl_mode"
 		notice "  build id = $build_id_boot"
 	fi
-	if [ $dec_cfg_id_boot -ne $dec_cfg_id_latest ] || [ "$recovery" == "1" ]; then
+	if [ "$dec_cfg_id_boot" -ne "$dec_cfg_id_latest" ] || [ "$recovery" == "1" ]; then
 		wait_for_poweron
 		debug "forcing firmware upgrade"
-		echo 1 > $touch_path/forcereflash
+		echo 1 > "$touch_path"/forcereflash
 		debug "sending reflash command"
-		echo $firmware_file > $touch_path/doreflash
+		echo "$firmware_file" > "$touch_path"/doreflash
 		read_touch_property flashprog
 		if [ "$?" != "0" ]; then
 			error_msg 1
@@ -405,10 +405,10 @@ run_firmware_upgrade()
 		[ "$str_cfg_id_latest" != "$str_cfg_id_new" ] && error_msg 7 && return 1
 		# indicate that update has been completed
 		setprop $touch_update_prop "completed"
-		notice "property [$touch_update_prop] set to [`getprop $touch_update_prop`]"
-		if [ -f $touch_path/f54/force_update ]; then
+		notice "property [$touch_update_prop] set to [$(getprop $touch_update_prop)]"
+		if [ -f "$touch_path"/f54/force_update ]; then
 			notice "forcing F54 registers update"
-			echo 1 > $touch_path/f54/force_update
+			echo 1 > "$touch_path"/f54/force_update
 		fi
 	fi
 	return 0
@@ -419,12 +419,12 @@ reload_modules()
 	local rc
 	local module
 	for module in $*; do
-		[ -f $dlkm_path/$module.ko ] || continue
+		[ -f $dlkm_path/"$module".ko ] || continue
 		notice "Reloading [$module.ko]..."
-		rmmod $module
+		rmmod "$module"
 		rc=$?
 		[ $rc != 0 ] && notice "Unloading [$module] failed: $rc"
-		insmod $dlkm_path/$module.ko
+		insmod $dlkm_path/"$module".ko
 		rc=$?
 		[ $rc != 0 ] && notice "Loading [$module] failed: $rc"
 	done
@@ -448,7 +448,7 @@ do_calibration()
 	local rc
 	local cal_version_old=$(getprop $touch_calibration_done_version 2> /dev/null)
 
-	rc=$(echo $firmware_file | grep "recal")
+	rc=$(echo "$firmware_file" | grep "recal")
 	if [[ "$rc" != "" ]]; then
 		if [ "$cal_version_old" != "$str_cfg_id_latest" ]; then
 			notice "Do force touch calibration."
@@ -461,7 +461,7 @@ do_calibration()
 
 			notice "touch calibration result $rc."
 			if [[ $rc == 0 ]]; then
-				setprop $touch_calibration_done_version $str_cfg_id_latest
+				setprop $touch_calibration_done_version "$str_cfg_id_latest"
 			fi
 		fi
 	fi
@@ -469,15 +469,15 @@ do_calibration()
 
 process_touch_instance()
 {
-	touch_vendor=$(cat $touch_class_path/$touch_product_string/vendor)
+	touch_vendor=$(cat $touch_class_path/"$touch_product_string"/vendor)
 	debug "touch vendor [$touch_vendor]"
-	touch_path=/sys$(cat $touch_class_path/$touch_product_string/path)
+	touch_path=/sys$(cat $touch_class_path/"$touch_product_string"/path)
 	debug "sysfs touch path: $touch_path"
-	if [ ! -f $touch_path/doreflash ] ||
-		[ ! -f $touch_path/poweron ] ||
-		[ ! -f $touch_path/flashprog ] ||
-		[ ! -f $touch_path/productinfo ] ||
-		[ ! -f $touch_path/buildid ]; then
+	if [ ! -f "$touch_path"/doreflash ] ||
+		[ ! -f "$touch_path"/poweron ] ||
+		[ ! -f "$touch_path"/flashprog ] ||
+		[ ! -f "$touch_path"/productinfo ] ||
+		[ ! -f "$touch_path"/buildid ]; then
 		error_msg 5
 		continue
 	fi
@@ -485,9 +485,9 @@ process_touch_instance()
 		dump_statistics
 	fi
 	notice "Checking touch ID [$touch_product_string] FW upgrade"
-	touch_vendor=$(cat $touch_class_path/$touch_product_string/vendor)
+	touch_vendor=$(cat $touch_class_path/"$touch_product_string"/vendor)
 	debug "touch vendor [$touch_vendor]"
-	touch_path=/sys$(cat $touch_class_path/$touch_product_string/path)
+	touch_path=/sys$(cat $touch_class_path/"$touch_product_string"/path)
 	debug "sysfs touch path: $touch_path"
 	query_touch_info
 	query_panel_info
@@ -496,7 +496,7 @@ process_touch_instance()
 	do_calibration
 	notice "Touch firmware is up to date"
 	setprop $touch_status_prop "ready"
-	notice "property [$touch_status_prop] set to [`getprop $touch_status_prop`]"
+	notice "property [$touch_status_prop] set to [$(getprop $touch_status_prop)]"
 }
 
 # Main starts here
@@ -512,7 +512,7 @@ debug "product id: $product_id"
 hwrev_id=$(getprop $hwrev_property 2> /dev/null)
 [ -z "$hwrev_id" ] && notice "hw revision undefined"
 debug "hw revision: $hwrev_id"
-cd $firmware_path
+cd $firmware_path || exit
 # Run asynchronously for each instance
 for touch_product_string in $(ls $touch_class_path); do
 	process_touch_instance &
@@ -521,14 +521,14 @@ done
 # check if need to reload modules
 wait
 debug "all background processes completed"
-if [ "x`getprop $touch_update_prop`" == "xcompleted" ] && [ "$touch_vendor" == "synaptics" ]; then
+if [ "x$(getprop $touch_update_prop)" == "xcompleted" ] && [ "$touch_vendor" == "synaptics" ]; then
 	notice "need to reload F54"
 	reload_modules "synaptics_dsx_test_reporting"
 fi
 
 for touch_product_string in $(ls $touch_class_path); do
-	touch_vendor=$(cat $touch_class_path/$touch_product_string/vendor)
-	touch_path=/sys$(cat $touch_class_path/$touch_product_string/path)
+	touch_vendor=$(cat $touch_class_path/"$touch_product_string"/vendor)
+	touch_path=/sys$(cat $touch_class_path/"$touch_product_string"/path)
 	notice "Handling touch ID [$touch_product_string] permissions"
 	setup_permissions
 done

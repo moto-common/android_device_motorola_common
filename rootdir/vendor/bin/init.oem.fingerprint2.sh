@@ -2,9 +2,9 @@
 # Determine fingerprint sensor
 if [ ! -f /mnt/vendor/persist/fps/vendor_id ];
 then
-fps_id=`cat /proc/config/fps_id/ascii`
+fps_id=$(cat /proc/config/fps_id/ascii)
 else
-fps_id=`cat /mnt/vendor/persist/fps/vendor_id`
+fps_id=$(cat /mnt/vendor/persist/fps/vendor_id)
 fi
 # use this to trigger init.mmi.rc
 prop_fps_ident=vendor.hw.fps.ident
@@ -15,22 +15,22 @@ prop_persist_fps=persist.vendor.hardware.fingerprint
 prop_fps_status=vendor.hw.fingerprint.status
 
 function set_permissions() {
-    if [ $fps_id == "chipone" ]
+    if [ "$fps_id" == "chipone" ]
     then
         chmod 0660 /dev/fpsensor
         chown system:system /dev/fpsensor
-    elif [ $fps_id == "fpc" ]
+    elif [ "$fps_id" == "fpc" ]
     then
         chown system:system /sys/class/fingerprint/fpc1020/irq
-    elif [ $fps_id == "silead" ]
+    elif [ "$fps_id" == "silead" ]
     then
         chmod 0660 /dev/silead_fp
         chown system:system /dev/silead_fp
-    elif [ $fps_id == "goodix" ]
+    elif [ "$fps_id" == "goodix" ]
     then
         chmod 0660 /dev/goodix_fp
         chown system:system /dev/goodix_fp
-    elif [ $fps_id == "focal" ]
+    elif [ "$fps_id" == "focal" ]
     then
         chmod 0660 /dev/focaltech_fp
         chown system:system /dev/focaltech_fp
@@ -43,11 +43,11 @@ function set_permissions() {
 }
 
 function load_module() {
-    modprobe -a -d /vendor/lib/modules $1
+    modprobe -a -d /vendor/lib/modules "$1"
 }
 
 function start_fpsensor() {
-    if [ $fps_id == "chipone" ]
+    if [ "$fps_id" == "chipone" ]
     then
         load_module fpsensor_spi_tee.ko
         sleep 0.6
@@ -55,12 +55,12 @@ function start_fpsensor() {
         sleep 0.4
         start vendor.chipone_fp_hal
         sleep 1
-        value=`getprop $prop_fps_status`
-        if [ $value == "ok" ];
+        value=$(getprop $prop_fps_status)
+        if [ "$value" == "ok" ];
         then
-            setprop $prop_persist_fps $fps_id
+            setprop $prop_persist_fps "$fps_id"
         fi
-    elif [ $fps_id == "fpc" ]
+    elif [ "$fps_id" == "fpc" ]
     then
         load_module fpc1020_mmi.ko
         sleep 0.6
@@ -68,12 +68,12 @@ function start_fpsensor() {
         sleep 0.4
         start vendor.fps_hal
         sleep 1
-        value=`getprop $prop_fps_status`
-        if [ $value == "ok" ];
+        value=$(getprop $prop_fps_status)
+        if [ "$value" == "ok" ];
         then
-            setprop $prop_persist_fps $fps_id
+            setprop $prop_persist_fps "$fps_id"
         fi
-    elif [ $fps_id == "silead" ]
+    elif [ "$fps_id" == "silead" ]
     then
         load_module silead_fps_mmi.ko
         sleep 0.6
@@ -81,12 +81,12 @@ function start_fpsensor() {
         sleep 0.4
         start vendor.silead_hal
         sleep 1
-        value=`getprop $prop_fps_status`
-        if [ $value == "ok" ];
+        value=$(getprop $prop_fps_status)
+        if [ "$value" == "ok" ];
         then
-            setprop $prop_persist_fps $fps_id
+            setprop $prop_persist_fps "$fps_id"
         fi
-    elif [ $fps_id == "goodix" ]
+    elif [ "$fps_id" == "goodix" ]
     then
         load_module goodix_fod_mmi.ko
         sleep 0.6
@@ -94,12 +94,12 @@ function start_fpsensor() {
         sleep 0.4
         start vendor.goodix_hal
         sleep 1
-        value=`getprop $prop_fps_status`
-        if [ $value == "ok" ];
+        value=$(getprop $prop_fps_status)
+        if [ "$value" == "ok" ];
         then
-            setprop $prop_persist_fps $fps_id
+            setprop $prop_persist_fps "$fps_id"
         fi
-    elif [ $fps_id == "focal" ]
+    elif [ "$fps_id" == "focal" ]
     then
         load_module focal_fps_mmi.ko
         sleep 0.6
@@ -107,10 +107,10 @@ function start_fpsensor() {
         sleep 0.4
         start vendor.focal_hal
         sleep 1
-        value=`getprop $prop_fps_status`
-        if [ $value == "ok" ];
+        value=$(getprop $prop_fps_status)
+        if [ "$value" == "ok" ];
         then
-            setprop $prop_persist_fps $fps_id
+            setprop $prop_persist_fps "$fps_id"
         fi
     else
         load_module ets_fps_mmi.ko
@@ -120,10 +120,10 @@ function start_fpsensor() {
         sleep 0.4
         start vendor.ets_hal
         sleep 1
-        value=`getprop $prop_fps_status`
-        if [ $value == "ok" ];
+        value=$(getprop $prop_fps_status)
+        if [ "$value" == "ok" ];
         then
-            setprop $prop_persist_fps $fps_id
+            setprop $prop_persist_fps "$fps_id"
         fi
     fi
 }
@@ -142,8 +142,8 @@ stop vendor.silead_hal
 stop vendor.fps_hal
 stop vendor.chipone_fp_hal
 sleep 0.5
-if [ $fps_id == "none" ];
+if [ "$fps_id" == "none" ];
 then
-    fps_id=`cat /mnt/vendor/persist/fps/last_vendor_id`
+    fps_id=$(cat /mnt/vendor/persist/fps/last_vendor_id)
 fi
 start_fpsensor
