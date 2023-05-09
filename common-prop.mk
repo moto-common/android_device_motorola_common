@@ -103,6 +103,12 @@ PRODUCT_PRODUCT_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.control_privapp_permissions=enforce
 
+# Recovery
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.recovery.usb.vid=22B8 \
+    ro.recovery.usb.adb.pid=2E81 \
+    ro.recovery.usb.fastboot.pid=2E81
+
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     ril.subscription.types=NV,RUIM
