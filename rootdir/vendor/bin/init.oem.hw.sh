@@ -1,4 +1,7 @@
 #!/vendor/bin/sh
+# For when utags is loaded
+# Set the properties contained
+echo 1 > /proc/config/reload
 echo 1 > /proc/hw/reload
 exclude_dirs=("all" "reload")
 
