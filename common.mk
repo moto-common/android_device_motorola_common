@@ -88,7 +88,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 
 # NFC
-ifneq (,$(filter $(TARGET_USES_SN1XX_NFC) $(TARGET_USES_PN5XX_PN8X_NFC) $(TARGET_USES_ST_NFC), true))
+ifneq (,$(filter $(TARGET_USES_SN1XX_NFC) $(TARGET_USES_PN5XX_PN8X_NFC) $(TARGET_USES_ST_NFC) $(TARGET_USES_SEC_NFC), true))
   TARGET_SUPPORTS_NFC := true
 endif
 

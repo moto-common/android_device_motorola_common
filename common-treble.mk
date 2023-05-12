@@ -106,6 +106,11 @@ ifeq ($(TARGET_USES_PN5XX_PN8X_NFC),true)
   PRODUCT_PACKAGES += \
       android.hardware.nfc@1.2-service
 endif
+ifeq ($(TARGET_USES_SEC_NFC),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.nfc@1.2-service.samsung \
+      nfc_nci_samsung
+endif
 ifeq ($(TARGET_USES_SN1XX_NFC),true)
   PRODUCT_PACKAGES += \
       android.hardware.nfc_snxxx@1.2-service

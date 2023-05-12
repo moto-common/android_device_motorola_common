@@ -82,7 +82,6 @@ on late-fs
     start vendor.qti.hardware.display.composer
     start vendor.qti.hardware.display.allocator
 
-
     # Wait for hwservicemanager ready since fsck might be triggered in mount_all --late
     # In such case, init won't responce the property_set from hwservicemanager and then
     # cause services for bootanim not running.
@@ -105,6 +104,9 @@ on boot
     # Load WLAN Driver
     exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/ wlan qca_cld3_wlan qca_cld3_qca6390
     exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/5.4-gki qca_cld3_wlan qca_cld3_qca6390
+    # Set permissions for sec_nfc
+    chown nfc nfc /dev/sec-nfc
+    chmod 0770 /dev/sec-nfc
 
 #pd-mapper
 service vendor.pd_mapper /vendor/bin/pd-mapper
