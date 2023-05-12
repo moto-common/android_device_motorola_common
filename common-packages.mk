@@ -58,6 +58,10 @@ endif
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-vendorcompat
 
+# HIDL
+PRODUCT_PACKAGES += \
+    android.hidl.base@1.0.vendor
+
 # IMS (OSS)
 PRODUCT_PACKAGES += \
     telephony-ext \
