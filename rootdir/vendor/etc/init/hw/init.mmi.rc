@@ -108,6 +108,15 @@ service vendor.sensors-hal-2-0-multihal /vendor/bin/hw/android.hardware.sensors@
     capabilities BLOCK_SUSPEND
     rlimit rtprio 10 10
 
+# Override the cnss-daemon service definition
+# to use our own modified binary
+service cnss-daemon /vendor/bin/cnss-daemon_moto -n -l
+    override
+    class late_start
+    user system
+    group system inet net_admin wifi
+    capabilities NET_ADMIN
+
 service vendor.mmi-touch-sh /vendor/bin/init.mmi.touch.sh
     class core
     user root

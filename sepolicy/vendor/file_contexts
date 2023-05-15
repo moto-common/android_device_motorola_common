@@ -65,3 +65,6 @@
 /vendor/bin/hw/android\.hardware\.nfc_snxxx@1\.2-service u:object_r:hal_nfc_default_exec:s0
 /vendor/bin/hw/android\.hardware\.nfc@1\.2-service\.st u:object_r:hal_nfc_default_exec:s0
 /vendor/bin/STFlashTool u:object_r:stflashtool_exec:s0
+
+# WLAN
+/vendor/bin/cnss-daemon_moto u:object_r:vendor_wcnss_service_exec:s0
