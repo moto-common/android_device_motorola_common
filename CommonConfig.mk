@@ -90,9 +90,6 @@ ifneq ($(TARGET_PREBUILT_KERNEL),)
       $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
 endif
 
-# Memory
-MALLOC_SVELTE := true
-
 # QCOM
 ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
   include $(COMMON_PATH)/hardware/qcom/board.mk
