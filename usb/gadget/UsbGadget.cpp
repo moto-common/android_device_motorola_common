@@ -33,11 +33,27 @@ namespace gadget {
 namespace V1_1 {
 namespace implementation {
 
+constexpr char kGadgetNameProp[] = "sys.usb.controller";
+
 UsbGadget::UsbGadget() {
     if (access(OS_DESC_PATH, R_OK) != 0) {
         ALOGE("configfs setup not done yet");
         abort();
     }
+    mGadgetName = GetProperty(kGadgetNameProp, "");
+    if (mGadgetName == "") {
+        ALOGE("Failed to get %s", kGadgetNameProp);
+        abort();
+    }
+    monitorFfs = new MonitorFfs(mGadgetName.c_str());
+    if (monitorFfs == nullptr) {
+        ALOGE("Failed to initialize ffs monitor");
+        abort();
+    }
+}
+
+UsbGadget::~UsbGadget() {
+    delete monitorFfs;
 }
 
 void currentFunctionsAppliedCallback(bool functionsApplied, void *payload) {
@@ -59,8 +75,8 @@ V1_0::Status UsbGadget::tearDownGadget() {
     if (resetGadget() != Status::SUCCESS)
         return Status::ERROR;
 
-    if (monitorFfs.isMonitorRunning()) {
-        monitorFfs.reset();
+    if (monitorFfs->isMonitorRunning()) {
+        monitorFfs->reset();
     } else {
         ALOGI("mMonitor not running");
     }
@@ -191,7 +207,7 @@ Return<Status> UsbGadget::reset() {
 
     usleep(kDisconnectWaitUs);
 
-    if (!WriteStringToFile(USB_CONTROLLER_NAME ".dwc3", PULLUP_PATH)) {
+    if (!WriteStringToFile(mGadgetName, PULLUP_PATH)) {
         ALOGI("Gadget cannot be pulled up");
         return Status::ERROR;
     }
@@ -205,20 +221,20 @@ V1_0::Status UsbGadget::setupFunctions(uint64_t functions,
     bool ffsEnabled = false;
     int i = 0;
 
-    if (addGenericAndroidFunctions(&monitorFfs, functions, &ffsEnabled, &i) != Status::SUCCESS)
+    if (addGenericAndroidFunctions(monitorFfs, functions, &ffsEnabled, &i) != Status::SUCCESS)
         return Status::ERROR;
 
     std::string vendorFunctions = getVendorFunctions();
 
     if ((functions & GadgetFunction::ADB) != 0) {
         ffsEnabled = true;
-        if (addAdb(&monitorFfs, &i) != Status::SUCCESS)
+        if (addAdb(monitorFfs, &i) != Status::SUCCESS)
             return Status::ERROR;
     }
 
     // Pull up the gadget right away when there are no ffs functions.
     if (!ffsEnabled) {
-        if (!WriteStringToFile(USB_CONTROLLER_NAME ".dwc3", PULLUP_PATH))
+        if (!WriteStringToFile(mGadgetName, PULLUP_PATH))
             return Status::ERROR;
         mCurrentUsbFunctionsApplied = true;
         if (callback)
@@ -226,17 +242,17 @@ V1_0::Status UsbGadget::setupFunctions(uint64_t functions,
         return Status::SUCCESS;
     }
 
-    monitorFfs.registerFunctionsAppliedCallback(&currentFunctionsAppliedCallback, this);
+    monitorFfs->registerFunctionsAppliedCallback(&currentFunctionsAppliedCallback, this);
     // Monitors the ffs paths to pull up the gadget when descriptors are written.
     // Also takes of the pulling up the gadget again if the userspace process
     // dies and restarts.
-    monitorFfs.startMonitor();
+    monitorFfs->startMonitor();
 
     if (kDebug)
         ALOGI("Mainthread in Cv");
 
     if (callback) {
-        bool pullup = monitorFfs.waitForPullUp(timeout);
+        bool pullup = monitorFfs->waitForPullUp(timeout);
         Return<void> ret = callback->setCurrentUsbFunctionsCb(
             functions, pullup ? Status::SUCCESS : Status::ERROR);
         if (!ret.isOk())
