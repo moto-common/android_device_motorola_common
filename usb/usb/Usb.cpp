@@ -53,6 +53,8 @@ constexpr char kDetectedPath[] = "/sys/class/power_supply/usb/moisture_detected"
 constexpr char kDisableContatminantDetection[] = "vendor.usb.contaminantdisable";
 constexpr char kEnabledPath[] = "/sys/class/power_supply/usb/moisture_detection_enabled";
 constexpr char kTypecPath[] = "/sys/class/typec";
+constexpr char kDisableDataSignaling[] = "vendor.usb.signalingdisable";
+constexpr char kGadgetNameProp[] = "sys.usb.controller";
 
 void queryVersionHelper(android::hardware::usb::Usb *usb,
                         std::vector<PortStatus> *currentPortStatus);
@@ -62,6 +64,14 @@ ScopedAStatus Usb::enableUsbData(const string& in_portName, bool in_enable,
     bool result = true;
     std::vector<PortStatus> currentPortStatus;
     string pullup;
+    string ddsProp = GetProperty(kDisableDataSignaling, "");
+    bool disableDS = (ddsProp == "true");
+    string gadgetName = GetProperty(kGadgetNameProp, "");
+
+    if (gadgetName == "") {
+        ALOGE("Failed to get Gadget Name from %s", kGadgetNameProp);
+        result = false;
+    }
 
     ALOGI("Userspace turn %s USB data signaling. opID:%ld", in_enable ? "on" : "off",
             in_transactionId);
@@ -69,22 +79,22 @@ ScopedAStatus Usb::enableUsbData(const string& in_portName, bool in_enable,
     if (in_enable) {
         if (ReadFileToString(PULLUP_PATH, &pullup)) {
             pullup = Trim(pullup);
-            if (pullup != kGadgetName) {
-                if (!WriteStringToFile(kGadgetName, PULLUP_PATH)) {
+            if (pullup != gadgetName) {
+                if (!WriteStringToFile(gadgetName, PULLUP_PATH)) {
                     ALOGE("Gadget cannot be pulled up");
                     result = false;
                 }
             }
         }
 
-        if (!WriteStringToFile("1", USB_DATA_PATH)) {
+        if (!WriteStringToFile("1", USB_DATA_PATH) && !disableDS) {
             ALOGE("Not able to turn on usb connection notification");
             result = false;
         }
     } else {
         if (ReadFileToString(PULLUP_PATH, &pullup)) {
             pullup = Trim(pullup);
-            if (pullup == kGadgetName) {
+            if (pullup == gadgetName) {
                 if (!WriteStringToFile("none", PULLUP_PATH)) {
                     ALOGE("Gadget cannot be pulled down");
                     result = false;
@@ -92,7 +102,7 @@ ScopedAStatus Usb::enableUsbData(const string& in_portName, bool in_enable,
             }
         }
 
-        if (!WriteStringToFile("0", USB_DATA_PATH)) {
+        if (!WriteStringToFile("0", USB_DATA_PATH) && !disableDS) {
             ALOGE("Not able to turn on usb connection notification");
             result = false;
         }

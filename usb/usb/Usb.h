@@ -42,7 +42,6 @@ using ::ndk::ScopedAStatus;
 using ::std::shared_ptr;
 using ::std::string;
 
-constexpr char kGadgetName[] = "a600000.dwc3";
 #define PULLUP_PATH "/config/usb_gadget/g1/UDC"
 #define SOC_PATH "/sys/devices/platform/soc/a600000.ssusb/"
 #define USB_DATA_PATH SOC_PATH "usb_data_enabled"
