@@ -13,30 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-soong_config_module_type {
-    name: "moto_common_usb_hal",
-    module_type: "cc_defaults",
-    config_namespace: "MOTO_COMMON_USB",
-    value_variables: ["USB_CONTROLLER_NAME"],
-    properties: ["cppflags"],
-}
-
-moto_common_usb_hal {
-    name: "moto_common_usb_hal_cc_defaults",
-    soong_config_variables: {
-        USB_CONTROLLER_NAME: {
-            cppflags: ["-DUSB_CONTROLLER_NAME=\"%s\""],
-        },
-    },
-}
-
 cc_binary {
     name: "android.hardware.usb.gadget-service.moto-common",
     relative_install_path: "hw",
     init_rc: ["android.hardware.usb.gadget-service.moto-common.rc"],
     defaults: [
         "hidl_defaults",
-        "moto_common_usb_hal_cc_defaults"
     ],
     vintf_fragments: [
         "android.hardware.usb.gadget@1.1-service.moto-common.xml",

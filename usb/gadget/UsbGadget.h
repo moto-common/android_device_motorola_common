@@ -65,15 +65,15 @@ using ::android::hardware::usb::gadget::V1_0::Status;
 using ::android::hardware::usb::gadget::V1_1::IUsbGadget;
 using ::std::string;
 
-static MonitorFfs monitorFfs(USB_CONTROLLER_NAME ".dwc3");
-
 struct UsbGadget : public IUsbGadget {
     UsbGadget();
+    ~UsbGadget();
 
     // Makes sure that only one request is processed at a time.
     std::mutex mLockSetCurrentFunction;
     uint64_t mCurrentUsbFunctions;
     bool mCurrentUsbFunctionsApplied;
+    string mGadgetName;
 
     Return<void> setCurrentUsbFunctions(uint64_t functions,
                                         const sp<V1_0::IUsbGadgetCallback> &callback,
@@ -84,6 +84,7 @@ struct UsbGadget : public IUsbGadget {
     Return<Status> reset() override;
 
 private:
+    MonitorFfs* monitorFfs;
     Status tearDownGadget();
     Status setupFunctions(uint64_t functions, const sp<V1_0::IUsbGadgetCallback> &callback,
                           uint64_t timeout);
