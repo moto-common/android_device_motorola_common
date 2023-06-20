@@ -214,6 +214,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.thumbnail.prefer_hw_codecs=true
 
+# USB
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.usb.contaminantdisable=true \
+    vendor.usb.signalingdisable=true
+
 # Disable Compressed APEX on 4.14 kernel as Android 12 enforces it and our kernel is not compatible (yet)
 ifeq ($(TARGET_KERNEL_VERSION), 4.14)
   OVERRIDE_PRODUCT_COMPRESSED_APEX := false
