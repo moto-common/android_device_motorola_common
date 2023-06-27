@@ -13,6 +13,7 @@ on early-init
     setprop ro.carrier ${ro.boot.carrier}
     setprop ro.sf.lcd_density ${ro.boot.lcd_density}
     setprop ro.vendor.fsg-id ${ro.boot.fsg-id}
+    setprop ro.vendor.hw.device ${ro.boot.device}
     setprop ro.product.vendor.device ${ro.vendor.product.device}
     setprop ro.product.vendor.name ${ro.vendor.product.name}
     setprop ro.product.vendor.model ${ro.vendor.product.model}

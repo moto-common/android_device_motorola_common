@@ -5,3 +5,6 @@ allow vendor_init vendor_proc_kernel_sched:file rw_file_perms;
 
 # Dalvik props
 set_prop(vendor_init, dalvik_config_prop)
+
+# Mot props
+set_prop(vendor_init, vendor_mot_prop)
