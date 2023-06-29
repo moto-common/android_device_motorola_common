@@ -33,6 +33,12 @@ vendor/lib64/libsoc_helper_jni.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 
+# DRM
+vendor/bin/hw/android.hardware.drm@1.3-service.widevine
+vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc
+vendor/lib64/liboemcrypto.so
+vendor/lib64/libwvhidl.so
+
 # Perf
 vendor/bin/msm_irqbalance
 
