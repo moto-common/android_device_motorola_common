@@ -16,6 +16,9 @@ r_dir_file(hal_usb_impl, vendor_sysfs_usb_supply)
 allow hal_usb_impl vendor_sysfs_usb_supply:file w_file_perms;
 
 # Battery Supply
+r_dir_file(hal_usb_impl, vendor_sysfs_battery_supply)
+allow hal_usb_impl vendor_sysfs_battery_supply:file w_file_perms;
+
 r_dir_file(hal_usb_impl, sysfs_batteryinfo)
 allow hal_usb_impl sysfs_batteryinfo:file w_file_perms;
 

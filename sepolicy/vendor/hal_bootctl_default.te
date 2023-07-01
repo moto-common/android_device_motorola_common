@@ -1,0 +1,2 @@
+allow hal_bootctl_default vendor_modem_efs_partition_device:blk_file { getattr setattr };
+allow hal_bootctl_default hal_bootctl_default:capability sys_admin;

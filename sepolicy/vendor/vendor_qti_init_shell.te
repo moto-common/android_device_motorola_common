@@ -1,1 +1,2 @@
 allow vendor_qti_init_shell sysfs_batteryinfo:file setattr;
+allow vendor_qti_init_shell vendor_proc_kernel_sched:file w_file_perms;
