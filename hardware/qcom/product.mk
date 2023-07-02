@@ -19,6 +19,7 @@ TARGET_COMMON_QTI_COMPONENTS := \
     display \
     dsprpcd \
     init \
+    gps \
     keymaster \
     media \
     neuralnetworks \
@@ -30,6 +31,9 @@ TARGET_COMMON_QTI_COMPONENTS := \
 # Display
 $(call inherit-product-if-exists, vendor/qcom/opensource/display/$(qcom_platform)/config/display-product.mk)
 $(call inherit-product-if-exists, vendor/qcom/opensource/display-commonsys-intf/config/display-interfaces-product.mk)
+
+# GPS
+$(call inherit-product-if-exists, vendor/qcom/opensource/gps-legacy/gps_vendor_product.mk)
 
 # Media
 $(call inherit-product-if-exists, vendor/qcom/opensource/media/$(qcom_platform)/product.mk)
