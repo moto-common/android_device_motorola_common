@@ -16,7 +16,7 @@
 COMMON_PATH := device/motorola/common
 
 # A/B OTA dexopt update_engine hookup
-AB_OTA_POSTINSTALL_CONFIG += \
+AB_OTA_POSTINSTALL_CONFIG ?= \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
