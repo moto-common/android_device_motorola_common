@@ -75,15 +75,9 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # Kernel
 BOARD_FLASH_BLOCK_SIZE ?= 131072
-BOARD_KERNEL_IMAGE_NAME ?= Image.gz-dtb
 ifneq ($(BOARD_USES_DTBO),false)
   BOARD_DTBOIMG_PARTITION_SIZE ?= 25165824
   BOARD_KERNEL_SEPARATED_DTBO := true
-  ifneq ($(TARGET_PREBUILT_KERNEL),)
-    BOARD_PREBUILT_DTBIMAGE_DIR ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbs
-    BOARD_PREBUILT_DTBOIMAGE ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbo.img
-  endif
-  BOARD_INCLUDE_RECOVERY_DTBO := true
 endif
 
 ## Common cmdline parameters
@@ -93,12 +87,6 @@ BOARD_KERNEL_CMDLINE += \
 
 ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
   BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-endif
-
-### Kernel Modules
-ifneq ($(TARGET_PREBUILT_KERNEL),)
-  BOARD_VENDOR_KERNEL_MODULES ?= \
-      $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
 endif
 
 # Partitions
