@@ -71,6 +71,7 @@ on post-fs-data
 
 on boot
     # Change ownership and permission for vibrator
+    write /sys/class/leds/vibrator/trigger "transient"
     chown system system /sys/class/leds/vibrator/state
     chmod 0660 /sys/class/leds/vibrator/state
     chown system system /sys/class/leds/vibrator/activate
@@ -209,4 +210,3 @@ service charger /system/bin/charger
     group system graphics input
     capabilities SYS_BOOT
     seclabel u:r:charger:s0
-
