@@ -44,6 +44,7 @@ PRODUCT_PACKAGES += \
     libalsautils \
     libaudiofoundation.vendor \
     libnbaio_mono \
+    libtinycompress \
     tinymix
 
 # Charger
