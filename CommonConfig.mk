@@ -75,15 +75,9 @@ TARGET_USERIMAGES_USE_F2FS := true
 
 # Kernel
 BOARD_FLASH_BLOCK_SIZE ?= 131072
-BOARD_KERNEL_IMAGE_NAME ?= Image.gz-dtb
 ifneq ($(BOARD_USES_DTBO),false)
   BOARD_DTBOIMG_PARTITION_SIZE ?= 25165824
   BOARD_KERNEL_SEPARATED_DTBO := true
-  ifneq ($(TARGET_PREBUILT_KERNEL),)
-    BOARD_PREBUILT_DTBIMAGE_DIR ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbs
-    BOARD_PREBUILT_DTBOIMAGE ?= device/motorola/$(PRODUCT_DEVICE)-kernel/dtbo.img
-  endif
-  BOARD_INCLUDE_RECOVERY_DTBO := true
 endif
 
 ## Common cmdline parameters
@@ -98,12 +92,6 @@ endif
 ## Increase log level on eng builds
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
   BOARD_KERNEL_CMDLINE += loglevel=7 log_buf_len=7m
-endif
-
-### Kernel Modules
-ifneq ($(TARGET_PREBUILT_KERNEL),)
-  BOARD_VENDOR_KERNEL_MODULES ?= \
-      $(wildcard device/motorola/$(PRODUCT_DEVICE)-kernel/modules/*.ko)
 endif
 
 # Partitions
