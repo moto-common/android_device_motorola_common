@@ -152,6 +152,11 @@ SOONG_CONFIG_MOTO_COMMON_POWER_FB_IDLE_PATH ?= /sys/devices/platform/soc/5e00000
 
 # VINTF
 DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest.xml
+ifeq ($(TARGET_USES_AUDIO_V7_0),true)
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.audio_v7.0.xml
+else
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.audio_v6.0.xml
+endif
 ifneq ($(TARGET_USES_FINGERPRINT_V2_1),false)
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.biometrics.fingerprint_v2.1.xml
 endif
