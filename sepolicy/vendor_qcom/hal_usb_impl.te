@@ -1,1 +1,5 @@
+# Battery Supply
+r_dir_file(hal_usb_impl, vendor_sysfs_battery_supply) 
+allow hal_usb_impl vendor_sysfs_battery_supply:file w_file_perms; 
+
 set_prop(hal_usb_impl, vendor_usb_prop)

@@ -6,9 +6,6 @@ type hal_usb_impl_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_usb_impl)
 
 # Battery Supply
-r_dir_file(hal_usb_impl, vendor_sysfs_battery_supply)
-allow hal_usb_impl vendor_sysfs_battery_supply:file w_file_perms;
-
 r_dir_file(hal_usb_impl, sysfs_batteryinfo)
 allow hal_usb_impl sysfs_batteryinfo:file w_file_perms;
 
