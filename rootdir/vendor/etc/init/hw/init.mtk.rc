@@ -1,11 +1,16 @@
 import /vendor/etc/init/hw/init.mtk.perf.rc
 import /vendor/etc/init/hw/init.mtk.charger.rc
+import /vendor/etc/init/hw/init.mtk.aee.rc
 
-# Radio
 on early-init
+# Radio
     write /sys/class/net/ccmni0/queues/rx-0/rps_cpus "0f"
     write /sys/class/net/ccmni1/queues/rx-0/rps_cpus "0f"
     write /sys/class/net/ccmni2/queues/rx-0/rps_cpus "0f"
+# Modules
+    setprop vendor.all.modules.ready 0
+    write /proc/bootprof "modprobe: Load_Module_START"
+    start insmod_sh
 
 on init
 # increase sysctl_rmem_max and sysctl_wmem_max values to 2M
@@ -575,7 +580,10 @@ on post-fs-data
 
 on property:sys.boot_completed=1
     write /proc/pl_lk "0"
-    swapon_all /vendor/etc/fstab.zram
+    write /sys/block/zram0/comp_algorithm lz4
+    swapon_all /vendor/etc/fstab.${ro.hardware}
+    write /proc/sys/vm/swappiness 100
+    setprop sys.sysctl.swappiness 100
 
 on property:vold.decrypt=trigger_reset_main
     write /proc/bootprof "INIT:vold.decrypt=trigger_reset_main"
@@ -618,3 +626,9 @@ service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/ -o 1
     user system
     group system
 
+# Conninfra
+service conninfra_loader /vendor/bin/conninfra_loader
+    class core
+    user system
+    group system
+    oneshot
