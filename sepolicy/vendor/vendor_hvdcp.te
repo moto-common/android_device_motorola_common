@@ -1,1 +1,2 @@
 r_dir_file(vendor_hvdcp, sysfs_batteryinfo)
+set_prop(vendor_hvdcp,ctl_stop_prop);
