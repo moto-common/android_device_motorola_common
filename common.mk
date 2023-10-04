@@ -58,6 +58,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     firmware_folders
 
+## Create protobuf symlinks
+PRODUCT_PACKAGES += \
+    protobuf_symlinks
+
 # FSTab Handling
 ## Define suffix for fstab
 ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true) # QCOM uses qcom
