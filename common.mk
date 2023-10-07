@@ -58,6 +58,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     firmware_folders
 
+## Create libhidl symlink
+PRODUCT_PACKAGES += \
+    libhidl_symlink
+
 ## Create protobuf symlinks
 PRODUCT_PACKAGES += \
     protobuf_symlinks

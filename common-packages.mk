@@ -61,7 +61,7 @@ PRODUCT_PACKAGES += \
 
 # HIDL
 PRODUCT_PACKAGES += \
-    android.hidl.base@1.0.vendor
+    android.hidl.base@1.0_vendor
 
 # IMS (OSS)
 PRODUCT_PACKAGES += \
