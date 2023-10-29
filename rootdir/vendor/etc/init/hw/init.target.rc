@@ -131,6 +131,11 @@ service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
     class core
     oneshot
 
+service vendor.mdm_helper /vendor/bin/mdm_helper
+    class core
+    group log system wakelock diag vendor_rfs
+    disabled
+
 service vendor.init_modprobe /vendor/bin/init.modprobe.sh
     class main
     user root
