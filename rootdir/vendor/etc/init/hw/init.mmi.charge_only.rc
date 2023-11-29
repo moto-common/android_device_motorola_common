@@ -28,6 +28,10 @@ on charger
     write /sys/devices/system/cpu/cpu6/online 0
     write /sys/devices/system/cpu/cpu7/online 0
 
+on charger && property:ro.hardware=qcom
+    enable charger
+    start charger
+
 service vendor.thermal-com /vendor/bin/thermal-engine --minimode
     class charger
     user root
