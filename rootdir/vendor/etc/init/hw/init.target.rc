@@ -139,7 +139,7 @@ service vendor.mdm_launcher /vendor/bin/sh /vendor/bin/init.mdm.sh
 
 service vendor.mdm_helper /vendor/bin/mdm_helper
     class core
-    group log system wakelock diag vendor_rfs
+    group log system wakelock diag oem_2903
     disabled
 
 service vendor.init_modprobe /vendor/bin/init.modprobe.sh

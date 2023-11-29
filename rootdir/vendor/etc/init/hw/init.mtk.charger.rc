@@ -28,5 +28,10 @@ on charger
     start fuelgauged
     start fuelgauged_nvram
 
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+    start vendor.light
+
     # Stop bootprof
     write /proc/bootprof "0"

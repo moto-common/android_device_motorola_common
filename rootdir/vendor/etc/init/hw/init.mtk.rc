@@ -10,7 +10,7 @@ on early-init
 # Modules
     setprop vendor.all.modules.ready 0
     write /proc/bootprof "modprobe: Load_Module_START"
-    start insmod_sh
+    start vendor.insmod_sh
 
 on init
 # increase sysctl_rmem_max and sysctl_wmem_max values to 2M
@@ -381,6 +381,8 @@ on post-fs-data
 
     #Thermal
     mkdir /data/vendor/.tp/ 0775 system system
+    mkdir /data/vendor/thermal/ 0775 system system
+
     # power manager
     write /sys/power/pm_async 0
 
@@ -578,6 +580,9 @@ on post-fs-data
     chown system system /sys/class/sensor/m_bio_misc/biobatch
     chown system system /sys/class/sensor/m_bio_misc/bioflush
 
+    mkdir /data/vendor/audiohal 0771 system audio
+    mkdir /data/vendor/audiohal/audio_dump 0777 audioserver audio
+
 on property:sys.boot_completed=1
     write /proc/pl_lk "0"
     write /sys/block/zram0/comp_algorithm lz4
@@ -604,7 +609,6 @@ on property:vold.decrypt=trigger_shutdown_framework
     write /proc/bootprof "INIT:vold.decrypt=trigger_shutdown_framework"
     setprop sys.boot_completed 0
     setprop dev.bootcomplete 0
-
 
 # GPS
 service mnld /vendor/bin/mnld
