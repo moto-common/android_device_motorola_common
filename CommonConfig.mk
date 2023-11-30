@@ -96,6 +96,12 @@ ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
   BOARD_KERNEL_CMDLINE += loglevel=7 log_buf_len=7m
 endif
 
+# Modules
+## Check existance of modules for sanity
+$(foreach module,$(BOARD_VENDOR_KERNEL_MODULES) \
+ $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES), \
+ $(if $(wildcard $(module)), ,$(warning $(module) not found)))
+
 # Partitions
 ifeq ($(call has-partition,product),true)
   BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE ?= ext4
