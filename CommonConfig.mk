@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Common path
+COMMON_PATH := device/motorola/common
+
 # Hardware
 ## Mediatek
 ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
@@ -22,9 +25,6 @@ endif
 ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
   include $(COMMON_PATH)/hardware/qcom/board.mk
 endif
-
-# Common path
-COMMON_PATH := device/motorola/common
 
 # Fixes
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
