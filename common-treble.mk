@@ -107,15 +107,16 @@ ifeq ($(TARGET_USES_ST_NFC),true)
       nfc_nci.st21nfc.default
 endif
 
-# Only define bootctrl HAL availability on AB platforms:
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0.vendor \
     android.hardware.power@1.1.vendor \
     android.hardware.power@1.2.vendor
 
-PRODUCT_PACKAGES += \
-    android.hardware.power-service.moto-common-libperfmgr
+ifneq ($(TARGET_USES_PP_HAL),false)
+  PRODUCT_PACKAGES += \
+      android.hardware.power-service.moto-common-libperfmgr
+endif
 
 # QTI Haptics Vibrator
 ## Used on MTK and QCOM for now
