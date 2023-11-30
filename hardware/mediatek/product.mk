@@ -8,3 +8,6 @@ TARGET_KERNEL_IMAGE_NAME := Image.gz
 
 # Hardware
 PRODUCT_SOONG_NAMESPACES += hardware/mediatek
+
+# Power
+TARGET_USES_PP_HAL := false
