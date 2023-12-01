@@ -1,7 +1,7 @@
 service vendor.usb-gadget-hal-1-1 /vendor/bin/hw/android.hardware.usb.gadget-service.moto-common
     class hal
-    user root
-    group root system shell mtp
+    user system
+    group system shell mtp
 
 service init-gadgethal-sh /vendor/bin/init.gadgethal.sh
     class hal

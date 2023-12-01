@@ -12,3 +12,4 @@ set_prop(hal_usb_gadget_impl, vendor_usb_prop)
 allow hal_usb_gadget_impl sysfs_batteryinfo:dir r_dir_perms;
 allow hal_usb_gadget_impl sysfs_batteryinfo:file rw_file_perms;
 allow hal_usb_gadget_impl sysfs_extcon:dir search;
+get_prop(hal_usb_gadget_impl, usb_control_prop)
