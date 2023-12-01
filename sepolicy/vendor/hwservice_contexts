@@ -1,1 +1,2 @@
+vendor.egistec.hardware.fingerprint::IBiometricsFingerprintRbs u:object_r:hal_fingerprint_hwservice:s0
 vendor.focaltech.fingerprint::IFocalFingerprintService u:object_r:hal_fingerprint_hwservice:s0

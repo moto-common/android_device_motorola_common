@@ -1,3 +1,5 @@
 # Power
 vendor.powerhal. u:object_r:vendor_power_prop:s0
 
+# Radio
+vendor.ril. u:object_r:vendor_radio_prop:s0

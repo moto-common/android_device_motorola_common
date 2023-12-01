@@ -1,0 +1,1 @@
+set_prop(hal_usb_gadget_impl, vendor_mtk_usb_prop)

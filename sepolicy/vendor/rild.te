@@ -8,9 +8,6 @@ allow rild input_device:dir rw_dir_perms;
 # Moto props
 get_prop(rild, vendor_mot_prop)
 
-# Radio props
-set_prop(rild, vendor_radio_prop)
-
 # Sensors - sar!
 allow rild fwk_sensor_hwservice:hwservice_manager find;
 

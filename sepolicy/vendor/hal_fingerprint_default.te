@@ -8,9 +8,12 @@ allow hal_fingerprint_default self:unix_stream_socket { connectto };
 allow hal_fingerprint_default hal_fingerprint_default:netlink_socket { create bind write read };
 allow hal_fingerprint_default ff_service:service_manager { add find };
 allow hal_fingerprint_default self:netlink_kobject_uevent_socket { create setopt bind read };
-allow hal_fingerprint_default hal_fingerprint_default:binder { call };
+allow hal_fingerprint_default hal_fingerprint_default:binder { call transfer };
 # fingerprint status prop
 set_prop(hal_fingerprint_default, vendor_mot_prop)
 add_service(hal_fingerprint_default, ff_service)
 vndbinder_use(hal_fingerprint_default)
 hwbinder_use(hal_fingerprint_default)
+get_prop(hal_fingerprint_default, boot_status_prop)
+allow hal_fingerprint_default mnt_vendor_file:dir search;
+hal_client_domain(hal_fingerprint_default, hal_power)
