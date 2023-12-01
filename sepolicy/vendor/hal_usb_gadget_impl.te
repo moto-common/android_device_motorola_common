@@ -7,7 +7,6 @@ init_daemon_domain(hal_usb_gadget_impl)
 
 allow hal_usb_gadget_impl configfs:dir { create rmdir };
 allow hal_usb_gadget_impl functionfs:dir { watch watch_reads };
-set_prop(hal_usb_gadget_impl, vendor_usb_prop)
 
 allow hal_usb_gadget_impl sysfs_batteryinfo:dir r_dir_perms;
 allow hal_usb_gadget_impl sysfs_batteryinfo:file rw_file_perms;
