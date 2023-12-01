@@ -1,2 +1,8 @@
+# Camera
 vendor_restricted_prop(vendor_camera_prop);
+
+# NFC
 vendor_internal_prop(vendor_nfc_prop);
+
+# Radio
+vendor_restricted_prop(vendor_radio_prop);
