@@ -58,7 +58,13 @@ debug()
 notice()
 {
 	echo "$*"
-	echo "$scriptname: $*" > /dev/kmsg
+	log -t "mmi-touch" -p i "$*"
+}
+
+error()
+{
+	echo "$*"
+	log -t "mmi-touch" -p e "$*"
 }
 
 sanity_check()
@@ -90,7 +96,7 @@ error_msg()
 		8)  err_msg="Info: Touch class does not exist";;
 		9)  err_msg="Error: Touch IC is not ready to flash";;
 	esac
-	notice "$err_msg"
+	error "$err_msg"
 }
 
 error_and_leave()
