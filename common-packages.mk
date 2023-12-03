@@ -21,8 +21,6 @@ PRODUCT_PACKAGES += \
 
 # A/B
 PRODUCT_PACKAGES += \
-    bootctrl.$(TARGET_BOARD_PLATFORM) \
-    bootctrl.$(TARGET_BOARD_PLATFORM).recovery \
     otapreopt_script \
     update_engine \
     update_engine_client \
