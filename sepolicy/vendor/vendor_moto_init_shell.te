@@ -6,7 +6,7 @@ init_daemon_domain(vendor_moto_init_shell)
 
 # Permissions
 # Chown
-allow vendor_moto_init_shell self:capability { chown fsetid };
+allow vendor_moto_init_shell self:capability { chown fsetid fowner };
 # Exec
 allow vendor_moto_init_shell { vendor_toolbox_exec vendor_shell_exec }:file rx_file_perms;
 
