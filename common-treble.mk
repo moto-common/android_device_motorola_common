@@ -17,6 +17,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.common@7.0.vendor \
     android.hardware.audio.effect@7.0.vendor \
     android.hardware.audio.common@7.0-util.vendor \
+    android.hardware.audio@6.0-impl \
     android.hardware.audio@7.0-impl \
     android.hardware.audio@7.0.vendor \
     android.hardware.audio.service \
@@ -111,7 +112,8 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0.vendor \
     android.hardware.power@1.1.vendor \
-    android.hardware.power@1.2.vendor
+    android.hardware.power@1.2.vendor \
+    pixel-power-ext-V1-ndk.vendor
 
 ifneq ($(TARGET_USES_PP_HAL),false)
   PRODUCT_PACKAGES += \

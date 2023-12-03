@@ -12,7 +12,9 @@ ifeq ($(AB_OTA_UPDATER),true)
   PRODUCT_PACKAGES += \
       android.hardware.boot@1.1-impl-qti \
       android.hardware.boot@1.1-impl-qti.recovery \
-      android.hardware.boot@1.1-service
+      android.hardware.boot@1.1-service \
+      bootctrl.$(TARGET_BOARD_PLATFORM) \
+      bootctrl.$(TARGET_BOARD_PLATFORM).recovery
 endif
 
 # Audio
