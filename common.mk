@@ -93,9 +93,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(PLATFORM_COMMON_PATH)/rootdir/$(call select-fstab):$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(FSTAB_SUFFIX)
 
-# Kernel
-PRODUCT_VENDOR_KERNEL_HEADERS := $(PLATFORM_COMMON_PATH)-kernel/kernel-headers
-
 # Media codecs configuration
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
