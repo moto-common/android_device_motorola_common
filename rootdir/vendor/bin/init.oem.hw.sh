@@ -19,6 +19,9 @@ for dir in /proc/hw/*; do
         if [ -z "$ascii" ]; then
             continue
         fi
+        if [ "${dir:9}" = "nfc" ]; then
+            nfc="$ascii"
+        fi
         echo "ro.vendor.hw.${dir:9}" "$ascii"
         setprop "ro.vendor.hw.${dir:9}" "$ascii"
     fi
@@ -31,3 +34,8 @@ MemTotal=${MemTotalStr:16:8}
 let RamSizeGB="( $MemTotal / 1048576 ) + 1"
 
 setprop ro.vendor.hw.ram "$RamSizeGB"GB
+
+# SKU handling
+if [ "$nfc" = "true" ]; then
+    setprop ro.boot.product.hardware.sku n
+fi

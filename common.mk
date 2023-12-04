@@ -114,6 +114,9 @@ $(call copy-files-recursive,$(COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VEND
 $(call copy-files-recursive,$(DEVICE_PATH)/vendor,$(TARGET_COPY_OUT_VENDOR))
 $(call copy-files-recursive,$(PLATFORM_COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
 
+# SKUs
+$(call add-device-sku,n,nfc)
+
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH) \

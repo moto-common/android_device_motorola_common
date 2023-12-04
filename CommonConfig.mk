@@ -169,9 +169,6 @@ else
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom.xml
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.0.xml
 endif
-ifeq ($(call device-has-characteristic,nfc),true)
-  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.nfc_v1.2.xml
-endif
 
 ## Framework compatibility matrix: What the device(=vendor) expects of the framework(=system)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(COMMON_PATH)/vintf/framework_compatibility_matrix.xml
