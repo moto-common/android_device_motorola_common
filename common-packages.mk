@@ -78,7 +78,7 @@ PRODUCT_PACKAGES += \
     MotoActions
 
 # NFC
-ifeq ($(TARGET_SUPPORTS_NFC),true)
+ifeq ($(call device-has-characteristic,nfc),true)
   PRODUCT_PACKAGES += \
       com.android.nfc_extras \
       libchrome.vendor \
