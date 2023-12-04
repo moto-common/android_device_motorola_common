@@ -10,6 +10,8 @@ BOARD_KERNEL_CMDLINE += \
     androidboot.hardware=qcom \
     service_locator.enable=1
 
+TARGET_COMPILE_WITH_MSM_KERNEL := true
+
 # Media
 TARGET_USES_ION := true
 
