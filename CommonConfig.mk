@@ -169,7 +169,7 @@ else
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom.xml
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.0.xml
 endif
-ifeq ($(TARGET_SUPPORTS_NFC),true)
+ifeq ($(call device-has-characteristic,nfc),true)
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.nfc_v1.2.xml
 endif
 

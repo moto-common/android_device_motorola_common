@@ -86,7 +86,7 @@ PRODUCT_PACKAGES += \
     android.system.net.netd@1.1.vendor
 
 # NFC
-ifeq ($(TARGET_SUPPORTS_NFC),true)
+ifeq ($(call device-has-characteristic,nfc),true)
   PRODUCT_PACKAGES += \
       android.hardware.nfc@1.2.vendor \
       android.hardware.secure_element@1.2.vendor
