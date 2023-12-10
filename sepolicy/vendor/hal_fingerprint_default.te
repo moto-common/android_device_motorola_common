@@ -1,5 +1,7 @@
 allow hal_fingerprint_default vendor_sysfs_fingerprint:dir r_dir_perms;
 allow hal_fingerprint_default vendor_sysfs_fingerprint:file rw_file_perms;
+allow hal_fingerprint_default vendor_persist_fingerprint_file:dir r_dir_perms;
+allow hal_fingerprint_default vendor_persist_fingerprint_file:file rw_file_perms;
 allow hal_fingerprint_default tee_device:chr_file { open read write ioctl getattr };
 allow hal_fingerprint_default uhid_device:chr_file { open read write ioctl getattr };
 allow hal_fingerprint_default graphics_device:chr_file { open read write ioctl getattr };
@@ -17,3 +19,4 @@ hwbinder_use(hal_fingerprint_default)
 get_prop(hal_fingerprint_default, boot_status_prop)
 allow hal_fingerprint_default mnt_vendor_file:dir search;
 hal_client_domain(hal_fingerprint_default, hal_power)
+hal_client_domain(hal_fingerprint_default, hal_health)

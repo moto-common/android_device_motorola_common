@@ -1,0 +1,5 @@
+# mot prop :)
+get_prop(hal_audio_default, vendor_mot_prop)
+
+# /mnt/vendor/persist/factory/audio/aw_cali.bin
+allow hal_audio_default persist_data_file:file r_file_perms;

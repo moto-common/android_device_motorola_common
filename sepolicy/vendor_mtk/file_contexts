@@ -6,6 +6,7 @@
 
 # NFC
 /dev/nq-nfc u:object_r:nfc_device:s0
+/dev/nq-nci u:object_r:nfc_device:s0
 
 # Vibrator
 /vendor/bin/hw/vendor\.qti\.hardware\.vibrator\.service u:object_r:hal_vibrator_default_exec:s0

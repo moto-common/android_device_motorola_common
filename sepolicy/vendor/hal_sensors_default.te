@@ -1,0 +1,2 @@
+# mot props :)
+get_prop(hal_sensors_default, vendor_mot_prop)
