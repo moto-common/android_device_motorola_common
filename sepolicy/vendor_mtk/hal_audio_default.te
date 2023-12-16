@@ -18,3 +18,6 @@ allow hal_audio_default self:netlink_kobject_uevent_socket create_socket_perms_n
 set_prop(mtk_hal_audio, vendor_mtk_audiohal_prop)
 
 hal_client_domain(hal_audio_default, hal_power)
+
+# /mnt/vendor/persist/factory/audio/aw_cali.bin
+allow hal_audio_default persist_data_file:file r_file_perms;
