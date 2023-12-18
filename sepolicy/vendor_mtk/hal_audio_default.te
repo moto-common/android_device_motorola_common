@@ -21,3 +21,6 @@ hal_client_domain(hal_audio_default, hal_power)
 
 # /mnt/vendor/persist/factory/audio/aw_cali.bin
 allow hal_audio_default persist_data_file:file r_file_perms;
+
+# besloudness :(
+set_prop(hal_audio_default, vendor_mtk_audiohal_prop)
