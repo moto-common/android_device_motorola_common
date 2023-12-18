@@ -43,3 +43,6 @@ allow vendor_moto_init_shell tee_device:chr_file { getattr setattr };
 
 # /proc/meminfo
 allow vendor_moto_init_shell proc_meminfo:file r_file_perms;
+
+# ro.boot.product.hardware.sku
+set_prop(vendor_moto_init_shell, vendor_sku_prop)
