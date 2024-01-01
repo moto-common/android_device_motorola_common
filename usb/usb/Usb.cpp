@@ -658,9 +658,11 @@ Status queryPowerTransferStatus(std::vector<PortStatus> *currentPortStatus) {
 void queryVersionHelper(android::hardware::usb::Usb *usb,
                         std::vector<PortStatus> *currentPortStatus) {
     Status status;
+    string disableMoisture = GetProperty(kDisableContatminantDetection, "true");
     pthread_mutex_lock(&usb->mLock);
     status = getPortStatusHelper(usb, currentPortStatus);
-    queryMoistureDetectionStatus(currentPortStatus);
+    if (disableMoisture != "true")
+        queryMoistureDetectionStatus(currentPortStatus);
     queryPowerTransferStatus(currentPortStatus);
     if (usb->mCallback != NULL) {
         ScopedAStatus ret = usb->mCallback->notifyPortStatusChange(*currentPortStatus,
@@ -693,7 +695,7 @@ ScopedAStatus Usb::queryPortStatus(int64_t in_transactionId) {
 
 ScopedAStatus Usb::enableContaminantPresenceDetection(const string& in_portName,
         bool in_enable, int64_t in_transactionId) {
-    string disable = GetProperty(kDisableContatminantDetection, "");
+    string disable = GetProperty(kDisableContatminantDetection, "true");
     std::string status = GetProperty(kConsole, "");
     std::vector<PortStatus> currentPortStatus;
     bool success = true;
