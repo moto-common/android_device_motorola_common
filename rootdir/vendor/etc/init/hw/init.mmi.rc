@@ -163,6 +163,9 @@ on property:ro.vendor.hw.dualsim=false && property:ro.vendor.hardware=mtk
 on property:ro.vendor.hardware=qcom
    start cnss-daemon
 
+on property:vendor.boot.product.hardware.sku=*
+   setprop ro.boot.product.hardware.sku ${vendor.boot.product.hardware.sku}
+
 # Override the AOSP sensor HAL service definition
 # from hardware/interfaces/sensors/2.0/multihal
 # to add input and uhid group access
