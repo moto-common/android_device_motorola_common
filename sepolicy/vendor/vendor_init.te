@@ -8,3 +8,6 @@ set_prop(vendor_init, dalvik_config_prop)
 
 # Mot props
 set_prop(vendor_init, vendor_mot_prop)
+
+# Sku prop
+set_prop(vendor_init, vendor_sku_prop)

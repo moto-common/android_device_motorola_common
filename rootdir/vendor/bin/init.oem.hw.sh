@@ -37,5 +37,5 @@ setprop ro.vendor.hw.ram "$RamSizeGB"GB
 
 # SKU handling
 if [ "$nfc" = "true" ]; then
-    setprop ro.boot.product.hardware.sku n
+    setprop vendor.boot.product.hardware.sku n
 fi
