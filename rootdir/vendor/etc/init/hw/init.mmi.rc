@@ -8,7 +8,7 @@ on early-init
     # initialize ro.vendor.mot.factory with default value when it is not set
     setprop ro.vendor.mot.factory false
 
-    start vendor.oem-hw-sh
+    exec_start vendor.oem-hw-sh
     # Map oem properties.
     setprop ro.carrier ${ro.boot.carrier}
     setprop ro.sf.lcd_density ${ro.boot.lcd_density}
@@ -24,7 +24,7 @@ on early-init
     setprop ro.vendor.zygote ${ro.zygote}
 
     # Make sure ro.boot.product.hardware.sku is set before hwservicemanager startup.
-    setprop ro.boot.product.hardware.sku ${ro.vendor.product.hardware.sku.variant}
+    setprop ro.boot.product.hardware.sku ${vendor.boot.product.hardware.sku}
 
     # Trigger priority stage of MMI init
     trigger mmi-priority
@@ -96,9 +96,6 @@ on property:ro.boot.dualsim=true
 on property:ro.boot.dualsim=false
     setprop persist.radio.multisim.config ""
     setprop persist.vendor.radio.multisim.config ""
-
-on property:vendor.boot.product.hardware.sku=*
-   setprop ro.boot.product.hardware.sku ${vendor.boot.product.hardware.sku}
 
 # Override the AOSP sensor HAL service definition
 # from hardware/interfaces/sensors/2.0/multihal
