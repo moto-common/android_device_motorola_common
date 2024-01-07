@@ -36,6 +36,6 @@ let RamSizeGB="( $MemTotal / 1048576 ) + 1"
 setprop ro.vendor.hw.ram "$RamSizeGB"GB
 
 # SKU handling
-if [ "$nfc" = "true" ]; then
+if [ -n "$nfc" ] && [ "$nfc" != "false" ]; then
     setprop vendor.boot.product.hardware.sku n
 fi
