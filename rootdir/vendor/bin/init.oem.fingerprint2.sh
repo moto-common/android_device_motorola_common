@@ -85,6 +85,7 @@ function start_fpsensor() {
         load_module ets_fps_mmi.ko
         load_module ets_fps.ko
         load_module rbs_fps_mmi.ko
+        load_module rbs_fod_mmi.ko
         sleep 0.6
         set_permissions
         sleep 0.4
@@ -96,6 +97,7 @@ function start_fpsensor() {
 rmmod ets_fps_mmi
 rmmod ets_fps
 rmmod rbs_fps_mmi
+rmmod rbs_fod_mmi
 rmmod fpsensor_spi_tee
 rmmod fpc1020_mmi
 rmmod fpc_mtk_tee
