@@ -59,12 +59,8 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1.vendor \
-    com.motorola.hardware.biometric.fingerprint@1.0.vendor
-
-ifeq ($(TARGET_USES_EGISTEC_FINGERPRINT),true)
-  PRODUCT_PACKAGES += \
-      vendor.egistec.hardware.fingerprint@4.0.vendor
-endif
+    com.motorola.hardware.biometric.fingerprint@1.0.vendor \
+    vendor.egistec.hardware.fingerprint@4.0.vendor
 
 # FM
 PRODUCT_PACKAGES += \
