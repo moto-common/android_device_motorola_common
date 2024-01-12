@@ -91,6 +91,11 @@ ifneq ($(BOARD_USE_ENFORCING_SELINUX),true)
   BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 endif
 
+## Increase log level on eng builds
+ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
+  BOARD_KERNEL_CMDLINE += loglevel=7 log_buf_len=7m
+endif
+
 # Modules
 ## Check existance of modules for sanity
 $(foreach module,$(BOARD_VENDOR_KERNEL_MODULES) \
