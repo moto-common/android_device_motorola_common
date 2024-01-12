@@ -169,6 +169,14 @@
         </interface>
     </hal>
     <hal format="hidl" optional="true">
+        <name>vendor.qti.diaghal</name>
+        <version>1.0</version>
+        <interface>
+            <name>Idiag</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
         <name>vendor.qti.gnss</name>
         <version>1.0-2</version>
         <version>2.0-1</version>
