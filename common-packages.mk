@@ -114,7 +114,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     $(DEVICE)FrameworksOverlay \
     $(DEVICE)SettingsOverlay \
-    $(DEVICE)SystemUIOverlay
+    $(DEVICE)SystemUIOverlay \
+    $(DEVICE)RegulatoryOverlay
 
 # QCOM Data
 PRODUCT_PACKAGES += \
