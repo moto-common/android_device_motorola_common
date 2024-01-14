@@ -134,6 +134,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.kernel_version=$(TARGET_KERNEL_VERSION)
 
+# Media
+PRODUCT_PRODUCT_PROPERTIES += \
+    media.settings.xml=/vendor/etc/media_profiles_vendor.xml
+
 # One Handed-Mode
 PRODUCT_PRODUCT_OVERRIDES += \
     ro.support_one_handed_mode=true
