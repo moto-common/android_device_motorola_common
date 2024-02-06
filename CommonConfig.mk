@@ -96,6 +96,14 @@ ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
   BOARD_KERNEL_CMDLINE += loglevel=7 log_buf_len=7m
 endif
 
+## Move to bootconfig if required
+ifneq (,$(filter bootconfig,$(BOARD_KERNEL_CMDLINE)))
+  $(foreach config,$(BOARD_KERNEL_CMDLINE), \
+    $(if $(findstring androidboot,$(config)), \
+      $(eval BOARD_BOOTCONFIG += $(config)) \
+      $(eval BOARD_KERNEL_CMDLINE := $(filter-out bootconfig $(config),$(BOARD_KERNEL_CMDLINE)) bootconfig)))
+endif
+
 # Modules
 ## Check existance of modules for sanity
 $(foreach module,$(BOARD_VENDOR_KERNEL_MODULES) \
