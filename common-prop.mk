@@ -110,13 +110,13 @@ else
 endif
 
 # HFR
-ifeq ($(call device-has-characteristic, hfr),true)
-   PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-        ro.surface_flinger.set_idle_timer_ms=250 \
-        ro.surface_flinger.set_touch_timer_ms=1000 \
-        ro.surface_flinger.set_display_power_timer_ms=1000 \
-        ro.surface_flinger.use_smart_90_for_video=true \
-        ro.surface_flinger.refresh_rate_switching=true
+ifeq ($(call device-has-characteristic,hfr),true)
+  PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+      ro.surface_flinger.set_idle_timer_ms=250 \
+      ro.surface_flinger.set_touch_timer_ms=1000 \
+      ro.surface_flinger.set_display_power_timer_ms=1000 \
+      ro.surface_flinger.use_smart_90_for_video=true \
+      ro.surface_flinger.refresh_rate_switching=true
 endif
 
 # LMKd
@@ -146,7 +146,7 @@ PRODUCT_PRODUCT_OVERRIDES += \
 # Power HAL
 ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
   PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.powerhal.disp.idle_support=false
+      vendor.powerhal.disp.idle_support=false
 endif
 
 # Priv-app permisisons
