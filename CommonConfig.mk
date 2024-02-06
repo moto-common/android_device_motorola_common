@@ -127,15 +127,6 @@ SOONG_CONFIG_MOTO_COMMON_POWER_FB_IDLE_PATH ?= /sys/devices/platform/soc/5e00000
 TARGET_NO_RECOVERY ?= false
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
-## Configure recovery updater library
-ifeq ($(call device-has-characteristic,ufs),true)
-  ifeq ($(call is-kernel-greater-than-or-equal-to,5.4),true)
-    SOONG_CONFIG_NAMESPACES += ufsbsg
-    SOONG_CONFIG_ufsbsg := ufsframework
-    SOONG_CONFIG_ufsbsg_ufsframework := bsg
-  endif
-endif
-
 ## Move recovery resources to vendor_boot when theres no recovery partition
 # Also move GSI AVB keys
 ifeq ($(call has-partition,vendor_boot),true)

@@ -20,3 +20,13 @@ ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
     include device/motorola/common/hardware/qcom/utils.mk
     include device/qcom/common/BoardConfigQcom.mk
 endif
+
+# Recovery
+## Configure recovery updater library
+ifeq ($(call device-has-characteristic,ufs),true)
+  ifeq ($(call is-kernel-greater-than-or-equal-to,5.4),true)
+    SOONG_CONFIG_NAMESPACES += ufsbsg
+    SOONG_CONFIG_ufsbsg := ufsframework
+    SOONG_CONFIG_ufsbsg_ufsframework := bsg
+  endif
+endif
