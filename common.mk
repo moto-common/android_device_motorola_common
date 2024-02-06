@@ -69,9 +69,9 @@ PRODUCT_PACKAGES += \
 # FSTab Handling
 ## Define suffix for fstab
 ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true) # QCOM uses qcom
- FSTAB_SUFFIX := qcom
+  FSTAB_SUFFIX := qcom
 else ifeq ($(PRODUCT_USES_MTK_HARDWARE),true) # MTK uses board platform
- FSTAB_SUFFIX := $(TARGET_BOARD_PLATFORM)
+  FSTAB_SUFFIX := $(TARGET_BOARD_PLATFORM)
 endif
 
 ## Select fstab path based on vendor_boot's existence.
