@@ -101,26 +101,14 @@ endif
 $(foreach module,$(BOARD_VENDOR_KERNEL_MODULES) \
  $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES), \
  $(if $(wildcard $(module)), ,$(warning $(module) not found)))
-## dlkm partition
-ifeq ($(call has-partition,vendor_dlkm),true)
-  BOARD_USES_VENDOR_DLKMIMAGE := true
-  BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE ?= ext4
-  TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
-endif
 
 # Partitions
-ifeq ($(call has-partition,product),true)
-  BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE ?= ext4
-  TARGET_COPY_OUT_PRODUCT := product
-endif
-ifeq ($(call has-partition,system_ext),true)
-  BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE ?= ext4
-  TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-endif
-ifeq ($(call has-partition,vendor),true)
-  BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE ?= ext4
-  TARGET_COPY_OUT_VENDOR := vendor
-endif
+PARTITIONS := vendor product system_ext system vendor_dlkm
+$(foreach partition,$(PARTITIONS),\
+$(if $(findstring true,$(call has-partition,$(partition))), \
+  $(eval BOARD_$(call upper,$(partition))IMAGE_FILE_SYSTEM_TYPE ?= $(PARTITION_TYPE)) \
+  $(eval TARGET_COPY_OUT_$(call upper,$(partition)) := $(partition)) \
+))
 
 # Recovery
 TARGET_NO_RECOVERY ?= false
