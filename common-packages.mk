@@ -118,6 +118,10 @@ PRODUCT_PACKAGES += \
     $(DEVICE)SettingsOverlay \
     $(DEVICE)SystemUIOverlay
 
+# Power
+PRODUCT_PACKAGES += \
+    libpower.vendor
+
 # RIL
 PRODUCT_PACKAGES += \
     ims-moto-libs \
