@@ -101,6 +101,12 @@ endif
 $(foreach module,$(BOARD_VENDOR_KERNEL_MODULES) \
  $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES), \
  $(if $(wildcard $(module)), ,$(warning $(module) not found)))
+## dlkm partition
+ifeq ($(call has-partition,vendor_dlkm),true)
+  BOARD_USES_VENDOR_DLKMIMAGE := true
+  BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE ?= ext4
+  TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
+endif
 
 # Partitions
 ifeq ($(call has-partition,product),true)
