@@ -129,9 +129,13 @@ ifeq ($(call device-has-characteristic,ufs),true)
   endif
 endif
 
-## Move recovery resources to vendor_boot
+## Move recovery resources to vendor_boot when theres no recovery partition
+# Also move GSI AVB keys
 ifeq ($(call has-partition,vendor_boot),true)
-  BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+  ifneq ($(call has-partition,recovery),true)
+    BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+  endif
+  BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 endif
 
 # RIL
