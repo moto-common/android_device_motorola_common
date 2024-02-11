@@ -1,5 +1,7 @@
 # QCOM Platform selector
-ifeq ($(TARGET_KERNEL_VERSION), 5.4)
+ifeq ($(TARGET_KERNEL_VERSION), 5.10)
+  qcom_platform := sm8450
+else ifeq ($(TARGET_KERNEL_VERSION), 5.4)
   qcom_platform := sm8350
 else ifeq ($(TARGET_KERNEL_VERSION), 4.19)
   qcom_platform := sm8250
