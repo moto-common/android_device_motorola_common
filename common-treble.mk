@@ -89,23 +89,18 @@ ifeq ($(call device-has-characteristic,nfc),true)
 endif
 
 ## Specific Chips
-ifeq ($(TARGET_USES_PN5XX_PN8X_NFC),true)
+ifeq ($(TARGET_USES_NXP_NFC),true)
   PRODUCT_PACKAGES += \
-      android.hardware.nfc@1.2-service
+      android.hardware.nfc-service.nxp
 endif
 ifeq ($(TARGET_USES_SEC_NFC),true)
   PRODUCT_PACKAGES += \
       android.hardware.nfc@1.2-service.samsung \
       nfc_nci_samsung
 endif
-ifeq ($(TARGET_USES_SN1XX_NFC),true)
-  PRODUCT_PACKAGES += \
-      android.hardware.nfc_snxxx@1.2-service
-endif
 ifeq ($(TARGET_USES_ST_NFC),true)
   PRODUCT_PACKAGES += \
-      android.hardware.nfc@1.2-service.st \
-      nfc_nci.st21nfc.default
+      android.hardware.nfc-service.st
 endif
 
 # Power

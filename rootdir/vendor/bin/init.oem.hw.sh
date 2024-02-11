@@ -38,4 +38,6 @@ setprop ro.vendor.hw.ram "$RamSizeGB"GB
 # SKU handling
 if [ -n "$nfc" ] && [ "$nfc" != "false" ]; then
     setprop vendor.boot.product.hardware.sku n
+else
+    setprop vendor.boot.product.hardware.sku d
 fi

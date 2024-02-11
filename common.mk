@@ -146,7 +146,10 @@ $(call copy-files-recursive,$(DEVICE_PATH)/vendor,$(TARGET_COPY_OUT_VENDOR))
 $(call copy-files-recursive,$(PLATFORM_COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
 
 # SKUs
+## With NFC
 $(call add-device-sku,n,nfc)
+## Default Without NFC
+$(call add-device-sku-inner,d)
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
