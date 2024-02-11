@@ -33,14 +33,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.camera.postproc@1.0.vendor
 
-ifeq ($(TARGET_USES_64BIT_CAMERA),true)
-  PRODUCT_PACKAGES += \
-      android.hardware.camera.provider@2.4-impl:64 \
-      android.hardware.camera.provider@2.4-service_64
-else
-  PRODUCT_PACKAGES += \
-      android.hardware.camera.provider@2.4-impl:32 \
-      android.hardware.camera.provider@2.4-service
+ifneq ($(call is-kernel-greater-than-or-equal-to,5.10),true)
+  ifeq ($(TARGET_USES_64BIT_CAMERA),true)
+    PRODUCT_PACKAGES += \
+        android.hardware.camera.provider@2.4-impl:64 \
+        android.hardware.camera.provider@2.4-service_64
+  else
+    PRODUCT_PACKAGES += \
+        android.hardware.camera.provider@2.4-impl:32 \
+        android.hardware.camera.provider@2.4-service
+  endif
 endif
 
 # Components
