@@ -72,7 +72,6 @@ $(call inherit-product-if-exists, vendor/qcom/opensource/display-commonsys-intf/
 
 # FM
 ifeq ($(call device-has-characteristic,fm),true)
-  # FM
   PRODUCT_PACKAGES += \
       FM2 \
       libfm-hci \
@@ -99,6 +98,10 @@ endif
 
 # Kernel
 TARGET_USES_KERNEL_PLATFORM := false
+
+# Keymaster
+PRODUCT_PACKAGES += \
+    libkeymaster_messages.vendor
 
 # Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
 PRODUCT_PACKAGES += \
@@ -132,7 +135,8 @@ PRODUCT_PACKAGES += \
     libvndfwk_detect_jni.qti \
     libqti_vndfwk_detect \
     libvndfwk_detect_jni.qti.vendor \
-    libqti_vndfwk_detect.vendor
+    libqti_vndfwk_detect.vendor \
+    libqti_vndfwk_detect_vendor
 
 # RIL
 PRODUCT_PACKAGES += \

@@ -37,6 +37,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.6.vendor \
     android.hardware.camera.provider@2.5.vendor \
     android.hardware.camera.provider@2.6.vendor \
+    android.hardware.camera.provider@2.7.vendor \
     android.frameworks.displayservice@1.0.vendor \
     android.frameworks.sensorservice@1.0.vendor
 
@@ -50,6 +51,7 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.1.vendor \
     android.hardware.drm@1.2.vendor \
     android.hardware.drm@1.3.vendor \
+    android.hardware.drm@1.4.vendor \
     android.hardware.drm-service-lazy.clearkey
 
 # Fingerprint
@@ -76,6 +78,20 @@ PRODUCT_PACKAGES += \
 # Lights HAL
 PRODUCT_PACKAGES += \
     android.hardware.lights-service.moto
+
+# Media
+PRODUCT_PACKAGES += \
+    android.hardware.media.c2@1.0.vendor \
+    android.hardware.media.c2@1.1.vendor \
+    android.hardware.media.c2@1.2.vendor \
+    libavservices_minijail.vendor \
+    libcodec2_hidl@1.0.vendor \
+    libcodec2_hidl@1.1.vendor \
+    libcodec2_hidl@1.2.vendor \
+    libcodec2_soft_common.vendor \
+    libcodec2_vndk.vendor \
+    libsfplugin_ccodec_utils.vendor \
+    libstagefright_softomx.vendor
 
 # Netmgrd
 PRODUCT_PACKAGES += \
@@ -130,6 +146,7 @@ PRODUCT_PACKAGES += \
     android.hardware.radio.config@1.0.vendor \
     android.hardware.radio.config@1.1.vendor \
     android.hardware.radio.config@1.2.vendor \
+    android.hardware.radio.config@1.3.vendor \
     android.hardware.radio.deprecated@1.0.vendor \
     android.hardware.secure_element@1.2.vendor
 
