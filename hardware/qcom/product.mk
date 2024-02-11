@@ -87,6 +87,9 @@ PRODUCT_PACKAGES += \
 # GPS
 $(call inherit-product-if-exists, vendor/qcom/opensource/gps-legacy/gps_vendor_product.mk)
 
+# Kernel
+TARGET_USES_KERNEL_PLATFORM := false
+
 # Linked by Adreno/EGL blobs for fallback if 3.0 doesn't exist
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.allocator@3.0.vendor \
