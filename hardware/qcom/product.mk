@@ -62,6 +62,8 @@ TARGET_COMMON_QTI_COMPONENTS := \
     qseecomd \
     vibrator \
     wlan
+## Filter out unwanted components
+TARGET_COMMON_QTI_COMPONENTS := $(filter-out $(TARGET_UNWANTED_QTI_COMPONENTS),$(TARGET_COMMON_QTI_COMPONENTS))
 
 # Dataservices
 $(call soong_config_set,rmnetctl,old_rmnet_data,true)
