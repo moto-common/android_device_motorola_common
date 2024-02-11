@@ -157,3 +157,8 @@ PRODUCT_COPY_FILES += \
 
 # Vendor
 $(call inherit-product, vendor/motorola/common/hardware/qcom/qcom-vendor.mk)
+
+# VINTF
+ifeq ($(call is-kernel-greater-than-or-equal-to,5.10),true)
+  TARGET_USES_TETHER_V1_1 := true
+endif

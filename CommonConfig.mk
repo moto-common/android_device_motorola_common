@@ -172,9 +172,13 @@ ifneq ($(TARGET_USES_FINGERPRINT_V2_1),false)
 endif
 ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-mtk.xml
-  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.1.xml
+  TARGET_USES_TETHER_V1_1 := true
 else
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom.xml
+endif
+ifeq ($(TARGET_USES_TETHER_V1_1),true)
+  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.1.xml
+else
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.0.xml
 endif
 ifeq ($(TARGET_SUPPORTS_NFC),true)
