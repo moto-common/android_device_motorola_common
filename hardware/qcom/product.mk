@@ -87,7 +87,15 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.fm@1.0.vendor
 
 # GPS
-$(call inherit-product-if-exists, vendor/qcom/opensource/gps-legacy/gps_vendor_product.mk)
+TARGET_USES_$(call upper,$(qcom_platform))_GPS := true
+ifeq ($(call is-kernel-less-than-or-equal-to,5.4),true)
+  PRODUCT_SOONG_NAMESPACES += vendor/qcom/opensource/gps/legacy
+  $(call inherit-product-if-exists, vendor/qcom/opensource/gps/legacy/gps_vendor_product.mk)
+  TARGET_USES_OLD_GPS := true
+else
+  PRODUCT_SOONG_NAMESPACES += vendor/qcom/opensource/gps/$(qcom_platform)
+  $(call inherit-product-if-exists, vendor/qcom/opensource/gps/$(qcom_platform)/gps_vendor_product.mk)
+endif
 
 # Kernel
 TARGET_USES_KERNEL_PLATFORM := false
@@ -142,8 +150,7 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
     vendor/qcom/opensource/dataservices \
     vendor/qcom/opensource/display/$(qcom_platform) \
-    vendor/qcom/opensource/display-commonsys-intf \
-    vendor/qcom/opensource/gps-legacy
+    vendor/qcom/opensource/display-commonsys-intf
 
 # Telephony: IMS framework
 PRODUCT_COPY_FILES += \
