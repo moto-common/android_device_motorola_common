@@ -136,6 +136,10 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.nxp.nxpnfc_aidl</name>
+        <fqname>INxpNfc/default</fqname>
+    </hal>
     <hal format="hidl" optional="true">
         <name>vendor.trustonic.tee</name>
         <version>1.0</version>
