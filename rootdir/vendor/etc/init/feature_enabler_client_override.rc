@@ -1,0 +1,6 @@
+service feature_enabler_client /vendor/bin/feature_enabler_client2
+    override
+    class late_start
+    user system
+    group system graphics
+    disabled
