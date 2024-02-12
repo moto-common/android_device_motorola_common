@@ -59,6 +59,9 @@ TARGET_COMMON_QTI_COMPONENTS := \
     vibrator \
     wlan
 
+# Dataservices
+$(call soong_config_set,rmnetctl,old_rmnet_data,true)
+
 # Display
 $(call inherit-product-if-exists, vendor/qcom/opensource/display/$(qcom_platform)/config/display-product.mk)
 $(call inherit-product-if-exists, vendor/qcom/opensource/display-commonsys-intf/config/display-interfaces-product.mk)
