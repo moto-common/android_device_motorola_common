@@ -175,6 +175,9 @@ ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
   TARGET_USES_TETHER_V1_1 := true
 else
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom.xml
+  ifeq ($(TARGET_USES_CAMERA_V2_4),true)
+    DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.camera.provider_v2.4.xml
+  endif
 endif
 ifeq ($(TARGET_USES_TETHER_V1_1),true)
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/tether_v1.1.xml

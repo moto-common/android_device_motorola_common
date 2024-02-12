@@ -43,6 +43,7 @@ ifneq ($(call is-kernel-greater-than-or-equal-to,5.10),true)
         android.hardware.camera.provider@2.4-impl:32 \
         android.hardware.camera.provider@2.4-service
   endif
+  TARGET_USES_CAMERA_V2_4 := true
 endif
 
 # Components
