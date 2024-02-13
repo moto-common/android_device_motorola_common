@@ -130,7 +130,7 @@ SOONG_CONFIG_MOTO_COMMON_POWER := FB_IDLE_PATH
 SOONG_CONFIG_MOTO_COMMON_POWER_FB_IDLE_PATH ?= /sys/devices/platform/soc/5e00000.qcom,mdss_mdp/idle_state
 
 # Recovery
-TARGET_NO_RECOVERY ?= false
+TARGET_NO_RECOVERY ?= $(if $(filter true,$(call has-partition,recovery)),false,true)
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 
 ## Move recovery resources to vendor_boot when theres no recovery partition
