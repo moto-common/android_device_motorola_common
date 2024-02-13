@@ -1,4 +1,4 @@
-<manifest version="2.0" type="device" target-level="5">
+<manifest version="2.0" type="device">
     <hal format="hidl">
         <name>android.hardware.media.omx</name>
         <transport>hwbinder</transport>
@@ -21,5 +21,4 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <kernel target-level="5"/>
 </manifest>

@@ -31,6 +31,15 @@
         </interface>
     </hal>
     <hal format="hidl" optional="true">
+        <name>android.hardware.memtrack</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IMemtrack</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
         <name>android.hardware.radio</name>
         <version>1.0-2</version>
         <interface>
@@ -114,7 +123,7 @@
     </hal>
     <hal format="hidl" optional="true">
         <name>vendor.display.color</name>
-        <version>1.0-5</version>
+        <version>1.0-7</version>
         <interface>
             <name>IDisplayColor</name>
             <instance>default</instance>
@@ -192,6 +201,22 @@
             <instance>gnss_vendor</instance>
         </interface>
     </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.qti.gnss</name>
+        <version>1-4</version>
+        <interface>
+            <name>ILocAidlGnss</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.AGMIPC</name>
+        <version>1.0</version>
+        <interface>
+            <name>IAGM</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <hal format="hidl" optional="true">
         <name>vendor.qti.hardware.alarm</name>
         <version>1.0</version>
@@ -259,7 +284,7 @@
     </hal>
     <hal format="hidl" optional="true">
         <name>vendor.qti.hardware.data.iwlan</name>
-        <version>1.0</version>
+        <version>1.0-1</version>
         <interface>
             <name>IIWlan</name>
             <instance>slot1</instance>
@@ -286,8 +311,26 @@
     <hal format="hidl" optional="true">
         <name>vendor.qti.hardware.display.composer</name>
         <version>3.0</version>
+        <version>3.1</version>
         <interface>
             <name>IQtiComposer</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.qti.hardware.display.config</name>
+        <version>1-5</version>
+        <interface>
+            <name>IDisplayConfig</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.display.demura</name>
+        <version>1.0</version>
+        <version>2.0</version>
+        <interface>
+            <name>IDemuraFileFinder</name>
             <instance>default</instance>
         </interface>
     </hal>
@@ -333,6 +376,22 @@
         </interface>
     </hal>
     <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.pal</name>
+        <version>1.0</version>
+        <interface>
+            <name>IPAL</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.qconfig</name>
+        <version>1.0</version>
+        <interface>
+            <name>IQConfig</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
         <name>vendor.qti.hardware.radio.am</name>
         <version>1.0</version>
         <interface>
@@ -344,6 +403,15 @@
     <hal format="hidl" optional="true">
         <name>vendor.qti.hardware.radio.ims</name>
         <version>1.0-7</version>
+        <interface>
+            <name>IImsRadio</name>
+            <instance>imsradio0</instance>
+            <instance>imsradio1</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
+        <name>vendor.qti.hardware.radio.ims</name>
+        <version>1-9</version>
         <interface>
             <name>IImsRadio</name>
             <instance>imsradio0</instance>

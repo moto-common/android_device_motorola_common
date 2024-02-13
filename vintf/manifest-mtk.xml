@@ -27,4 +27,5 @@
         </interface>
         <fqname>@1.1::IBGService/internal/0</fqname>
     </hal>
+    <kernel target-level="5"/>
 </manifest>

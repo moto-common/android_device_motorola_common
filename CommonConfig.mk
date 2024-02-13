@@ -174,7 +174,11 @@ ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
   DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-mtk.xml
   TARGET_USES_TETHER_V1_1 := true
 else
-  DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom.xml
+  ifeq ($(call is-kernel-greater-than-or-equal-to,5.10),true)
+    DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom-5.10.xml
+  else
+    DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/manifest-qcom.xml
+  endif
   ifeq ($(TARGET_USES_CAMERA_V2_4),true)
     DEVICE_MANIFEST_FILE += $(COMMON_PATH)/vintf/android.hardware.camera.provider_v2.4.xml
   endif
