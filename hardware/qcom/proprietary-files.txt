@@ -34,8 +34,8 @@ vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 
 # DRM
-vendor/bin/hw/android.hardware.drm@1.3-service.widevine
-vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc
+vendor/bin/hw/android.hardware.drm@1.4-service.widevine
+vendor/etc/init/android.hardware.drm@1.4-service.widevine.rc
 vendor/lib64/liboemcrypto.so
 vendor/lib64/libwvhidl.so
 
@@ -62,13 +62,16 @@ vendor/lib64/libscveObjectTracker_stub.so
 vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so
 vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so
 
-# Sensors
-vendor/lib64/libadspd.so
-vendor/lib64/libsnsapi.so
-vendor/lib64/sensors.ssc.so
+# Sensors - from T1TGN33.60-114
+vendor/lib64/libadspd.so|8fdc9cdfb00a5ecc23825c4561e5fa7181d28cd4
+vendor/lib64/libsns_device_mode_stub.so|cb65715659a56bef962a8ea81881662d783155aa
+vendor/lib64/libsns_direct_channel_stub.so|a0f8f6b5467a196cb9860971a222ab40f0372555
+vendor/lib64/libsnsapi.so|45f56d5dddf25362f9e1025429a625f46fa81c77
+vendor/lib64/motorola.hardware.sensors-V1-ndk_platform.so|06921f89250ae62a9c559d3edcbcea8033c25f16
+vendor/lib64/sensors.ssc.so|b7e0491e4f76f8805a20f397d486c7b4123f5341
 
-# Thermal
-vendor/bin/thermal-engine
-vendor/etc/init/init_thermal-engine.rc
--vendor/lib/libthermalclient.so
--vendor/lib64/libthermalclient.so
+# Thermal - from T1TGN33.60-114
+vendor/bin/thermal-engine-v2|64a45913c0b44643f34bdff5ddf72dc3b85a3cf4
+vendor/etc/init/init_thermal-engine-v2.rc|3f0eb39b5584fdb06e2ef79ed031a5f2fe3d5e65
+-vendor/lib/libthermalclient.so|0c7891fdfc05543aecbb24fb121077a8e41688b0
+-vendor/lib64/libthermalclient.so|c30b707dfdb03a7b8ff7b42258c524b4fc88f089
