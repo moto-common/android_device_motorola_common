@@ -33,7 +33,7 @@ vendor/lib64/libsoc_helper_jni.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 
-# DRM
+# DRM - from T1TGN33.60-114
 vendor/bin/hw/android.hardware.drm@1.4-service.widevine
 vendor/etc/init/android.hardware.drm@1.4-service.widevine.rc
 vendor/lib64/liboemcrypto.so
@@ -66,9 +66,7 @@ vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so
 vendor/lib64/libadspd.so|8fdc9cdfb00a5ecc23825c4561e5fa7181d28cd4
 vendor/lib64/libsns_device_mode_stub.so|cb65715659a56bef962a8ea81881662d783155aa
 vendor/lib64/libsns_direct_channel_stub.so|a0f8f6b5467a196cb9860971a222ab40f0372555
-vendor/lib64/libsnsapi.so|45f56d5dddf25362f9e1025429a625f46fa81c77
 vendor/lib64/motorola.hardware.sensors-V1-ndk_platform.so|06921f89250ae62a9c559d3edcbcea8033c25f16
-vendor/lib64/sensors.ssc.so|b7e0491e4f76f8805a20f397d486c7b4123f5341
 
 # Thermal - from T1TGN33.60-114
 vendor/bin/thermal-engine-v2|64a45913c0b44643f34bdff5ddf72dc3b85a3cf4
