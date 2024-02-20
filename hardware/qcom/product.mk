@@ -70,8 +70,8 @@ TARGET_COMMON_QTI_COMPONENTS := $(filter-out $(TARGET_UNWANTED_QTI_COMPONENTS),$
 $(call soong_config_set,rmnetctl,old_rmnet_data,true)
 
 # Display
-$(call inherit-product-if-exists, vendor/qcom/opensource/display/$(qcom_platform)/config/display-product.mk)
-$(call inherit-product-if-exists, vendor/qcom/opensource/display-commonsys-intf/config/display-interfaces-product.mk)
+$(call inherit-product, vendor/qcom/opensource/display/$(qcom_platform)/config/display-product.mk)
+$(call inherit-product, vendor/qcom/opensource/display-commonsys-intf/config/display-interfaces-product.mk)
 
 # FM
 ifeq ($(call device-has-characteristic,fm),true)
@@ -157,7 +157,11 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
     vendor/qcom/opensource/dataservices \
     vendor/qcom/opensource/display/$(qcom_platform) \
-    vendor/qcom/opensource/display-commonsys-intf
+
+ifeq ($(call is-kernel-less-than-or-equal-to,5.4),true)
+  PRODUCT_SOONG_NAMESPACES += \
+      vendor/qcom/opensource/display-commonsys-intf
+endif
 
 # Telephony: IMS framework
 PRODUCT_COPY_FILES += \
