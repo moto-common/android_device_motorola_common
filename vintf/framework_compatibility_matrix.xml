@@ -196,6 +196,7 @@
         <version>3.0</version>
         <version>4.0</version>
         <version>4.2</version>
+        <version>4.3</version>
         <interface>
             <name>ILocHidlGnss</name>
             <instance>gnss_vendor</instance>
@@ -545,6 +546,15 @@
         <interface>
             <name>IQccsyshal</name>
             <instance>qccsyshal</instance>
+        </interface>
+    </hal>
+   <hal format="hidl">
+        <name>vendor.qti.hardware.qccvndhal</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IQccvndhal</name>
+            <instance>qccvndhal</instance>
         </interface>
     </hal>
 </compatibility-matrix>
