@@ -27,6 +27,7 @@ ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
 endif
 
 # Fixes
+BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # Architecture
