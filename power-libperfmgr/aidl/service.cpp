@@ -52,7 +52,7 @@ int main() {
     }
 
     // Parse config but do not start the looper
-    std::shared_ptr<HintManager> hm = HintManager::GetFromJSON(path, false);
+    std::shared_ptr<HintManager> hm = std::shared_ptr<HintManager>(HintManager::GetFromJSON(path, false));
     if (!hm) {
         LOG(FATAL) << "Invalid config: " << path;
     }
